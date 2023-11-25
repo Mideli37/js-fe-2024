@@ -11,7 +11,7 @@ module.exports = {
   target: 'web',
   devtool: 'inline-cheap-module-source-map',
   mode: 'production',
-  performance: { maxEntrypointSize: 512000, maxAssetSize: 512000 },
+  performance: { maxEntrypointSize: 1512000, maxAssetSize: 1512000 },
   plugins: [
     new blabla({ favicon: '', template: './src/pages/index.html', chunks: ['main'] }),
     new blabla({ favicon: '', template: './src/pages/menu/index.html', chunks: ['menu'], filename: './menu/index.html' }),
