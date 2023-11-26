@@ -7,7 +7,7 @@ import ab4 from './assets/about-4.jpg';
 
 export function createAbout() {
   const section = createEl('section', 'about-section section');
-  const heading = createEl('h2', 'about-heading');
+  const heading = createEl('h2', 'about-heading heading');
   heading.append(
     'Resource is ',
     createEl('span', 'cursive', 'the perfect and cozy place'),

@@ -9,3 +9,25 @@ body {
   padding: 0 40px;
   margin: 0 auto;
 }
+
+.heading {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: var(--text-dark, #403f3d);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 75px */
+}
+
+.cursive {
+  color: var(--text-accent, #b0907a);
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 60px;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 125%;
+}

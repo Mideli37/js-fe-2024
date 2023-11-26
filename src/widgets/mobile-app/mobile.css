@@ -1,0 +1,82 @@
+.mobile-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 44px;
+  justify-content: space-between;
+
+  .mobile-heading {
+    margin-top: 13px;
+  }
+
+  .info-container {
+    max-width: 600px;
+  }
+
+  .mobile-info {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: var(--text-dark, #403f3d);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+  }
+
+  .button-app {
+    display: flex;
+    width: 200px;
+    height: 64px;
+    padding: 12px 20px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 100px;
+    border: 1px solid var(--border-dark, #665f55);
+    background-color: transparent;
+  }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .available {
+    margin: 0;
+    color: var(--text-dark, #403f3d);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+
+    /* Desktop/Body/caption */
+    font-family: Inter;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%; /* 14px */
+  }
+
+  .app-name {
+    margin: 0;
+    color: var(--text-dark, #403f3d);
+    font-feature-settings: 'clig' off, 'liga' off;
+
+    /* Desktop/Action/link & button */
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%; /* 24px */
+  }
+
+  .button-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .img-wrapper {
+    margin-top: 16px;
+  }
+}
