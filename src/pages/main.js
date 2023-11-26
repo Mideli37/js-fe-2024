@@ -8,5 +8,7 @@ import { createMobile } from '../widgets/mobile-app/create-mobile';
 import './style.css';
 
 const container = createEl('div', 'page-container');
+const main = createEl('main', 'main');
 document.body.append(container);
-container.append(createHeader(), createHero(), createFavorite(), createAbout(), createMobile(), createFooter());
+main.append(createHero(), createFavorite(), createAbout(), createMobile());
+container.append(createHeader(), main, createFooter());
