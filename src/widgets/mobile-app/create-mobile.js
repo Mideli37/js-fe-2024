@@ -15,11 +15,11 @@ export function createMobile() {
     'Download the Resource app today and experience the comfort of ordering your favorite coffee from wherever you are',
   );
   const buttonsWrapper = createEl('div', 'button-wrapper');
-  const buttonAppStore = createEl('button', 'button-app');
+  const buttonAppStore = createEl('a', 'button-app');
   const appStoreIcon = createEl('img', 'app-icon');
   appStoreIcon.alt = 'app store icon';
   appStoreIcon.src = appStoreImageSrc;
-  const buttonPlayMarket = createEl('button', 'button-app');
+  const buttonPlayMarket = createEl('a', 'button-app');
   const playMarketIcon = createEl('img', 'app-icon');
   playMarketIcon.alt = 'play market icon';
   playMarketIcon.src = playMImage;
