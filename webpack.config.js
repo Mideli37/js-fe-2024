@@ -8,6 +8,10 @@ module.exports = {
   output: {
     clean: true,
   },
+  devtool: 'inline-cheap-module-source-map',
+  optimization: {
+    minimize: false,
+  },
   target: 'web',
   devtool: 'inline-cheap-module-source-map',
   mode: 'production',
