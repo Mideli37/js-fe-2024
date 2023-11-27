@@ -12,7 +12,7 @@ export function createFooter() {
   footer.id = 'contact-us';
   const social = createEl('div', 'social-container');
   const heading = createEl('h2', 'footer-heading');
-  heading.append('Sip, Savor, Smile.', createEl('p', 'cursive', 'It’s coffee time!'));
+  heading.append('Sip, Savor, Smile.', createEl('span', 'cursive', 'It’s coffee time!'));
   const socialWrapper = createEl('div', 'social-wrapper');
 
   const twitterLink = createEl('a', 'social-link');
@@ -62,8 +62,8 @@ export function createFooter() {
     contactsList.append(li);
   }
 
-  createLI(pin, '8558 Green Rd.,  LA', 'https://maps.app.goo.gl/22p2bNiNgS6XErLQ9');
-  createLI(phone, '+1 (603) 555-0123', 'tel:+1 (603) 555-0123');
+  createLI(pin, '8558 Green Rd., LA', 'https://maps.app.goo.gl/22p2bNiNgS6XErLQ9');
+  createLI(phone, '+1 (603) 555-0123', 'tel:+1(603)555-0123');
   createLI(clock, 'Mon-Sat: 9:00 AM – 23:00 PM');
 
   contacts.append(contactsHeading, contactsList);
