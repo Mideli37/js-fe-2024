@@ -9,28 +9,28 @@ import './footer.css';
 
 export function createFooter() {
   const footer = createEl('footer', 'footer');
-  footer.id = 'contact-us'
+  footer.id = 'contact-us';
   const social = createEl('div', 'social-container');
   const heading = createEl('h2', 'footer-heading');
   heading.append('Sip, Savor, Smile.', createEl('p', 'cursive', 'It’s coffee time!'));
   const socialWrapper = createEl('div', 'social-wrapper');
 
   const twitterLink = createEl('a', 'social-link');
-  twitterLink.href = '';
+  twitterLink.href = 'https://twitter.com/?lang=en';
   const twitterIcon = createEl('img', 'social-icon');
   twitterIcon.alt = 'twitter icon';
   twitterIcon.src = twitSrc;
   twitterLink.append(twitterIcon);
 
   const instaLink = createEl('a', 'social-link');
-  instaLink.href = '';
+  instaLink.href = 'https://www.instagram.com/';
   const instaIcon = createEl('img', 'social-icon');
   instaIcon.alt = 'insta icon';
   instaIcon.src = instaSrc;
   instaLink.append(instaIcon);
 
   const fbLink = createEl('a', 'social-link');
-  fbLink.href = '';
+  fbLink.href = 'https://uk-ua.facebook.com/';
   const fbIcon = createEl('img', 'social-icon');
   fbIcon.alt = 'fb icon';
   fbIcon.src = fbSrc;

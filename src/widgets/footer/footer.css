@@ -41,6 +41,15 @@
     border-radius: 100px;
     border: 1px solid var(--border-light, #c1b6ad);
     background-color: transparent;
+    transition: 300ms;
+    &:hover {
+      background-color: #e1d4c9;
+      border: 1px solid #e1d4c9;
+      & .social-icon {
+        filter: brightness(0) saturate(100%) hue-rotate(2deg) invert(22%) sepia(6%) saturate(273%) brightness(97%)
+          contrast(88%);
+      }
+    }
   }
 
   .social-wrapper {
@@ -88,7 +97,7 @@
       content: ' ';
       width: 0%;
       top: 120%;
-      left: 50%;
+      left: calc(50% - 40px);
       height: 2px;
       background-color: #e1d4c9;
       opacity: 0;
@@ -98,7 +107,7 @@
 
   .contact-link:hover {
     &::after {
-      width: 100%;
+      width: calc(100% - 80px);
       left: 0%;
       opacity: 1;
     }

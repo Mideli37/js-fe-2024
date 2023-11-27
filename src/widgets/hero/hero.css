@@ -48,6 +48,8 @@
     width: 44px;
     padding: 20px 78px;
     margin-top: 25px;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     border: none;
@@ -63,5 +65,18 @@
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 24px */
+    text-decoration: none;
+    transition: 700ms;
+    &:hover {
+      & .coffee-img {
+        width: 52px;
+        padding-left: 8px;
+      }
+    }
+  }
+
+  .coffee-img {
+    transition: 700ms;
+    width: 0px;
   }
 }

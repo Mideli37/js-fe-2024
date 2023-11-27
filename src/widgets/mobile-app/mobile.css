@@ -37,7 +37,7 @@
     background-color: transparent;
     text-decoration: none;
     cursor: pointer;
-    transition: 500ms;
+    transition: 300ms;
     &:hover {
       background-color: rgba(102, 95, 85, 1);
       .available,
@@ -46,10 +46,14 @@
       }
 
       .app-icon {
-        fill: rgba(225, 212, 201, 1) ;
-      } 
+        filter: brightness(0) saturate(100%) hue-rotate(327deg) invert(94%) sepia(9%) saturate(505%) brightness(95%)
+          contrast(85%);
+      }
     }
-  
+  }
+
+  .app-icon {
+    transition: 300ms;
   }
 
   .button-wrapper {

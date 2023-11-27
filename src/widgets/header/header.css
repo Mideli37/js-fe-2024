@@ -76,6 +76,7 @@
     align-items: start;
     gap: 8px;
     cursor: pointer;
+    text-decoration: none;
     &::after {
       display: block;
       position: absolute;
