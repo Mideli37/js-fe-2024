@@ -22,6 +22,10 @@
       cursor: pointer;
       scale: 1.1;
     }
+
+    &.disabled {
+      pointer-events: none;
+    }
   }
 
   .nav-ul {

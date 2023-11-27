@@ -9,6 +9,9 @@ import './style.css';
 
 const container = createEl('div', 'page-container');
 const main = createEl('main', 'main');
+const [header, links] = createHeader()
 document.body.append(container);
 main.append(createHero(), createFavorite(), createAbout(), createMobile());
-container.append(createHeader(), main, createFooter());
+container.append(header, main, createFooter());
+
+links[0].classList.add('disabled')
