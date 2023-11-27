@@ -38,12 +38,13 @@
 
   .tab-icon {
     display: flex;
-    padding: 2px 4px;
+    padding: 6px 7px;
     justify-content: center;
     align-items: center;
     border-radius: 100px;
     background: var(--border-light, #c1b6ad);
     background-color: rgba(193, 182, 173, 1);
+    font-family: Inter;
     transition: 500ms;
   }
 
@@ -64,8 +65,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 40px;
+    justify-content: space-between;
+    gap: 40px 20px;
+    margin-top: 39px;
   }
 
   .drink-card {

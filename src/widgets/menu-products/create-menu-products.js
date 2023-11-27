@@ -2,6 +2,9 @@ import { createEl } from '../../shared/createEl';
 import './menu-product.css';
 import productJSON from '../../shared/products.json';
 import photos from '../../shared/product-photos';
+import kettleImg from './assets/kettle.png'
+import coffeeImg from './assets/coffee.png'
+import cakeImg from './assets/cake.png'
 
 export function createProductMenu() {
   const section = createEl('section', 'menu-section section');
@@ -9,13 +12,15 @@ export function createProductMenu() {
   heading.append('Behind each of our cups hides an ', createEl('span', 'cursive', 'amazing surprise'));
   const tabsContainer = createEl('div', 'tabs-container');
   let tabs = [
-    ['☕', 'Coffee'],
-    ['🫖', 'Tea'],
-    ['🍰', 'Dessert'],
+    [coffeeImg, 'Coffee'],
+    [kettleImg, 'Tea'],
+    [cakeImg, 'Dessert'],
   ];
   tabs = tabs.map((tab) => {
     const newTab = createEl('div', 'tab');
-    const icon = createEl('div', 'tab-icon', tab[0]);
+    const icon = createEl('img', 'tab-icon');
+    icon.src = tab[0]
+    icon.alt = tab[1]
     const text = createEl('span', 'tab-text', tab[1]);
     newTab.append(icon, text);
     tabsContainer.append(newTab);
