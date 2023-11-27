@@ -14,13 +14,14 @@ export function createHeader() {
   logoImg.src = logoImage;
   const nav = createEl('nav', 'nav');
   const navUl = createEl('ul', 'nav-ul');
-  const navItems = ['Favorite coffee', 'About', 'Mobile app', 'Contact us'];
-  navItems.map((item) => {
+  let navItems = ['Favorite coffee', 'About', 'Mobile app', 'Contact us'];
+  navItems = navItems.map((item) => {
     const newItem = createEl('li', 'nav-item');
     navUl.append(newItem);
     const newItemLink = createEl('a', 'nav-item-link', item);
     newItem.append(newItemLink);
     newItemLink.href = `#${item.replaceAll(' ', '-').toLowerCase()}`;
+    return newItemLink;
   });
   const menuLink = createEl('a', 'menu-link');
   menuLink.href = './menu/index.html';
@@ -33,5 +34,7 @@ export function createHeader() {
   container.append(logo, nav, menuLink);
   nav.append(navUl);
   menuLink.append(menuLinkText, menuLinkImage);
-  return header;
+
+  const linksEl = [logo, ...navItems, menuLink];
+  return [header, linksEl];
 }

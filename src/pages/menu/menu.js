@@ -8,4 +8,10 @@ const container = createEl('div', 'page-container');
 const main = createEl('main', 'main');
 document.body.append(container);
 main.append(createProductMenu());
-container.append(createHeader(), main, createFooter());
+const [header, links] = createHeader()
+container.append(header, main, createFooter());
+
+links[5].classList.add('disabled')
+links[1].href = '../index.html#favorite-coffee'
+links[2].href = '../index.html#about'
+links[3].href = '../index.html#mobile-app'

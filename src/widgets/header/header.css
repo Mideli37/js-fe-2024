@@ -89,6 +89,22 @@
       opacity: 0;
       transition: 500ms;
     }
+
+    &.menu-link.disabled {
+      pointer-events: none;
+      &::after {
+        width: 100%;
+        left: 0%;
+        opacity: 1;
+        display: block;
+        position: absolute;
+        content: ' ';
+        top: 100%;
+        height: 2px;
+        background-color: rgba(64, 63, 61, 1);
+        transition: 500ms;
+      }
+    }
   }
 
   .menu-link:hover {

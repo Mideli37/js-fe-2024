@@ -32,6 +32,8 @@
     font-style: normal;
     font-weight: 600;
     line-height: 150%;
+    cursor: pointer;
+    transition: 500ms;
   }
 
   .tab-icon {
@@ -42,14 +44,20 @@
     border-radius: 100px;
     background: var(--border-light, #c1b6ad);
     background-color: rgba(193, 182, 173, 1);
+    transition: 500ms;
   }
 
-  .tab.active {
+  .tab.active,
+  .tab:hover {
     background-color: rgba(102, 95, 85, 1);
     color: rgba(225, 212, 201, 1);
     .tab-icon {
       background-color: rgba(225, 212, 201, 1);
     }
+  }
+
+  .tab.active {
+    pointer-events: none;
   }
 
   .cards-wrapper {
@@ -69,6 +77,11 @@
     border-radius: 40px;
     border: 1px solid var(--border-light, #c1b6ad);
     overflow: hidden;
+    cursor: pointer;
+  }
+
+  .drink-card:hover .drink-image {
+    scale: 1;
   }
 
   .image-wrapper {
@@ -85,6 +98,7 @@
     object-fit: cover;
     object-position: center;
     scale: 1.1;
+    transition: 500ms;
   }
 
   .drink-name {
