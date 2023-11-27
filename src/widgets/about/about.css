@@ -18,12 +18,17 @@
     border-radius: 20px;
   }
 
+  .img-wrapper:hover .image {
+    scale: 1;
+  }
+
   .image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     scale: 1.1;
+    transition: 500ms;
   }
 
   .img-wrapper:nth-child(2),

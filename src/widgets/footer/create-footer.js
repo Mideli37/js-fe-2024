@@ -9,6 +9,7 @@ import './footer.css';
 
 export function createFooter() {
   const footer = createEl('footer', 'footer');
+  footer.id = 'contact-us'
   const social = createEl('div', 'social-container');
   const heading = createEl('h2', 'footer-heading');
   heading.append('Sip, Savor, Smile.', createEl('p', 'cursive', 'It’s coffee time!'));

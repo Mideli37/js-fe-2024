@@ -7,6 +7,7 @@ import ab4 from './assets/about-4.jpg';
 
 export function createAbout() {
   const section = createEl('section', 'about-section section');
+  section.id = 'about'
   const heading = createEl('h2', 'about-heading heading');
   heading.append(
     'Resource is ',

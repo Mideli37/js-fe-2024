@@ -81,9 +81,31 @@
     color: var(--text-light, #e1d4c9);
     text-decoration: none;
     gap: 8px;
+    transition: 300ms;
+    &::after {
+      display: block;
+      position: absolute;
+      content: ' ';
+      width: 0%;
+      top: 120%;
+      left: 50%;
+      height: 2px;
+      background-color: #e1d4c9;
+      opacity: 0;
+      transition: 500ms;
+    }
+  }
+
+  .contact-link:hover {
+    &::after {
+      width: 100%;
+      left: 0%;
+      opacity: 1;
+    }
   }
 
   .contact-item {
+    position: relative;
     display: flex;
     margin: 10px 0;
     gap: 8px;

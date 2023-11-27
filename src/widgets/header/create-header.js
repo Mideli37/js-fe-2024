@@ -6,9 +6,12 @@ import './header.css'
 export function createHeader() {
   const header = createEl('header', 'header')
   const container = createEl('div', 'header-container')
-  const logo = createEl('img', 'header-logo')
-  logo.alt = 'coffee house logo'
-  logo.src = logoImage
+  const logo = createEl('a', 'header-logo')
+  logo.href = './index.html'  //! поменять ссылку
+  const logoImg = createEl('img')
+  logo.append(logoImg)
+  logoImg.alt = 'coffee house logo'
+  logoImg.src = logoImage
   const nav = createEl('nav', 'nav')
   const navUl = createEl('ul', 'nav-ul')
   const navItems = ['Favorite coffee', 'About', 'Mobile app', 'Contact us']
@@ -19,7 +22,7 @@ export function createHeader() {
     newItem.append(newItemLink)
     newItemLink.href = `#${item.replaceAll(' ', '-').toLowerCase()}`
   })
-  const menuLink = createEl('a', 'menu-link')
+  const menuLink = createEl('a', 'menu-link') //! поменять ссылку
   const menuLinkText = createEl('span', 'menu-link-text', 'Menu')
   const menuLinkImage = createEl('img', 'menu-link-image')
   menuLinkImage.alt = 'cup icon'

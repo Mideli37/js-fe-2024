@@ -35,6 +35,21 @@
     border-radius: 100px;
     border: 1px solid var(--border-dark, #665f55);
     background-color: transparent;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 500ms;
+    &:hover {
+      background-color: rgba(102, 95, 85, 1);
+      .available,
+      .app-name {
+        color: rgba(225, 212, 201, 1);
+      }
+
+      .app-icon {
+        fill: rgba(225, 212, 201, 1) ;
+      } 
+    }
+  
   }
 
   .button-wrapper {
@@ -55,6 +70,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: 140%; /* 14px */
+    transition: 500ms;
   }
 
   .app-name {
@@ -68,6 +84,7 @@
     font-style: normal;
     font-weight: 600;
     line-height: 150%; /* 24px */
+    transition: 500ms;
   }
 
   .button-info {

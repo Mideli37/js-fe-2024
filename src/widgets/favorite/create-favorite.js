@@ -4,6 +4,7 @@ import frappucinoImage from './assets/coffee-slider-1.png';
 
 export function createFavorite() {
   const favSection = createEl('section', 'favorite-section section');
+  favSection.id = 'favorite-coffee'
   const favHeading = createEl('h2', 'favorite-heading heading');
   favHeading.append('Choose your ', createEl('span', 'cursive', 'favorite'), ' coffee');
   const sliderWrapper = createEl('div', 'slider-wrapper');

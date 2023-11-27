@@ -25,6 +25,12 @@
     border: 1px solid var(--border-dark, #665f55);
     font-size: 19px;
     background-color: transparent;
+    transition: 300ms;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(102, 95, 85, 1);
+      color: rgba(225, 212, 201, 1);
+    }
   }
 
   .drink-card {

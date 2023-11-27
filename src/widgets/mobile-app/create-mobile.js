@@ -6,6 +6,7 @@ import './mobile.css';
 
 export function createMobile() {
   const section = createEl('section', 'mobile-section section');
+  section.id = 'mobile-app'
   const infoContainer = createEl('div', 'info-container');
   const heading = createEl('h2', 'mobile-heading heading');
   heading.append(createEl('span', 'cursive', 'Download'), ' our apps to start ordering');
@@ -16,10 +17,12 @@ export function createMobile() {
   );
   const buttonsWrapper = createEl('div', 'button-wrapper');
   const buttonAppStore = createEl('a', 'button-app');
+  buttonAppStore.href = '#'
   const appStoreIcon = createEl('img', 'app-icon');
   appStoreIcon.alt = 'app store icon';
   appStoreIcon.src = appStoreImageSrc;
   const buttonPlayMarket = createEl('a', 'button-app');
+  buttonPlayMarket.href = '#'
   const playMarketIcon = createEl('img', 'app-icon');
   playMarketIcon.alt = 'play market icon';
   playMarketIcon.src = playMImage;
