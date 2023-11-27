@@ -29,7 +29,6 @@ export function createProductMenu() {
   productSliderContainer.append(cardsWrapper);
 
   function createCard(photo, drink) {
-    console.log(drink);
     const { description, name, price } = drink;
     const card = createEl('div', 'drink-card');
     const imageWrapper = createEl('div', 'image-wrapper');
