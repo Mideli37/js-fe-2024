@@ -55,9 +55,7 @@ html {
   }
 }
 
-
-@media (hover:hover) {
+/* @media (hover: hover) {
   *:hover {
-    
   }
-}
+} */
