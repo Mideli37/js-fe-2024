@@ -99,5 +99,43 @@
 
   .img-wrapper {
     margin-top: 16px;
+    width: 46.3%;
+  }
+
+  .phone-img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .mobile-section {
+    margin-top: 87px;
+    flex-direction: column;
+    gap: 82px;
+
+    .img-wrapper {
+      width: 92%;
+    }
+
+    .info-container {
+      max-width: 760px;
+    }
+  }
+}
+
+@media (max-width: 690px) {
+  .mobile-section {
+    gap: 26px;
+    .button-wrapper {
+      flex-direction: column;
+    }
+
+    .mobile-info {
+      margin-bottom: 37px;
+    }
+
+    .img-wrapper {
+      width: 100%;
+    }
   }
 }

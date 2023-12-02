@@ -36,3 +36,28 @@ html {
   font-weight: 600;
   line-height: 125%;
 }
+
+/* *, *::after, *::before {
+  border: 1px dotted red;
+} */
+
+@media (max-width: 690px) {
+  .page-container {
+    padding: 0 16px;
+  }
+
+  .heading {
+    font-size: 32px;
+  }
+
+  .cursive {
+    font-size: 32px;
+  }
+}
+
+
+@media (hover:hover) {
+  *:hover {
+    
+  }
+}

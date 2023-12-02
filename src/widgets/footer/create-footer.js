@@ -12,7 +12,7 @@ export function createFooter() {
   footer.id = 'contact-us';
   const social = createEl('div', 'social-container');
   const heading = createEl('h2', 'footer-heading');
-  heading.append('Sip, Savor, Smile.', createEl('span', 'cursive', 'It’s coffee time!'));
+  heading.append('Sip, Savor, Smile. ', createEl('span', 'cursive', 'It’s coffee time!'));
   const socialWrapper = createEl('div', 'social-wrapper');
 
   const twitterLink = createEl('a', 'social-link');

@@ -132,3 +132,38 @@
     display: block;
   }
 }
+
+@media (max-width: 1100px) {
+  .footer {
+    padding: 100px 60px;
+    flex-direction: column;
+    gap: 75px;
+
+    .social-container {
+      max-width: 520px;
+    }
+
+    .contacts-wrapper {
+      max-width: 400px;
+      padding: 0;
+    }
+  }
+}
+
+@media (max-width: 690px) {
+  .footer {
+    padding: 50px 16px;
+    gap: 17px;
+
+    .footer-heading,
+    .cursive {
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 124%;
+    }
+
+    .cursive {
+      display: inline;
+    }
+  }
+}
