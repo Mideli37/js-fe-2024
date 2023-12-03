@@ -65,8 +65,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 40px 20px;
+    justify-content: center;
+    gap: 40px 40px;
     margin-top: 39px;
   }
 
@@ -84,6 +84,22 @@
 
   .drink-card:hover .drink-image {
     scale: 1;
+  }
+
+  .product-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .load-more {
+    margin-top: 36px;
+    margin-bottom: 5px;
+    width: 58px;
+    height: 60px;
+    border-radius: 100%;
+    display: none;
   }
 
   .image-wrapper {
@@ -144,5 +160,28 @@
     align-items: flex-start;
     flex: 1 0 0;
     align-self: stretch;
+  }
+}
+
+@media (max-width: 1085px) {
+  .menu-section {
+    .drink-card:nth-child(n + 5) {
+      display: none;
+    }
+    .load-more {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .menu-section {
+    .tabs-container {
+      gap: 8px;
+    }
+
+    .cards-wrapper {
+      gap: 38px 40px;
+    }
   }
 }

@@ -2,9 +2,9 @@ import { createEl } from '../../shared/createEl';
 import './menu-product.css';
 import productJSON from '../../shared/products.json';
 import photos from '../../shared/product-photos';
-import kettleImg from './assets/kettle.png'
-import coffeeImg from './assets/coffee.png'
-import cakeImg from './assets/cake.png'
+import kettleImg from './assets/kettle.png';
+import coffeeImg from './assets/coffee.png';
+import cakeImg from './assets/cake.png';
 
 export function createProductMenu() {
   const section = createEl('section', 'menu-section section');
@@ -19,8 +19,8 @@ export function createProductMenu() {
   tabs = tabs.map((tab) => {
     const newTab = createEl('div', 'tab');
     const icon = createEl('img', 'tab-icon');
-    icon.src = tab[0]
-    icon.alt = tab[1]
+    icon.src = tab[0];
+    icon.alt = tab[1];
     const text = createEl('span', 'tab-text', tab[1]);
     newTab.append(icon, text);
     tabsContainer.append(newTab);
@@ -55,6 +55,9 @@ export function createProductMenu() {
       createCard(photos[index], drink);
     }
   });
+
+  const loadMoreButton = createEl('button', 'load-more');
+  productSliderContainer.append(loadMoreButton);
 
   section.append(heading, tabsContainer, productSliderContainer);
   return section;
