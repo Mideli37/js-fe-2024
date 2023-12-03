@@ -18,9 +18,6 @@
     border-radius: 20px;
   }
 
-  .img-wrapper:hover .image {
-    scale: 1;
-  }
 
   .image {
     width: 100%;

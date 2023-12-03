@@ -67,12 +67,6 @@
     line-height: 150%; /* 24px */
     text-decoration: none;
     transition: 700ms;
-    &:hover {
-      & .coffee-img {
-        width: 52px;
-        padding-left: 8px;
-      }
-    }
   }
 
   .coffee-img {

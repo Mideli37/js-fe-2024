@@ -55,7 +55,96 @@ html {
   }
 }
 
-/* @media (hover: hover) {
-  *:hover {
+@media (hover: hover) {
+  .about-section {
+    .img-wrapper:hover .image {
+      scale: 1;
+    }
   }
-} */
+
+  .favorite-section {
+    .slider-button:hover {
+      background-color: rgba(102, 95, 85, 1);
+      color: rgba(225, 212, 201, 1);
+    }
+  }
+
+  .footer {
+    .social-link:hover {
+      background-color: #e1d4c9;
+      border: 1px solid #e1d4c9;
+      & .social-icon {
+        filter: brightness(0) saturate(100%) hue-rotate(2deg) invert(22%) sepia(6%) saturate(273%) brightness(97%)
+          contrast(88%);
+      }
+    }
+    .contact-link:hover {
+      &::after {
+        width: calc(100% - 80px);
+        left: 0%;
+        opacity: 1;
+      }
+    }
+  }
+
+  .header {
+    .header-logo:hover {
+      cursor: pointer;
+      scale: 1.1;
+    }
+
+    .nav-item-link:hover {
+      &::after {
+        width: 100%;
+        left: 0%;
+        opacity: 1;
+      }
+    }
+
+    .menu-link:hover {
+      &::after {
+        width: 100%;
+        left: 0%;
+        opacity: 1;
+      }
+    }
+  }
+
+  .hero-section {
+    .menu-button:hover {
+      & .coffee-img {
+        width: 52px;
+        padding-left: 8px;
+      }
+    }
+  }
+
+  .mobile-section {
+    .button-app:hover {
+      background-color: rgba(102, 95, 85, 1);
+      .available,
+      .app-name {
+        color: rgba(225, 212, 201, 1);
+      }
+
+      .app-icon {
+        filter: brightness(0) saturate(100%) hue-rotate(327deg) invert(94%) sepia(9%) saturate(505%) brightness(95%)
+          contrast(85%);
+      }
+    }
+  }
+
+  .menu-section {
+    .tab:hover {
+      background-color: rgba(102, 95, 85, 1);
+      color: rgba(225, 212, 201, 1);
+      .tab-icon {
+        background-color: rgba(225, 212, 201, 1);
+      }
+    }
+
+    .drink-card:hover .drink-image {
+      scale: 1;
+    }
+  }
+}
