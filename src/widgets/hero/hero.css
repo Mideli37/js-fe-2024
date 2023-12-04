@@ -81,6 +81,15 @@
   }
 }
 
+@media (max-width: 800px) {
+  .hero-section {
+    .coffee-img {
+      width: unset;
+      padding-left: 8px;
+    }
+  }
+}
+
 @media (max-width: 690px) {
   .hero-section {
     padding: 62px 16px;
@@ -91,11 +100,6 @@
 
     .cursive {
       font-size: 42px;
-    }
-
-    .coffee-img {
-      width: unset;
-      padding-left: 8px;
     }
   }
 }

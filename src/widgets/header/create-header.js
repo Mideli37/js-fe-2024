@@ -30,8 +30,11 @@ export function createHeader() {
   menuLinkImage.alt = 'cup icon';
   menuLinkImage.src = cupImage;
 
+  const burgerButton = createEl('button', 'burger-button');
+  burgerButton.append(createEl('span'), createEl('span'));
+
   header.append(container);
-  container.append(logo, nav, menuLink);
+  container.append(logo, nav, menuLink, burgerButton);
   nav.append(navUl);
   menuLink.append(menuLinkText, menuLinkImage);
 

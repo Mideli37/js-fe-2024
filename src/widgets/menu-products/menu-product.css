@@ -89,12 +89,16 @@
   }
 
   .load-more {
-    margin-top: 36px;
+    margin-top: 38px;
     margin-bottom: 5px;
-    width: 58px;
+    width: 60px;
     height: 60px;
-    border-radius: 100%;
     display: none;
+    border-radius: 100px;
+    border: 1px solid var(--border-dark, #665f55);
+    background-color: transparent;
+    cursor: pointer;
+    transition: 500ms;
   }
 
   .image-wrapper {

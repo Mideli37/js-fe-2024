@@ -37,10 +37,6 @@ html {
   line-height: 125%;
 }
 
-/* *, *::after, *::before {
-  border: 1px dotted red;
-} */
-
 @media (max-width: 690px) {
   .page-container {
     padding: 0 16px;
@@ -108,6 +104,10 @@ html {
         opacity: 1;
       }
     }
+
+    .burger-button:hover {
+      background-color: antiquewhite;
+    }
   }
 
   .hero-section {
@@ -145,6 +145,10 @@ html {
 
     .drink-card:hover .drink-image {
       scale: 1;
+    }
+
+    .load-more:hover {
+      background-color: antiquewhite;
     }
   }
 }
