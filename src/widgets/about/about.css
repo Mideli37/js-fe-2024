@@ -18,7 +18,6 @@
     border-radius: 20px;
   }
 
-
   .image {
     width: 100%;
     height: 100%;
@@ -34,16 +33,27 @@
   }
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 1200px) {
   .about-section {
+    .image-container {
+      height: 1100px;
+    }
+    .img-wrapper {
+      height: 590px;
+      /*   aspect-ratio: 688 / 590; */
+    }
+  }
+}
 
+@media (max-width: 768px) {
+  .about-section {
     .image-container {
       height: unset;
     }
     .img-wrapper {
       width: 100%;
       height: 590px;
-    /*   aspect-ratio: 688 / 590; */
+      /*   aspect-ratio: 688 / 590; */
     }
 
     .image {

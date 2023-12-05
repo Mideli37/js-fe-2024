@@ -162,7 +162,7 @@
   }
 }
 
-@media (max-width: 1085px) {
+@media (max-width: 768px) {
   .menu-section {
     .drink-card:nth-child(n + 5) {
       display: none;
