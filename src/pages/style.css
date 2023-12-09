@@ -2,6 +2,10 @@ body {
   background-color: rgba(225, 212, 201, 1);
   margin: 0;
   -webkit-text-size-adjust: 100%;
+
+  &.no-scroll {
+    overflow: hidden;
+  }
 }
 
 html {

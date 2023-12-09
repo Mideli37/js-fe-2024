@@ -20,7 +20,60 @@
     transition: 300ms;
 
     &.disabled {
-      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  .nav.aside {
+    position: fixed;
+    padding-top: 67px;
+    inset: 95px -100% 0 100%;
+    background-color: #e1d4c9;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 500ms;
+
+    color: var(--text-dark, #403f3d);
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+
+    /* Desktop/Action/burger-link */
+    font-family: Inter;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%; /* 40px */
+
+    & .nav-ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 60px;
+    }
+
+    & .menu-link {
+      margin-top: 99px;
+      gap: 15px;
+      color: var(--text-dark, #403f3d);
+      text-align: center;
+      font-feature-settings: 'clig' off, 'liga' off;
+
+      /* Desktop/Action/burger-link */
+      font-family: Inter;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 125%; /* 40px */
+
+      & .menu-link-image {
+        width: 40px;
+      }
+    }
+
+    &.active {
+      left: 0%;
+      right: 0%;
     }
   }
 
@@ -83,7 +136,7 @@
     }
 
     &.menu-link.disabled {
-      pointer-events: none;
+      cursor: default;
       &::after {
         width: 100%;
         left: 0%;
@@ -120,6 +173,7 @@
       border-radius: 9px;
       opacity: 1;
       left: calc(55% / 2);
+      transition: 500ms;
     }
 
     & span:nth-child(1) {
@@ -138,50 +192,46 @@
       transform-origin: left center;
     }
 
-    span:nth-child(3) {
+    /*     & span:nth-child(3) {
       top: 36px;
       -webkit-transform-origin: left center;
       -moz-transform-origin: left center;
       -o-transform-origin: left center;
       transform-origin: left center;
-    }
+    } */
 
-    /* &.open span:nth-child(1) {
+    &.active span:nth-child(1) {
       -webkit-transform: rotate(45deg);
       -moz-transform: rotate(45deg);
       -o-transform: rotate(45deg);
       transform: rotate(45deg);
-      top: -3px;
-      left: 8px;
+      top: 14px;
+      left: 14px;
+      width: 44%;
     }
 
-    &.open span:nth-child(2) {
-      width: 0%;
-      opacity: 0;
-    }
-
-    &.open span:nth-child(3) {
+    &.active span:nth-child(2) {
       -webkit-transform: rotate(-45deg);
       -moz-transform: rotate(-45deg);
       -o-transform: rotate(-45deg);
       transform: rotate(-45deg);
-      top: 39px;
-      left: 8px;
+      top: 27px;
+      left: 14px;
+      width: 44%;
     }
-   */
   }
 }
 
 @media (max-width: 768px) {
   .header {
-    .nav {
+    /*     .nav {
       display: none;
     }
 
     .menu-link {
       display: none;
     }
-
+ */
     .burger-button {
       display: block;
     }

@@ -39,5 +39,72 @@ export function createHeader() {
   menuLink.append(menuLinkText, menuLinkImage);
 
   const linksEl = [logo, ...navItems, menuLink];
+
+  //* functionality
+
+  let openBurgerMenu = false;
+  let sideBurgerMenu = false;
+
+  if (window.innerWidth <= 768) {
+    moveNavAside(nav, menuLink);
+  }
+
+  function closeNav(button, navMenu) {
+    button.classList.remove('active');
+    navMenu.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+    openBurgerMenu = false;
+  }
+
+  function openNav(button, navMenu) {
+    button.classList.add('active');
+    navMenu.classList.add('active');
+    document.body.classList.add('no-scroll');
+    openBurgerMenu = true;
+  }
+
+  function moveNavAside(nav, menuLink) {
+    nav.append(menuLink);
+    nav.classList.add('aside');
+    sideBurgerMenu = true;
+  }
+
+  window.addEventListener('resize', (e) => {
+    if (window.innerWidth > 768) {
+      if (openBurgerMenu) {
+        console.log('burger hide');
+        closeNav(burgerButton, nav);
+      }
+      if (sideBurgerMenu) {
+        container.append(logo, nav, menuLink, burgerButton);
+        nav.classList.remove('aside');
+        console.log('remove');
+        sideBurgerMenu = false;
+      }
+    } else {
+      if (!sideBurgerMenu) {
+        console.log('create side menu');
+        moveNavAside(nav, menuLink);
+      }
+    }
+  });
+
+  burgerButton.addEventListener('click', () => {
+    openBurgerMenu ? closeNav(burgerButton, nav) : openNav(burgerButton, nav);
+  });
+
+  nav.addEventListener('click', (e) => {
+    console.log(e.target);
+    if (e.target !== nav) {
+      closeNav(burgerButton, nav);
+    }
+  });
+
+  linksEl.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      closeNav(burgerButton, nav);
+    });
+  });
+
   return [header, linksEl];
 }
