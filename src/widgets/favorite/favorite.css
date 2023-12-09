@@ -82,8 +82,11 @@
     width: 40px;
     height: 4px;
     border-radius: 100px;
-    background: var(--border-light, #c1b6ad);
     appearance: none;
+
+    &::-webkit-progress-bar {
+      background-color: #C1B6AD;
+    }
 
     &::-webkit-progress-value {
       background-color: #665f55;
