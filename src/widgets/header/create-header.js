@@ -72,18 +72,15 @@ export function createHeader() {
   window.addEventListener('resize', (e) => {
     if (window.innerWidth > 768) {
       if (openBurgerMenu) {
-        console.log('burger hide');
         closeNav(burgerButton, nav);
       }
       if (sideBurgerMenu) {
         container.append(logo, nav, menuLink, burgerButton);
         nav.classList.remove('aside');
-        console.log('remove');
         sideBurgerMenu = false;
       }
     } else {
       if (!sideBurgerMenu) {
-        console.log('create side menu');
         moveNavAside(nav, menuLink);
       }
     }
@@ -94,7 +91,6 @@ export function createHeader() {
   });
 
   nav.addEventListener('click', (e) => {
-    console.log(e.target);
     if (e.target !== nav) {
       closeNav(burgerButton, nav);
     }
