@@ -5,6 +5,7 @@ import photos from '../../shared/product-photos';
 import kettleImg from './assets/kettle.png';
 import coffeeImg from './assets/coffee.png';
 import cakeImg from './assets/cake.png';
+import { createModal } from '../modal/create-modal';
 
 export function createProductMenu() {
   const section = createEl('section', 'menu-section section');
@@ -39,12 +40,10 @@ export function createProductMenu() {
 
   function replaceCards(category) {
     cardsWrapper.replaceChildren();
-    console.log('replace');
     addDrinkCard(category);
   }
 
   function createCard(photo, drink) {
-    console.log('create card');
     const { description, name, price } = drink;
     const card = createEl('div', 'drink-card');
     const imageWrapper = createEl('div', 'image-wrapper');
@@ -62,7 +61,6 @@ export function createProductMenu() {
   }
 
   function addDrinkCard(category) {
-    console.log('add drink');
     productJSON.forEach((drink, index) => {
       if (drink.category === category.toLowerCase()) {
         createCard(photos[index], drink);
@@ -111,6 +109,19 @@ export function createProductMenu() {
         loadMoreButton.classList.add('hidden');
       });
     }
+  });
+
+  //* modal open
+
+  cardsWrapper.addEventListener('click', (e) => {
+    let clickTarget = e.target.closest('.drink-card');
+    let elDrinkName = clickTarget.lastChild.firstChild.firstChild;
+
+    productJSON.forEach((drink, index) => {
+      if (drink.name === elDrinkName.textContent) {
+        createModal(index);
+      }
+    });
   });
 
   section.append(heading, tabsContainer, productSliderContainer);
