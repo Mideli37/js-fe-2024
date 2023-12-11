@@ -121,6 +121,7 @@ export function createProductMenu() {
       if (drink.name === elDrinkName.textContent) {
         createModal(index);
       }
+      document.body.classList.add('no-scroll')
     });
   });
 

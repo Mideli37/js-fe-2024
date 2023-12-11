@@ -78,13 +78,17 @@ export function createModal(index) {
   modal.append(imageWrapper, description);
   description.append(name, info, sizeWrapper, additionWrapper, totalWrapper, divider, costInfoWrapper, closeButton);
 
-  modalBg.addEventListener('click', () => {
+  function closeModal() {
     modal.remove();
     modalBg.remove();
+    document.body.classList.remove('no-scroll')
+  }
+
+  modalBg.addEventListener('click', () => {
+    closeModal()
   });
 
   closeButton.addEventListener('click', () => {
-    modal.remove();
-    modalBg.remove();
+    closeModal()
   });
 }
