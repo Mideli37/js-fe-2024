@@ -1,14 +1,29 @@
 .hero-section {
+  position: relative;
   margin-top: 20px;
   border-radius: 40px;
   padding: 100px;
   display: flex;
   flex-direction: column;
   align-items: start;
-  background-image: url('./assets/img-hero.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  overflow: hidden;
+
+  .video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    inset: 0 0;
+    width: 100%;
+    z-index: -1;
+    border-radius: 40px;
+  }
+
+  .bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   .hero-heading {
     margin: 0;
