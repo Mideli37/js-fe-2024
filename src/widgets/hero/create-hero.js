@@ -1,6 +1,8 @@
 import { createEl } from '../../shared/createEl';
 import './hero.css';
 import coffeeImg from '../header/assets/coffee-cup.svg';
+import video from './assets/video (2160p).mp4';
+import bg from './assets/img-hero.jpg'
 
 export function createHero() {
   const heroSection = createEl('section', 'hero-section section');
@@ -20,6 +22,14 @@ export function createHero() {
   cupImg.alt = 'coffee cup';
   menuButton.append(cupImg);
   menuButton.href = './menu/index.html';
-  heroSection.append(heroHeading, info, menuButton);
+  const videoContainer = createEl('div', 'video-container');
+  const coffeeVideo = createEl('video', 'bg-video');
+  videoContainer.append(coffeeVideo);
+  coffeeVideo.src = video;
+  coffeeVideo.loop = true;
+  coffeeVideo.autoplay = true;
+  coffeeVideo.muted = true;
+  coffeeVideo.poster = bg;
+  heroSection.append(heroHeading, info, menuButton, videoContainer);
   return heroSection;
 }

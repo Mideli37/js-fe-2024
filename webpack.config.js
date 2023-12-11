@@ -15,7 +15,7 @@ module.exports = {
   target: 'web',
   devtool: 'inline-cheap-module-source-map',
   mode: 'production',
-  performance: { maxEntrypointSize: 1512000, maxAssetSize: 1512000 },
+  performance: { maxEntrypointSize: 151200000, maxAssetSize: 151200000 },
   plugins: [
     new blabla({ favicon: './src/widgets/header/assets/coffee-cup.svg', template: './src/pages/index.html', chunks: ['main'] }),
     new blabla({ favicon: './src/widgets/header/assets/coffee-cup.svg', template: './src/pages/menu/index.html', chunks: ['menu'], filename: './menu/index.html' }),
@@ -24,7 +24,7 @@ module.exports = {
   module: {
     rules: [
       {test: /\.css$/i, use: [miniCssExtractPlugin.loader, 'css-loader']},
-      {test: /\.(jpg|png|svg)$/i, type: 'asset'}
+      {test: /\.(jpg|png|svg|mp4)$/i, type: 'asset'}
     ]
   }
 };

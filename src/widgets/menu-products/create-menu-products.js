@@ -5,6 +5,7 @@ import photos from '../../shared/product-photos';
 import kettleImg from './assets/kettle.png';
 import coffeeImg from './assets/coffee.png';
 import cakeImg from './assets/cake.png';
+import { createModal } from '../modal/create-modal';
 
 export function createProductMenu() {
   const section = createEl('section', 'menu-section section');
@@ -24,14 +25,23 @@ export function createProductMenu() {
     const text = createEl('span', 'tab-text', tab[1]);
     newTab.append(icon, text);
     tabsContainer.append(newTab);
-    return newTab;
+    return [...tab, newTab];
   });
 
-  tabs[0].classList.add('active');
+  tabs[0][2].classList.add('active');
 
   const productSliderContainer = createEl('div', 'product-slider-wrapper');
   const cardsWrapper = createEl('div', 'cards-wrapper');
   productSliderContainer.append(cardsWrapper);
+
+  //* product cards
+
+  let currentCategory = 'Coffee';
+
+  function replaceCards(category) {
+    cardsWrapper.replaceChildren();
+    addDrinkCard(category);
+  }
 
   function createCard(photo, drink) {
     const { description, name, price } = drink;
@@ -50,11 +60,39 @@ export function createProductMenu() {
     cardsWrapper.append(card);
   }
 
-  productJSON.forEach((drink, index) => {
-    if (drink.category === 'coffee') {
-      createCard(photos[index], drink);
-    }
+  function addDrinkCard(category) {
+    productJSON.forEach((drink, index) => {
+      if (drink.category === category.toLowerCase()) {
+        createCard(photos[index], drink);
+      }
+    });
+  }
+
+  function removeActiveClass() {
+    tabs.forEach((tab) => {
+      if (tab[2].classList.contains('active')) {
+        tab[2].classList.remove('active');
+      }
+    });
+  }
+
+  tabs.forEach((tab, index) => {
+    tab[2].addEventListener('click', () => {
+      if (currentCategory !== tab[1]) {
+        currentCategory = tab[1];
+        replaceCards(currentCategory);
+        removeActiveClass();
+        tab[2].classList.add('active');
+        if (index === 1 || !loadMoreButton.classList.contains('hidden')) {
+          loadMoreButton.classList.add('hidden');
+        } else {
+          loadMoreButton.classList.remove('hidden');
+        }
+      }
+    });
   });
+
+  replaceCards('coffee');
 
   const loadMoreButton = createEl('button', 'load-more');
   loadMoreButton.insertAdjacentHTML(
@@ -62,6 +100,30 @@ export function createProductMenu() {
     '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21.8883 13.5C21.1645 18.3113 17.013 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C16.1006 2 19.6248 4.46819 21.1679 8" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 8H21.4C21.7314 8 22 7.73137 22 7.4V3" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   );
   productSliderContainer.append(loadMoreButton);
+
+  loadMoreButton.addEventListener('click', () => {
+    let cards = Array.from(cardsWrapper.children);
+    if (cards.length > 4) {
+      cards.slice(3).forEach((card) => {
+        card.classList.add('displayed');
+        loadMoreButton.classList.add('hidden');
+      });
+    }
+  });
+
+  //* modal open
+
+  cardsWrapper.addEventListener('click', (e) => {
+    let clickTarget = e.target.closest('.drink-card');
+    let elDrinkName = clickTarget.lastChild.firstChild.firstChild;
+
+    productJSON.forEach((drink, index) => {
+      if (drink.name === elDrinkName.textContent) {
+        createModal(index);
+      }
+      document.body.classList.add('no-scroll')
+    });
+  });
 
   section.append(heading, tabsContainer, productSliderContainer);
   return section;

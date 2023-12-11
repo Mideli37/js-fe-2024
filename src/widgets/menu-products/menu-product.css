@@ -99,6 +99,10 @@
     background-color: transparent;
     cursor: pointer;
     transition: 500ms;
+
+    &.hidden {
+      display: none;
+    }
   }
 
   .image-wrapper {
@@ -166,6 +170,10 @@
   .menu-section {
     .drink-card:nth-child(n + 5) {
       display: none;
+
+      &.displayed {
+        display: block;
+      }
     }
     .load-more {
       display: block;
