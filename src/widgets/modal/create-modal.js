@@ -95,7 +95,6 @@ export function createModal(index) {
   //* chooose size
 
   function updateTotal() {
-    console.log(total.toFixed(2));
     price.textContent = `$${Number(total).toFixed(2)}`;
   }
 
@@ -124,9 +123,6 @@ export function createModal(index) {
     tab[1].addEventListener('click', () => {
       if (!tab[1].classList.contains('active')) {
         tab[1].classList.add('active');
-        console.log(total);
-        console.log(+tab[0]['add-price']);
-        console.log(total);
         total += Number(tab[0]['add-price']);
       } else {
         tab[1].classList.remove('active');
