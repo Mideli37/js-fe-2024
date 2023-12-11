@@ -20,7 +20,7 @@ export function createModal(index) {
   const name = createEl('p', 'drink-name', product.name);
   const info = createEl('p', 'drink-info', product.description);
 
-  let total = product.price;
+  let total = Number(product.price);
 
   const sizesArr = Array.from(Object.entries(product.sizes));
 
@@ -57,7 +57,7 @@ export function createModal(index) {
 
   const totalWrapper = createEl('div', 'total-wrapper');
   const totalLabel = createEl('span', 'total-label', 'Total:');
-  const price = createEl('span', 'price', `$${total}`);
+  const price = createEl('span', 'price', `$${total.toFixed(2)}`);
   totalWrapper.append(totalLabel, price);
 
   const divider = createEl('div', 'divider');
@@ -81,14 +81,58 @@ export function createModal(index) {
   function closeModal() {
     modal.remove();
     modalBg.remove();
-    document.body.classList.remove('no-scroll')
+    document.body.classList.remove('no-scroll');
   }
 
   modalBg.addEventListener('click', () => {
-    closeModal()
+    closeModal();
   });
 
   closeButton.addEventListener('click', () => {
-    closeModal()
+    closeModal();
+  });
+
+  //* chooose size
+
+  function updateTotal() {
+    console.log(total.toFixed(2));
+    price.textContent = `$${Number(total).toFixed(2)}`;
+  }
+
+  function removeActiveClass() {
+    sizeTabsArr.forEach((tab) => {
+      if (tab[2].classList.contains('active')) {
+        tab[2].classList.remove('active');
+        total -= Number(tab[1]['add-price']);
+        updateTotal();
+      }
+    });
+  }
+
+  sizeTabsArr.forEach((tab) => {
+    tab[2].addEventListener('click', () => {
+      if (!tab[2].classList.contains('active')) {
+        removeActiveClass();
+        tab[2].classList.add('active');
+        total += Number(tab[1]['add-price']);
+        updateTotal();
+      }
+    });
+  });
+
+  additionTabsArr.forEach((tab) => {
+    tab[1].addEventListener('click', () => {
+      if (!tab[1].classList.contains('active')) {
+        tab[1].classList.add('active');
+        console.log(total);
+        console.log(+tab[0]['add-price']);
+        console.log(total);
+        total += Number(tab[0]['add-price']);
+      } else {
+        tab[1].classList.remove('active');
+        total -= Number(tab[0]['add-price']);
+      }
+      updateTotal();
+    });
   });
 }
