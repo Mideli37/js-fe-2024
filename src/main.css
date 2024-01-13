@@ -1,1 +1,14 @@
 @import 'modern-normalize/modern-normalize.css';
+
+body {
+  height: 100dvh;
+}
+
+.main {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+}

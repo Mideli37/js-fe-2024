@@ -1,8 +1,8 @@
 .gallowContainer {
   background-color: aqua;
-
+  width: 40%;
   max-width: 320px;
-  height: 100dvh;
+  height: 50dvh;
   padding: 40px;
 }
 
