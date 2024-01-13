@@ -1,5 +1,5 @@
 export const qaPairs = [
-  { id: 1, question: 'A popular snack consisting of a cooked sausege served in a sliced bun', answer: 'hotdog' },
+  { id: 1, question: 'A popular snack consisting of a cooked sausage served in a sliced bun', answer: 'hotdog' },
   { id: 2, question: 'The amount of money you pay to enter a place or event', answer: 'admission' },
   { id: 3, question: 'A spooky attraction designed to scare visitors with various special effects', answer: 'hauntedhouse' },
   { id: 4, question: 'A small structure or stand where goods or services are sold', answer: 'kiosk' },

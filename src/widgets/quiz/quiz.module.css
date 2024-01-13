@@ -1,0 +1,28 @@
+.quizContaier {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.answerContainer {
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  flex-wrap: nowrap;
+  align-items: end;
+}
+
+.questionLabel {
+}
+
+.letter {
+  width: 30px;
+  height: 0px;
+  border: 3px solid black;
+}
+
+.open {
+  height: 30px;
+}
