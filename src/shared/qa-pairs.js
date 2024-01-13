@@ -11,6 +11,6 @@ export const qaPairs = [
   { id: 10, question: 'A small piece of paper that allows entry to a park or attraction', answer: 'ticket' },
   { id: 11, question: 'A person who claims to predict the future and answer questions about your life', answer: 'fortuneteller' },
   { id: 12, question: 'Items which can be won by playing games or participating in activities', answer: 'prizes' },
-  { id: 13, question: 'A large amusement park that follows a specific concept', answer: 'Themepark' },
+  { id: 13, question: 'A large amusement park that follows a specific concept', answer: 'themepark' },
   { id: 14, question: 'A special pass that allows you to skip long lines and get on rides faster', answer: 'fastpass' },
 ];

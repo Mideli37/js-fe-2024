@@ -2,6 +2,7 @@ import './main.css';
 import { createEl } from './shared/create-el';
 import { qaPairs } from './shared/qa-pairs';
 import { Gallows } from './widgets/gallows/Gallows';
+import { Keyboard } from './widgets/keyboard/create-keyboard';
 import { Quiz } from './widgets/quiz/Quiz';
 
 const main = createEl('main', 'main');
@@ -20,15 +21,48 @@ function getRandomNum() {
 
 let num = getRandomNum();
 pastQuestions.push(num);
+let answer = [...qaPairs[num].answer];
+let disabledKeys = [];
 
 const quiz = new Quiz(num);
+const keyboard = new Keyboard();
 let curIncorrectGuesses = 0;
 main.append(gallow.container, quizPartWrapper);
 
 const guessesLabel = createEl('p', 'quesses-count');
 guessesLabel.textContent = `Incorrect guesses: ${curIncorrectGuesses} / 6`;
 
-quizPartWrapper.append(quiz.container, guessesLabel);
+quizPartWrapper.append(quiz.container, guessesLabel, keyboard.container);
+
+const alphabet = [...'abcdefghijklmnopqrstuvwxyz'];
+
+function openAllLetters(letter) {
+  let index = answer.indexOf(letter);
+  while (index !== -1) {
+    quiz.openLetter(index);
+    answer[index] = null;
+    index = answer.indexOf(letter);
+  }
+}
+
+function disableButton(key) {
+  disabledKeys.push(key);
+  keyboard.disableButton(key);
+}
+
+window.addEventListener('keydown', (event) => {
+  let curKey = event.code.substring(3).toLowerCase();
+  if (alphabet.includes(curKey) && !disabledKeys.includes(curKey)) {
+    if (answer.indexOf(curKey) !== -1) {
+      openAllLetters(curKey);
+    } else {
+      curIncorrectGuesses += 1;
+      guessesLabel.textContent = `Incorrect guesses: ${curIncorrectGuesses} / 6`;
+      gallow.addPart();
+    }
+    disableButton(curKey);
+  }
+});
 
 function setNextQuestion() {
   if (pastQuestions.length === qaPairs.length) {
@@ -40,5 +74,6 @@ function setNextQuestion() {
   } while (pastQuestions.includes(num));
   pastQuestions.push(num);
   quiz.reset();
+  answer = [...qaPairs[num].answer];
   quiz.set(num);
 }
