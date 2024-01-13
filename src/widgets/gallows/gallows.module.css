@@ -1,0 +1,63 @@
+.gallowContainer {
+  background-color: aqua;
+
+  max-width: 320px;
+  height: 100dvh;
+  padding: 40px;
+}
+
+.gallowPillow {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-image: url('./assets/gallows.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.head {
+  position: absolute;
+  left: 64%;
+  top: calc(50% - 117px);
+  scale: 0.7;
+}
+
+.body {
+  position: absolute;
+  left: 84%;
+  top: calc(50% - 53px);
+  scale: 0.7;
+}
+
+.rightArm {
+  position: absolute;
+  left: 80%;
+  top: calc(50% - 28px);
+  scale: 0.7;
+}
+
+.leftArm {
+  position: absolute;
+  left: 62%;
+  top: calc(50% - 28px);
+  scale: 0.7;
+}
+
+.leftLeg {
+  position: absolute;
+  left: 62%;
+  top: calc(50% + 42px);
+  scale: 0.7;
+}
+
+.rightLeg {
+  position: absolute;
+  left: 80%;
+  top: calc(50% + 42px);
+  scale: 0.7;
+}
+
+.hidden {
+  opacity: 0;
+}
