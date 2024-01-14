@@ -16,7 +16,7 @@ module.exports = {
   mode: 'production',
   performance: { maxEntrypointSize: 151200000, maxAssetSize: 151200000 },
   plugins: [
-    new HtmlWebpackPlugin({ favicon: '', template: './src/index.html', chunks: ['main'] }),
+    new HtmlWebpackPlugin({ favicon: './src/assets/stick-man.jpg', template: './src/index.html', chunks: ['main'] }),
     new MiniCssExtractPlugin(),
   ],
   module: {
