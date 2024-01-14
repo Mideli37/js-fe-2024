@@ -1,0 +1,4 @@
+{
+  "extends": ["stylelint-config-standard", "stylelint-config-clean-order"],
+  "rules": { "at-rule-no-unknown": null, "selector-class-pattern": null, "selector-id-pattern": null }
+}
