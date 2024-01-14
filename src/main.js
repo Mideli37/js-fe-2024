@@ -7,12 +7,11 @@ import { Modal } from './widgets/modal/Modal';
 import { Quiz } from './widgets/quiz/Quiz';
 
 const main = createEl('main', 'main');
-const gallow = new Gallows();
-document.body.append(main);
-
 const quizPartWrapper = createEl('div', 'quiz-part-wrapper');
-
-let pastQuestions = [];
+const gallows = new Gallows();
+const keyboard = new Keyboard();
+document.body.append(main);
+main.append(gallows.container, quizPartWrapper);
 
 function getRandomNum() {
   const num = Math.floor(Math.random() * qaPairs.length);
@@ -21,17 +20,14 @@ function getRandomNum() {
 }
 
 let currentQuestionIndex = getRandomNum();
-pastQuestions.push(currentQuestionIndex);
-let answer = [...qaPairs[currentQuestionIndex].answer];
+let pastQuestions = [currentQuestionIndex];
+let answer = qaPairs[currentQuestionIndex].answer.split('');
 let disabledKeys = [];
-
 const quiz = new Quiz(currentQuestionIndex);
-const keyboard = new Keyboard();
-let curIncorrectGuesses = 0;
-main.append(gallow.container, quizPartWrapper);
+let incorrectGuessesCounter = 0;
 
 const guessesLabel = createEl('p', 'quesses-count');
-guessesLabel.textContent = `Incorrect guesses: ${curIncorrectGuesses} / 6`;
+guessesLabel.textContent = `Incorrect guesses: ${incorrectGuessesCounter} / 6`;
 
 quizPartWrapper.append(quiz.container, guessesLabel, keyboard.container);
 
@@ -51,21 +47,58 @@ function disableButton(key) {
   keyboard.disableButton(key);
 }
 
+function resetModal() {
+  modal.close();
+  modal.container.remove();
+  modal.background.remove();
+  modal.button.removeEventListener('click', setNextQuestion);
+  isModalOpen = false;
+}
+
+function resetKeyboard() {
+  disabledKeys = [];
+  keyboard.resetButtons();
+}
+
+function setNextQuestion() {
+  if (pastQuestions.length === qaPairs.length) {
+    pastQuestions = [];
+  }
+
+  let num;
+
+  do {
+    num = getRandomNum();
+  } while (pastQuestions.includes(num));
+
+  pastQuestions.push(num);
+  currentQuestionIndex = num;
+  incorrectGuessesCounter = 0;
+  guessesLabel.textContent = `Incorrect guesses: ${incorrectGuessesCounter} / 6`;
+  answer = [...qaPairs[num].answer];
+  gallows.resetParts();
+  quiz.reset();
+  resetKeyboard();
+  resetModal();
+  quiz.set(num);
+}
+
 let modal;
-let modalIsOpen = false;
+let isModalOpen = false;
+
 function showModal() {
-  let gameFinished = false;
-  if (curIncorrectGuesses === 6) {
+  let isGameFinished = false;
+  if (incorrectGuessesCounter === 6) {
     modal = new Modal(qaPairs[currentQuestionIndex].answer);
-    gameFinished = true;
+    isGameFinished = true;
   } else if (answer.every((letter) => letter === null)) {
     modal = new Modal(qaPairs[currentQuestionIndex].answer, true);
-    gameFinished = true;
+    isGameFinished = true;
   }
-  if (gameFinished) {
+  if (isGameFinished) {
     document.body.append(modal.background, modal.container);
     modal.open();
-    modalIsOpen = true;
+    isModalOpen = true;
     modal.button.addEventListener('click', setNextQuestion);
   }
 }
@@ -75,9 +108,9 @@ export function validateKey(key) {
     if (answer.indexOf(key) !== -1) {
       openAllLetters(key);
     } else {
-      curIncorrectGuesses += 1;
-      guessesLabel.textContent = `Incorrect guesses: ${curIncorrectGuesses} / 6`;
-      gallow.addPart();
+      incorrectGuessesCounter += 1;
+      guessesLabel.textContent = `Incorrect guesses: ${incorrectGuessesCounter} / 6`;
+      gallows.addPart();
     }
     disableButton(key);
     showModal();
@@ -85,40 +118,15 @@ export function validateKey(key) {
 }
 
 window.addEventListener('keydown', (event) => {
-  if (!modalIsOpen) {
-    let curKey = event.code.substring(3).toLowerCase();
-    validateKey(curKey);
+  if (!isModalOpen) {
+    const currentKey = event.code.substring(3).toLowerCase();
+    validateKey(currentKey);
   }
 });
 
 keyboard.keys.forEach((key) => {
   key.addEventListener('click', () => {
-    let curKey = key.textContent.toLowerCase();
-    validateKey(curKey);
+    const currentKey = key.textContent.toLowerCase();
+    validateKey(currentKey);
   });
 });
-
-function setNextQuestion() {
-  if (pastQuestions.length === qaPairs.length) {
-    pastQuestions = [];
-  }
-  let num;
-  do {
-    num = getRandomNum();
-  } while (pastQuestions.includes(num));
-  pastQuestions.push(num);
-  currentQuestionIndex = num;
-  quiz.reset();
-  gallow.resetParts();
-  keyboard.resetButtons();
-  curIncorrectGuesses = 0;
-  guessesLabel.textContent = `Incorrect guesses: ${curIncorrectGuesses} / 6`;
-  disabledKeys = [];
-  answer = [...qaPairs[num].answer];
-  quiz.set(num);
-  modal.close();
-  modal.container.remove()
-  modal.background.remove()
-  modal.button.removeEventListener('click', setNextQuestion)
-  modalIsOpen = false;
-}
