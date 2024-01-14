@@ -117,5 +117,8 @@ function setNextQuestion() {
   answer = [...qaPairs[num].answer];
   quiz.set(num);
   modal.close();
+  modal.container.remove()
+  modal.background.remove()
+  modal.button.removeEventListener('click', setNextQuestion)
   modalIsOpen = false;
 }
