@@ -1,17 +1,17 @@
 .quizContaier {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .answerContainer {
-  height: 35px;
   display: flex;
-  flex-direction: row;
+  flex-flow: row nowrap;
   gap: 5px;
-  flex-wrap: nowrap;
   align-items: end;
+
+  height: 35px;
 }
 
 .questionLabel {
@@ -19,11 +19,30 @@
 }
 
 .letter {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 30px;
-  height: 0px;
-  border: 3px solid black;
+  height: 0;
+
+  border: 1px solid black;
+
+  transition: 500ms;
 }
 
 .open {
   height: 30px;
+}
+
+@media (width <= 500px) {
+  .letter {
+    width: 20px;
+    height: 0;
+  }
+
+  .open {
+    height: 20px;
+  }
 }

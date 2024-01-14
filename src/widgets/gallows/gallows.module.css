@@ -1,63 +1,111 @@
 .gallowContainer {
-  background-color: aqua;
-  width: 40%;
-  max-width: 320px;
-  height: 50dvh;
-  padding: 40px;
+  position: relative;
+
+  aspect-ratio: 161 / 250;
+  height: 500px;
+  margin: 20px;
+
+  background-image: url('./assets/gallows.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .gallowPillow {
   width: 100%;
   height: 100%;
-  position: relative;
-  background-image: url('./assets/gallows.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .head {
   position: absolute;
-  left: 64%;
-  top: calc(50% - 117px);
+  top: calc(50% - 144px);
+  left: 67%;
   scale: 0.7;
+
+  transition: 100ms;
 }
 
 .body {
   position: absolute;
-  left: 84%;
-  top: calc(50% - 53px);
+  top: calc(50% - 79px);
+  left: 82%;
   scale: 0.7;
+
+  transition: 100ms;
 }
 
 .rightArm {
   position: absolute;
-  left: 80%;
-  top: calc(50% - 28px);
+  top: calc(50% - 57px);
+  left: 79%;
   scale: 0.7;
+
+  transition: 100ms;
 }
 
 .leftArm {
   position: absolute;
-  left: 62%;
-  top: calc(50% - 28px);
+  top: calc(50% - 57px);
+  left: 65.4%;
   scale: 0.7;
+
+  transition: 100ms;
 }
 
 .leftLeg {
   position: absolute;
-  left: 62%;
-  top: calc(50% + 42px);
+  top: calc(50% + 18px);
+  left: 65.5%;
   scale: 0.7;
+
+  transition: 100ms;
 }
 
 .rightLeg {
   position: absolute;
-  left: 80%;
-  top: calc(50% + 42px);
+  top: calc(50% + 18px);
+  left: 79%;
   scale: 0.7;
+
+  transition: 100ms;
 }
 
 .hidden {
   opacity: 0;
+}
+
+@media (width <= 1100px) {
+  .gallowContainer {
+    height: 400px;
+  }
+
+  .head {
+    top: calc(50% - 118px);
+    left: 64%;
+  }
+
+  .body {
+    top: calc(50% - 55px);
+    left: 83%;
+  }
+
+  .rightArm {
+    top: calc(50% - 35px);
+    left: 79%;
+  }
+
+  .leftArm {
+    top: calc(50% - 35px);
+    left: 62.4%;
+  }
+
+  .leftLeg {
+    top: calc(50% + 40px);
+    left: 62.5%;
+  }
+  
+  .rightLeg {
+    top: calc(50% + 40px);
+    left: 79%;
+  }
 }

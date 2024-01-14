@@ -1,20 +1,46 @@
-@import 'modern-normalize/modern-normalize.css';
+@import url('modern-normalize/modern-normalize.css');
 
 body {
   height: 100dvh;
+
+  background-image: url('./assets/white-square-page.jpg');
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 600px;
+  backdrop-filter: blur(1px) grayscale(0.7);
 }
 
 .main {
-  height: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
   align-items: center;
+  justify-content: space-around;
+
+  height: 100%;
+  padding: 60px;
 }
 
 .quiz-part-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 550px;
+}
+
+@media (width <= 1100px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .quiz-part-wrapper {
+    width: unset;
+  }
+}
+
+@media (width < 360px) {
+  .main {
+    padding: 5px;
+  }
 }
