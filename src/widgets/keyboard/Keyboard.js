@@ -26,11 +26,11 @@ export class Keyboard {
   }
 
   resetButtons() {
-    this.keys.forEach((key)=> {
+    this.keys.forEach((key) => {
       if (key.classList.contains(style.disabled)) {
-        key.classList.remove(style.disabled)
-        key.disabled = false
+        key.classList.remove(style.disabled);
+        key.disabled = false;
       }
-    })
+    });
   }
 }

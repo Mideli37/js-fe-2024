@@ -14,14 +14,11 @@ module.exports = {
   devtool: 'inline-cheap-module-source-map',
   mode: 'production',
   performance: { maxEntrypointSize: 151200000, maxAssetSize: 151200000 },
-  plugins: [
-    new blabla({ favicon: '', template: './src/index.html', chunks: ['main'] }),
-    new miniCssExtractPlugin()
-  ],
+  plugins: [new blabla({ favicon: '', template: './src/index.html', chunks: ['main'] }), new miniCssExtractPlugin()],
   module: {
     rules: [
-      {test: /\.css$/i, use: [miniCssExtractPlugin.loader, 'css-loader']},
-      {test: /\.(jpg|png|svg)$/i, type: 'asset'}
-    ]
-  }
+      { test: /\.css$/i, use: [miniCssExtractPlugin.loader, 'css-loader'] },
+      { test: /\.(jpg|png|svg)$/i, type: 'asset' },
+    ],
+  },
 };
