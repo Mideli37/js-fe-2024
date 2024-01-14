@@ -10,7 +10,6 @@ export class Quiz {
     this.questionLabel = createEl('p', styles.questionLabel)
     this.container.append(this.answerContainer, this.questionLabel)
     this.set(index)
-
   }
 
   reset() {
@@ -25,7 +24,7 @@ export class Quiz {
 
   build() {
     this.answer = this.answer.map(letter => {
-      let letterEl = createEl('div', styles.letter)
+      const letterEl = createEl('div', styles.letter)
       this.answerContainer.append(letterEl)
       return [letterEl, letter]
     });
