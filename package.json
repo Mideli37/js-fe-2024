@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack serve",
     "build": "webpack build",
-    "deploy": "npx webpack build && npx gh-pages -d dist -e hangman"
+    "deploy": "npx webpack build && npx gh-pages -d dist -e hangman",
+    "format": "prettier -luw ."
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "css-loader": "^6.9.0",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.7.7",
+    "prettier": "^3.2.2",
     "stylelint": "^16.1.0",
     "stylelint-config-clean-order": "^5.4.0",
     "stylelint-config-standard": "^36.0.0",
