@@ -3,7 +3,9 @@ import style from './modal.module.css';
 
 export class Modal {
   container = createEl('div', style.container);
+
   background = createEl('div', style.background);
+
   constructor(answer, win) {
     const heading = createEl('h2', style.heading);
     if (win) {

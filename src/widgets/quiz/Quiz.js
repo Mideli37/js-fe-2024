@@ -4,7 +4,9 @@ import { qaPairs } from '../../shared/qa-pairs';
 
 export class Quiz {
   container = createEl('div', styles.quizContaier);
+
   answer = [];
+
   constructor(index) {
     this.answerContainer = createEl('div', styles.answerContainer);
     this.questionLabel = createEl('p', styles.questionLabel);
@@ -32,6 +34,7 @@ export class Quiz {
 
   openLetter(index) {
     this.answer[index][0].classList.add(styles.open);
-    this.answer[index][0].textContent = this.answer[index][1];
+    const letter = this.answer[index][1];
+    this.answer[index][0].textContent = letter;
   }
 }

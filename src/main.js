@@ -15,13 +15,13 @@ main.append(gallows.container, quizPartWrapper);
 
 function getRandomNum() {
   const num = Math.floor(Math.random() * qaPairs.length);
-  console.log(num);
   return num;
 }
 
 let currentQuestionIndex = getRandomNum();
 let pastQuestions = [currentQuestionIndex];
 let answer = qaPairs[currentQuestionIndex].answer.split('');
+console.log(qaPairs[currentQuestionIndex].answer);
 let disabledKeys = [];
 const quiz = new Quiz(currentQuestionIndex);
 let incorrectGuessesCounter = 0;
@@ -47,11 +47,13 @@ function disableButton(key) {
   keyboard.disableButton(key);
 }
 
+let modal;
+let isModalOpen = false;
+
 function resetModal() {
   modal.close();
   modal.container.remove();
   modal.background.remove();
-  modal.button.removeEventListener('click', setNextQuestion);
   isModalOpen = false;
 }
 
@@ -76,15 +78,14 @@ function setNextQuestion() {
   incorrectGuessesCounter = 0;
   guessesLabel.textContent = `Incorrect guesses: ${incorrectGuessesCounter} / 6`;
   answer = [...qaPairs[num].answer];
+  console.log(qaPairs[num].answer);
   gallows.resetParts();
   quiz.reset();
   resetKeyboard();
   resetModal();
+  modal.button.removeEventListener('click', setNextQuestion);
   quiz.set(num);
 }
-
-let modal;
-let isModalOpen = false;
 
 function showModal() {
   let isGameFinished = false;

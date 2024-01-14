@@ -3,7 +3,9 @@ import style from './keyboard.module.css';
 
 export class Keyboard {
   keys = [...'abcdefghijklmnopqrstuvwxyz'];
+
   container = createEl('div', style.container);
+
   constructor() {
     this.keys = this.keys.map((key) => {
       const keyEl = createEl('button', style.key, key.toUpperCase());
@@ -13,11 +15,7 @@ export class Keyboard {
   }
 
   disableButton(key) {
-    const keyToDisable = this.keys.find((el) => {
-      if (el.textContent.toLowerCase() === key.toLowerCase()) {
-        return el;
-      }
-    });
+    const keyToDisable = this.keys.find((el) => el.textContent.toLowerCase() === key.toLowerCase());
 
     if (keyToDisable) {
       keyToDisable.disabled = true;
@@ -29,7 +27,8 @@ export class Keyboard {
     this.keys.forEach((key) => {
       if (key.classList.contains(style.disabled)) {
         key.classList.remove(style.disabled);
-        key.disabled = false;
+        const keyEl = key;
+        keyEl.disabled = false;
       }
     });
   }

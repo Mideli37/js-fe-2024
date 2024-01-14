@@ -1,4 +1,5 @@
 module.exports = {
+  ignorePatterns: ['dist'],
   env: { browser: true, es2021: true },
   extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
   overrides: [
@@ -9,5 +10,5 @@ module.exports = {
     },
   ],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  rules: {},
+  rules: { 'no-console': 'off', 'import/prefer-default-export': 'off' },
 };

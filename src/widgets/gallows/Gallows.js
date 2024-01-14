@@ -10,6 +10,7 @@ import rLegImg from './assets/leg-two.png';
 
 export class Gallows {
   container = createEl('div', styles.gallowContainer);
+
   partsCount = 0;
 
   constructor() {
@@ -28,7 +29,8 @@ export class Gallows {
       const imgContainer = createEl('div', el[0]);
       const img = createEl('img');
       img.alt = 'body part';
-      img.src = el[1];
+      const imgPath = el[1];
+      img.src = imgPath;
       imgContainer.classList.add(styles.hidden);
       pillow.append(imgContainer);
       imgContainer.append(img);
