@@ -7,12 +7,17 @@
     "dev": "webpack serve",
     "build": "webpack build",
     "deploy": "npx webpack build && npx gh-pages -d dist -e hangman",
-    "format": "prettier -luw ."
+    "format": "prettier -luw .",
+    "lint": "eslint --fix ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.9.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.7.7",
     "prettier": "^3.2.2",
