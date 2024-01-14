@@ -6,14 +6,14 @@ export class Keyboard {
   container = createEl('div', style.container);
   constructor() {
     this.keys = this.keys.map((key) => {
-      let keyEl = createEl('div', style.key, key.toUpperCase());
+      const keyEl = createEl('button', style.key, key.toUpperCase());
       this.container.append(keyEl);
       return keyEl;
     });
   }
 
   disableButton(key) {
-    let keyToDisable = this.keys.find((el) => {
+    const keyToDisable = this.keys.find((el) => {
       if (el.textContent.toLowerCase() === key.toLowerCase()) {
         return el;
       }
@@ -29,6 +29,7 @@ export class Keyboard {
     this.keys.forEach((key)=> {
       if (key.classList.contains(style.disabled)) {
         key.classList.remove(style.disabled)
+        key.disabled = false
       }
     })
   }
