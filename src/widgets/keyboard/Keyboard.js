@@ -24,4 +24,12 @@ export class Keyboard {
       keyToDisable.classList.add(style.disabled);
     }
   }
+
+  resetButtons() {
+    this.keys.forEach((key)=> {
+      if (key.classList.contains(style.disabled)) {
+        key.classList.remove(style.disabled)
+      }
+    })
+  }
 }

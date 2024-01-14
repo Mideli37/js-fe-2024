@@ -3,6 +3,7 @@ import { createEl } from './shared/create-el';
 import { qaPairs } from './shared/qa-pairs';
 import { Gallows } from './widgets/gallows/Gallows';
 import { Keyboard } from './widgets/keyboard/Keyboard';
+import { Modal } from './widgets/modal/Modal';
 import { Quiz } from './widgets/quiz/Quiz';
 
 const main = createEl('main', 'main');
@@ -19,12 +20,12 @@ function getRandomNum() {
   return num;
 }
 
-let num = getRandomNum();
-pastQuestions.push(num);
-let answer = [...qaPairs[num].answer];
+let currentQuestionIndex = getRandomNum();
+pastQuestions.push(currentQuestionIndex);
+let answer = [...qaPairs[currentQuestionIndex].answer];
 let disabledKeys = [];
 
-const quiz = new Quiz(num);
+const quiz = new Quiz(currentQuestionIndex);
 const keyboard = new Keyboard();
 let curIncorrectGuesses = 0;
 main.append(gallow.container, quizPartWrapper);
@@ -50,11 +51,22 @@ function disableButton(key) {
   keyboard.disableButton(key);
 }
 
+let modal;
+let modalIsOpen = false;
 function showModal() {
+  let gameFinished = false;
   if (curIncorrectGuesses === 6) {
-    alert('game over')
-  } else if (answer.every((letter) => letter === null)){
-    alert('you win')
+    modal = new Modal(qaPairs[currentQuestionIndex].answer);
+    gameFinished = true;
+  } else if (answer.every((letter) => letter === null)) {
+    modal = new Modal(qaPairs[currentQuestionIndex].answer, true);
+    gameFinished = true;
+  }
+  if (gameFinished) {
+    document.body.append(modal.background, modal.container);
+    modal.open();
+    modalIsOpen = true;
+    modal.button.addEventListener('click', setNextQuestion);
   }
 }
 
@@ -68,23 +80,23 @@ export function validateKey(key) {
       gallow.addPart();
     }
     disableButton(key);
-    showModal()
+    showModal();
   }
 }
 
-
-
 window.addEventListener('keydown', (event) => {
-  let curKey = event.code.substring(3).toLowerCase();
-  validateKey(curKey)
+  if (!modalIsOpen) {
+    let curKey = event.code.substring(3).toLowerCase();
+    validateKey(curKey);
+  }
 });
 
-keyboard.keys.forEach((key)=> {
-  key.addEventListener('click', ()=>{
-    let curKey = key.textContent.toLowerCase()
-    validateKey(curKey)
-  })
-})
+keyboard.keys.forEach((key) => {
+  key.addEventListener('click', () => {
+    let curKey = key.textContent.toLowerCase();
+    validateKey(curKey);
+  });
+});
 
 function setNextQuestion() {
   if (pastQuestions.length === qaPairs.length) {
@@ -95,7 +107,15 @@ function setNextQuestion() {
     num = getRandomNum();
   } while (pastQuestions.includes(num));
   pastQuestions.push(num);
+  currentQuestionIndex = num;
   quiz.reset();
+  gallow.resetParts();
+  keyboard.resetButtons();
+  curIncorrectGuesses = 0;
+  guessesLabel.textContent = `Incorrect guesses: ${curIncorrectGuesses} / 6`;
+  disabledKeys = [];
   answer = [...qaPairs[num].answer];
   quiz.set(num);
+  modal.close();
+  modalIsOpen = false;
 }
