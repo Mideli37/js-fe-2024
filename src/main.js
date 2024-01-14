@@ -2,7 +2,7 @@ import './main.css';
 import { createEl } from './shared/create-el';
 import { qaPairs } from './shared/qa-pairs';
 import { Gallows } from './widgets/gallows/Gallows';
-import { Keyboard } from './widgets/keyboard/create-keyboard';
+import { Keyboard } from './widgets/keyboard/Keyboard';
 import { Quiz } from './widgets/quiz/Quiz';
 
 const main = createEl('main', 'main');
@@ -50,19 +50,30 @@ function disableButton(key) {
   keyboard.disableButton(key);
 }
 
-window.addEventListener('keydown', (event) => {
-  let curKey = event.code.substring(3).toLowerCase();
-  if (alphabet.includes(curKey) && !disabledKeys.includes(curKey)) {
-    if (answer.indexOf(curKey) !== -1) {
-      openAllLetters(curKey);
+export function validateKey(key) {
+  if (alphabet.includes(key) && !disabledKeys.includes(key)) {
+    if (answer.indexOf(key) !== -1) {
+      openAllLetters(key);
     } else {
       curIncorrectGuesses += 1;
       guessesLabel.textContent = `Incorrect guesses: ${curIncorrectGuesses} / 6`;
       gallow.addPart();
     }
-    disableButton(curKey);
+    disableButton(key);
   }
+}
+
+window.addEventListener('keydown', (event) => {
+  let curKey = event.code.substring(3).toLowerCase();
+  validateKey(curKey)
 });
+
+keyboard.keys.forEach((key)=> {
+  key.addEventListener('click', ()=>{
+    let curKey = key.textContent.toLowerCase()
+    validateKey(curKey)
+  })
+})
 
 function setNextQuestion() {
   if (pastQuestions.length === qaPairs.length) {
