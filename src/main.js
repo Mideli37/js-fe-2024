@@ -50,6 +50,14 @@ function disableButton(key) {
   keyboard.disableButton(key);
 }
 
+function showModal() {
+  if (curIncorrectGuesses === 6) {
+    alert('game over')
+  } else if (answer.every((letter) => letter === null)){
+    alert('you win')
+  }
+}
+
 export function validateKey(key) {
   if (alphabet.includes(key) && !disabledKeys.includes(key)) {
     if (answer.indexOf(key) !== -1) {
@@ -60,8 +68,11 @@ export function validateKey(key) {
       gallow.addPart();
     }
     disableButton(key);
+    showModal()
   }
 }
+
+
 
 window.addEventListener('keydown', (event) => {
   let curKey = event.code.substring(3).toLowerCase();
