@@ -13,7 +13,7 @@ export class Modal {
     }
 
     const word = createEl('p', style.word);
-    word.textContent = `Guessed word - ${answer.toUpperCase()}`;
+    word.textContent = `Secret word - ${answer.toUpperCase()}`;
     this.button = createEl('button', style.button, 'Play Again');
     this.container.append(heading, word, this.button);
   }
