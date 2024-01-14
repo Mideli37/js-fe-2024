@@ -1,7 +1,11 @@
 @import url('modern-normalize/modern-normalize.css');
 
 body {
-  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 100dvh;
 
   background-image: url('./assets/white-square-page.jpg');
   background-repeat: repeat;
@@ -16,6 +20,7 @@ body {
   align-items: center;
   justify-content: space-around;
 
+  min-width: 80%;
   height: 100%;
   padding: 60px;
 }
