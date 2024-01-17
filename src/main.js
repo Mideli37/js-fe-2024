@@ -64,7 +64,7 @@ function resetKeyboard() {
 
 function setNextQuestion() {
   if (pastQuestions.length === qaPairs.length) {
-    pastQuestions = [];
+    pastQuestions = [currentQuestionIndex];
   }
 
   let num;
