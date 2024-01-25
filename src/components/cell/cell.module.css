@@ -1,0 +1,23 @@
+.cell {
+  cursor: pointer;
+
+  width: 30px;
+  height: 30px;
+
+  background-color: white;
+  border: 2px solid rgb(255 255 255);
+}
+
+.white {
+  background-color: white;
+}
+
+.black {
+  background-color: black;
+}
+
+.cross {
+  background-image: url('../../assets/cross-icon.svg');
+  background-position: center;
+  background-size: contain;
+}

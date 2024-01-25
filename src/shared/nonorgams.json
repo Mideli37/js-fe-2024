@@ -1,0 +1,17 @@
+{
+  "nonograms": [
+    {
+      "id": 1,
+      "name": "Rabbit",
+      "width": 5,
+      "height": 5,
+      "scheme": [
+        [false, true, true, false, false],
+        [false, false, false, true, true],
+        [false, true, true, true, true],
+        [true, true, true, true, false],
+        [false, true, true, true, true]
+      ]
+    }
+  ]
+}
