@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/rolling-scopes-school/mideli37-JSFE2023Q4#readme",
   "devDependencies": {
+    "css-loader": "^6.9.1",
+    "esbuild-loader": "^4.0.3",
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -31,6 +33,7 @@
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.7.7",
     "prettier": "^3.2.4",
+    "style-loader": "^3.3.4",
     "stylelint": "^16.2.0",
     "stylelint-config-clean-order": "^5.4.0",
     "stylelint-config-css-modules": "^4.4.0",

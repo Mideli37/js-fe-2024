@@ -28,6 +28,13 @@ export default (env, argv) => {
     module: {
       rules: [
         {
+          test: /\.js$/i,
+          loader: 'esbuild-loader',
+          resolve: {
+            fullySpecified: false,
+          },
+        },
+        {
           test: /\.css$/i,
           use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
         },
