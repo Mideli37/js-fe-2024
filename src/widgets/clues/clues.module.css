@@ -5,6 +5,9 @@
 }
 
 .left {
+  grid-column: 1/2;
+  grid-row: 2/3;
+
   &.container {
     display: flex;
     flex-direction: column;
@@ -19,9 +22,13 @@
 }
 
 .top {
+  grid-column: 2/3;
+  grid-row: 1/2;
+
   &.container {
     display: flex;
     flex-direction: row;
+    align-items: flex-end;
   }
 
   &.cluesWrapper {
