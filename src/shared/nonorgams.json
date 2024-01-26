@@ -2,6 +2,19 @@
   "nonograms": [
     {
       "id": 1,
+      "name": "Baby carriage",
+      "width": 5,
+      "height": 5,
+      "scheme": [
+        [false, true, true, false, false],
+        [true, true, false, false, true],
+        [true, true, true, true, false],
+        [false, true, true, false, false],
+        [true, false, false, true, false]
+      ]
+    },
+    {
+      "id": 2,
       "name": "Rabbit",
       "width": 5,
       "height": 5,
