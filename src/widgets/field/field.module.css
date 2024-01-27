@@ -1,23 +1,18 @@
-.black {
-  width: 30px;
-  height: 30px;
-  background-color: black;
-  border: 2px solid rgb(255 255 255);
-}
-
-.white {
-  width: 30px;
-  height: 30px;
-  background-color: white;
-  border: 2px solid rgb(255 255 255);
-}
-
 .container {
   grid-column: 2/3;
   grid-row: 2/3;
+  border: 1px solid black;
 }
 
 .row {
   display: flex;
-  gap: 1px;
 }
+
+.row:nth-child(5n) {
+  border-bottom: 1.5px solid gray
+}
+
+.row:nth-child(5n - 4) {
+  border-top: 1.5px solid gray
+}
+

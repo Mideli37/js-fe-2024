@@ -5,8 +5,18 @@
   height: 30px;
 
   background-color: white;
-  border: 2px solid rgb(255 255 255);
+  border: 1px solid gray;
 }
+
+.cell:nth-child(5n) {
+  border-right: 2px solid gray
+}
+
+.cell:nth-child(5n-4) {
+  border-left: 2px solid gray
+}
+
+
 
 .white {
   background-color: white;

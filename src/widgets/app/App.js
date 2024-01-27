@@ -4,7 +4,7 @@ import { Nonogram } from '../nonogram/Nonogram';
 
 export class App {
   constructor() {
-    const currentScheme = schemes.nonograms[0];
+    const currentScheme = schemes.nonograms[2];
     const totalCell = currentScheme.width * currentScheme.height;
     const checkWinCondition = (correctCellCounter) => {
       if (correctCellCounter >= totalCell) {
