@@ -7,11 +7,11 @@ import style from './nonogram.module.css';
 export class Nonogram {
   container = createEl('div', style.container);
 
-  constructor(scheme) {
+  constructor(scheme, checkWinCondition) {
     const clues = getClues(scheme);
     const topClue = new Clue(clues.top, 'top');
     const leftClue = new Clue(clues.left, 'left');
-    const field = new Field(scheme);
+    const field = new Field(scheme, checkWinCondition);
     this.container.append(topClue.container, leftClue.container, field.container);
   }
 }

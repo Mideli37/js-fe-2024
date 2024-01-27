@@ -6,11 +6,14 @@ export class Cell {
 
   #state;
 
-  constructor(state = 'white') {
+  constructor(callback, state = 'white') {
     console.log('new cell');
     this.#state = state;
     this.changeStyle();
-    this.cellEl.addEventListener('click', () => this.toggleState());
+    this.cellEl.addEventListener('click', () => {
+      this.toggleState();
+      callback(this.#state);
+    });
   }
 
   changeStyle() {

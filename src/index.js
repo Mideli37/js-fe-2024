@@ -1,8 +1,4 @@
-import schemes from './shared/nonorgams.json';
-import { Nonogram } from './widgets/nonogram/nonogram';
+import { App } from './widgets/app/app';
 
-console.log(schemes.nonograms[0]);
-const currentScheme = schemes.nonograms[0];
-const nonogram = new Nonogram(currentScheme.scheme);
-
-document.body.append(nonogram.container);
+const app = new App();
+app.init();
