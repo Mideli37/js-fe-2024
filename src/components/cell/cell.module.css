@@ -9,14 +9,12 @@
 }
 
 .cell:nth-child(5n) {
-  border-right: 2px solid gray
+  border-right: 2px solid gray;
 }
 
 .cell:nth-child(5n-4) {
-  border-left: 2px solid gray
+  border-left: 2px solid gray;
 }
-
-
 
 .white {
   background-color: white;

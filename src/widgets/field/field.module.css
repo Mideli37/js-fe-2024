@@ -9,10 +9,9 @@
 }
 
 .row:nth-child(5n) {
-  border-bottom: 1.5px solid gray
+  border-bottom: 1.5px solid gray;
 }
 
 .row:nth-child(5n - 4) {
-  border-top: 1.5px solid gray
+  border-top: 1.5px solid gray;
 }
-
