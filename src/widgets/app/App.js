@@ -1,6 +1,6 @@
 import schemes from '../../shared/nonorgams.json';
 import { Dialog } from '../dialog/Dialog';
-import { Nonogram } from '../nonogram/nonogram';
+import { Nonogram } from '../nonogram/Nonogram';
 
 export class App {
   constructor() {
