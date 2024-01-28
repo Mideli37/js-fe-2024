@@ -14,6 +14,15 @@ export class Cell {
       this.toggleState();
       callback(this.#state);
     });
+    this.cellEl.addEventListener('contextmenu', (event)=>{
+      event.preventDefault()
+      if (this.#state === 'black') {
+        this.setCross()
+        callback(this.#state)
+      } else {
+        this.setCross()
+      }
+    })
   }
 
   changeStyle() {
@@ -27,5 +36,10 @@ export class Cell {
       this.#state = 'white';
     }
     this.changeStyle();
+  }
+
+  setCross() {
+    this.#state = 'cross'
+    this.changeStyle()
   }
 }
