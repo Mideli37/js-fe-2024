@@ -6,7 +6,6 @@ export class Dialog {
     this.dialogContainer = createEl('dialog', style.container);
     const heading = createEl('h2', style.heading, 'Great! You have solved the nonogram!');
     this.dialogContainer.append(heading);
-    document.body.append(this.dialogContainer);
   }
 
   init() {

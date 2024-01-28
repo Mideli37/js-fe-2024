@@ -4,17 +4,18 @@ import { Nonogram } from '../nonogram/Nonogram';
 
 export class App {
   constructor() {
-    const currentScheme = schemes.nonograms[2];
+    const currentScheme = schemes.nonograms[0];
     const totalCell = currentScheme.width * currentScheme.height;
-    const checkWinCondition = (correctCellCounter) => {
-      if (correctCellCounter >= totalCell) {
-        console.log('ura');
-      }
-    };
-    this.nonogram = new Nonogram(currentScheme.scheme, checkWinCondition);
 
     const dialog = new Dialog();
     dialog.init();
+    const checkWinCondition = (correctCellCounter) => {
+      if (correctCellCounter >= totalCell) {
+        console.log('ura');
+        dialog.dialogContainer.showModal();
+      }
+    };
+    this.nonogram = new Nonogram(currentScheme.scheme, checkWinCondition);
   }
 
   init() {

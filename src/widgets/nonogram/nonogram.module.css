@@ -1,3 +1,5 @@
 .container {
-  display: inline-grid;
+  display: grid;
+  width: fit-content;
+  margin: auto;
 }
