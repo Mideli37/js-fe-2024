@@ -4,7 +4,8 @@ import style from './dialog.module.css';
 export class Dialog {
   constructor(children) {
     this.container = createEl('dialog', style.container);
-    this.appendElements(children);
+    if (children) {
+    this.appendElements(children)};
   }
 
   init() {

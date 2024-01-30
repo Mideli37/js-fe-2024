@@ -7,9 +7,7 @@ import style from './app.module.css';
 export class App {
   constructor() {
     this.nonogramWrapper = createEl('div', style.nonogramWrapper);
-    const currentNonogram = nonograms[0];
     console.log(nonograms);
-    const totalCell = currentNonogram.width * currentNonogram.height;
 
     const winDialogHeading = createEl(
       'h2',
@@ -20,6 +18,8 @@ export class App {
     this.winDialog.init();
 
     // level list
+    const levelListDialog = new Dialog();
+
     const levelsHeading = createEl('h2', style.levelHeading, 'Choose a level');
     const levelList = createEl('ul', style.levelList);
     nonograms.forEach((nonogram) => {
@@ -28,17 +28,14 @@ export class App {
       const button = createEl('button', style.button, buttonLabel);
       levelList.append(listItem);
       listItem.append(button);
+      button.addEventListener('click', () => {
+        this.startNewGame(nonogram.id);
+        levelListDialog.container.close();
+      });
     });
-    const levelListDialog = new Dialog([levelsHeading, levelList]);
+    levelListDialog.appendElements([levelsHeading, levelList]);
     levelListDialog.init();
     levelListDialog.container.showModal();
-
-    const checkWinCondition = (correctCellCounter) => {
-      if (correctCellCounter >= totalCell) {
-        this.win();
-      }
-    };
-    this.nonogram = new Nonogram(currentNonogram.scheme, checkWinCondition);
   }
 
   init() {
@@ -47,5 +44,20 @@ export class App {
 
   win() {
     this.winDialog.container.showModal();
+  }
+
+  startNewGame(nonogramId) {
+    this.currentNonogram = nonograms[nonogramId - 1];
+    this.nonogramWrapper.replaceChildren();
+    const totalCell = this.currentNonogram.width * this.currentNonogram.height;
+
+    const checkWinCondition = (correctCellCounter) => {
+      if (correctCellCounter >= totalCell) {
+        this.win();
+      }
+    };
+
+    this.nonogram = new Nonogram(this.currentNonogram.scheme, checkWinCondition);
+    this.nonogramWrapper.append(this.nonogram.container);
   }
 }
