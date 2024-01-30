@@ -11,7 +11,12 @@ export class Nonogram {
     const clues = getClues(scheme);
     const topClue = new Clue(clues.top, 'top');
     const leftClue = new Clue(clues.left, 'left');
-    const field = new Field(scheme, checkWinCondition);
-    this.container.append(topClue.container, leftClue.container, field.container);
+    this.field = new Field(scheme, checkWinCondition);
+    console.log(this.field);
+    this.container.append(topClue.container, leftClue.container, this.field.container);
+  }
+
+  resetField() {
+    this.field.reset();
   }
 }

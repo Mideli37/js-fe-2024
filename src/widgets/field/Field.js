@@ -8,6 +8,12 @@ export class Field {
   correctCellsCounter = 0;
 
   constructor(scheme, checkWinCondition) {
+    this.scheme = scheme;
+    this.checkWinCondition = checkWinCondition;
+    this.generateCleanField(this.scheme, this.checkWinCondition);
+  }
+
+  generateCleanField(scheme, checkWinCondition) {
     scheme.forEach((row) => {
       const rowEl = createEl('div', style.row);
       this.container.append(rowEl);
@@ -27,5 +33,11 @@ export class Field {
         rowEl.append(gridCell.cellEl);
       });
     });
+  }
+
+  reset() {
+    this.container.replaceChildren();
+    this.correctCellsCounter = 0;
+    this.generateCleanField(this.scheme, this.checkWinCondition);
   }
 }

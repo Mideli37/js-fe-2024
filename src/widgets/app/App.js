@@ -1,3 +1,4 @@
+import { createControlButton } from '../../shared/create-control-button';
 import { createEl } from '../../shared/create-el';
 import { nonograms } from '../../shared/nonorgams';
 import { Dialog } from '../dialog/Dialog';
@@ -7,7 +8,9 @@ import style from './app.module.css';
 export class App {
   constructor() {
     this.nonogramWrapper = createEl('div', style.nonogramWrapper);
-    console.log(nonograms);
+    this.controlButtonsContainer = createEl('div', style.controlsContainer);
+
+    // win dialog
 
     const winDialogHeading = createEl(
       'h2',
@@ -18,6 +21,7 @@ export class App {
     this.winDialog.init();
 
     // level list
+
     const levelListDialog = new Dialog();
 
     const levelsHeading = createEl('h2', style.levelHeading, 'Choose a level');
@@ -39,7 +43,7 @@ export class App {
   }
 
   init() {
-    document.body.append(this.nonogramWrapper);
+    document.body.append(this.nonogramWrapper, this.controlButtonsContainer);
   }
 
   win() {
@@ -59,5 +63,10 @@ export class App {
 
     this.nonogram = new Nonogram(this.currentNonogram.scheme, checkWinCondition);
     this.nonogramWrapper.append(this.nonogram.container);
+
+    this.controlButtonsContainer.replaceChildren();
+
+    const resetButton = createControlButton('Reset game', () => this.nonogram.resetField());
+    this.controlButtonsContainer.append(resetButton);
   }
 }
