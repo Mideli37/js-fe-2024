@@ -7,16 +7,18 @@ import style from './nonogram.module.css';
 export class Nonogram {
   container = createEl('div', style.container);
 
+  #field;
+
   constructor(scheme, checkWinCondition, startTimer) {
     const clues = getClues(scheme);
     const topClue = new Clue(clues.top, 'top');
     const leftClue = new Clue(clues.left, 'left');
-    this.field = new Field(scheme, checkWinCondition, startTimer);
-    console.log(this.field);
-    this.container.append(topClue.container, leftClue.container, this.field.container);
+    this.#field = new Field(scheme, checkWinCondition, startTimer);
+    console.log(this.#field);
+    this.container.append(topClue.container, leftClue.container, this.#field.container);
   }
 
   resetField() {
-    this.field.clean();
+    this.#field.clean();
   }
 }

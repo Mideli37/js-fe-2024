@@ -5,12 +5,16 @@ import style from './field.module.css';
 export class Field {
   container = createEl('div', style.container);
 
-  correctCellsCounter = 0;
+  #correctCellsCounter = 0;
+
+  #scheme;
+
+  #checkWinCondition;
 
   constructor(scheme, checkWinCondition, startTimer) {
-    this.scheme = scheme;
-    this.checkWinCondition = checkWinCondition;
-    this.generateCleanField(this.scheme, this.checkWinCondition);
+    this.#scheme = scheme;
+    this.#checkWinCondition = checkWinCondition;
+    this.#generateCleanField(this.#scheme, this.#checkWinCondition);
     let isGameStarted = false;
 
     this.container.addEventListener('click', () => {
@@ -21,22 +25,22 @@ export class Field {
     });
   }
 
-  generateCleanField(scheme, checkWinCondition) {
+  #generateCleanField(scheme, checkWinCondition) {
     scheme.forEach((row) => {
       const rowEl = createEl('div', style.row);
       this.container.append(rowEl);
       row.forEach((isBlack) => {
         if (!isBlack) {
-          this.correctCellsCounter += 1;
+          this.#correctCellsCounter += 1;
         }
         const gridCell = new Cell((cellState) => {
           if ((isBlack && cellState === 'black') || (!isBlack && cellState !== 'black')) {
-            this.correctCellsCounter += 1;
+            this.#correctCellsCounter += 1;
           } else {
-            this.correctCellsCounter -= 1;
+            this.#correctCellsCounter -= 1;
           }
-          console.log(this.correctCellsCounter);
-          checkWinCondition(this.correctCellsCounter);
+          console.log(this.#correctCellsCounter);
+          checkWinCondition(this.#correctCellsCounter);
         });
         rowEl.append(gridCell.cellEl);
       });
@@ -45,7 +49,7 @@ export class Field {
 
   clean() {
     this.container.replaceChildren();
-    this.correctCellsCounter = 0;
-    this.generateCleanField(this.scheme, this.checkWinCondition);
+    this.#correctCellsCounter = 0;
+    this.#generateCleanField(this.#scheme, this.#checkWinCondition);
   }
 }

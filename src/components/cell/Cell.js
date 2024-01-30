@@ -7,39 +7,38 @@ export class Cell {
   #state;
 
   constructor(callback, state = 'white') {
-    console.log('new cell');
     this.#state = state;
-    this.changeStyle();
+    this.#changeStyle();
     this.cellEl.addEventListener('click', () => {
-      this.toggleState();
+      this.#toggleState();
       callback(this.#state);
     });
     this.cellEl.addEventListener('contextmenu', (event)=>{
       event.preventDefault()
       if (this.#state === 'black') {
-        this.setCross()
+        this.#setCross()
         callback(this.#state)
       } else {
-        this.setCross()
+        this.#setCross()
       }
     })
   }
 
-  changeStyle() {
+  #changeStyle() {
     this.cellEl.className = `${style[this.#state]} ${style.cell}`;
   }
 
-  toggleState() {
+  #toggleState() {
     if (this.#state !== 'black') {
       this.#state = 'black';
     } else {
       this.#state = 'white';
     }
-    this.changeStyle();
+    this.#changeStyle();
   }
 
-  setCross() {
+  #setCross() {
     this.#state = 'cross'
-    this.changeStyle()
+    this.#changeStyle()
   }
 }

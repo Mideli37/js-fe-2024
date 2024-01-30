@@ -5,7 +5,8 @@ export class Dialog {
   constructor(children) {
     this.container = createEl('dialog', style.container);
     if (children) {
-    this.appendElements(children)};
+      this.appendElements(children);
+    }
   }
 
   init() {
