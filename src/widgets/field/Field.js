@@ -7,10 +7,18 @@ export class Field {
 
   correctCellsCounter = 0;
 
-  constructor(scheme, checkWinCondition) {
+  constructor(scheme, checkWinCondition, startTimer) {
     this.scheme = scheme;
     this.checkWinCondition = checkWinCondition;
     this.generateCleanField(this.scheme, this.checkWinCondition);
+    let isGameStarted = false;
+
+    this.container.addEventListener('click', () => {
+      if (!isGameStarted) {
+        startTimer();
+        isGameStarted = true;
+      }
+    });
   }
 
   generateCleanField(scheme, checkWinCondition) {
@@ -35,7 +43,7 @@ export class Field {
     });
   }
 
-  reset() {
+  clean() {
     this.container.replaceChildren();
     this.correctCellsCounter = 0;
     this.generateCleanField(this.scheme, this.checkWinCondition);

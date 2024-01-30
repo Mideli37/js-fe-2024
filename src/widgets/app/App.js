@@ -1,3 +1,4 @@
+import { Timer } from '../../components/timer/Timer';
 import { createControlButton } from '../../shared/create-control-button';
 import { createEl } from '../../shared/create-el';
 import { nonograms } from '../../shared/nonorgams';
@@ -7,17 +8,14 @@ import style from './app.module.css';
 
 export class App {
   constructor() {
+    this.menuPanelContainer = createEl('div', style.menuPanelContainer);
     this.nonogramWrapper = createEl('div', style.nonogramWrapper);
     this.controlButtonsContainer = createEl('div', style.controlsContainer);
 
     // win dialog
 
-    const winDialogHeading = createEl(
-      'h2',
-      style.dialogHeading,
-      'Great! You have solved the nonogram!'
-    );
-    this.winDialog = new Dialog([winDialogHeading]);
+    this.winDialogHeading = createEl('h2', style.dialogHeading);
+    this.winDialog = new Dialog([this.winDialogHeading]);
     this.winDialog.init();
 
     // level list
@@ -40,14 +38,27 @@ export class App {
     levelListDialog.appendElements([levelsHeading, levelList]);
     levelListDialog.init();
     levelListDialog.container.showModal();
+
+    // timer
+
+    this.timer = new Timer();
+    this.menuPanelContainer.append(this.timer.timerElement);
   }
 
   init() {
-    document.body.append(this.nonogramWrapper, this.controlButtonsContainer);
+    document.body.append(
+      this.menuPanelContainer,
+      this.nonogramWrapper,
+      this.controlButtonsContainer
+    );
   }
 
   win() {
     this.winDialog.container.showModal();
+    this.timer.stop();
+    this.winDialogHeading.replaceChildren(
+      `Great! You have solved the nonogram in ${this.timer.getTime()} seconds!`
+    );
   }
 
   startNewGame(nonogramId) {
@@ -61,7 +72,9 @@ export class App {
       }
     };
 
-    this.nonogram = new Nonogram(this.currentNonogram.scheme, checkWinCondition);
+    this.nonogram = new Nonogram(this.currentNonogram.scheme, checkWinCondition, () =>
+      this.timer.start()
+    );
     this.nonogramWrapper.append(this.nonogram.container);
 
     this.controlButtonsContainer.replaceChildren();
