@@ -1,0 +1,24 @@
+.dialogHeading {
+  user-select: none;
+  text-align: center;
+}
+
+.levelList {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+
+  margin: 0;
+  padding: 10px;
+}
+
+.levelItem {
+  display: inline-block;
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+}

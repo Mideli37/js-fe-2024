@@ -10,9 +10,5 @@
 
 .container[open] {
   display: flex;
-}
-
-.heading {
-  user-select: none;
-  text-align: center;
+  flex-direction: column;
 }

@@ -2,13 +2,16 @@ import { createEl } from '../../shared/create-el';
 import style from './dialog.module.css';
 
 export class Dialog {
-  constructor() {
-    this.dialogContainer = createEl('dialog', style.container);
-    const heading = createEl('h2', style.heading, 'Great! You have solved the nonogram!');
-    this.dialogContainer.append(heading);
+  constructor(children) {
+    this.container = createEl('dialog', style.container);
+    this.appendElements(children);
   }
 
   init() {
-    document.body.append(this.dialogContainer);
+    document.body.append(this.container);
+  }
+
+  appendElements(elements) {
+    this.container.append(...elements);
   }
 }
