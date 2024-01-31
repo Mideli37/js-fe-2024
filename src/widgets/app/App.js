@@ -1,6 +1,7 @@
 import { Timer } from '../../components/timer/Timer';
 import { createControlButton } from '../../shared/create-control-button';
 import { createEl } from '../../shared/create-el';
+import { getRandomNumber } from '../../shared/get-random-number';
 import { nonograms } from '../../shared/nonorgams';
 import { Dialog } from '../dialog/Dialog';
 import { Nonogram } from '../nonogram/Nonogram';
@@ -28,9 +29,20 @@ export class App {
 
     this.#winDialog.init();
 
-    // level list
-
+    // menu and levelList
+    const menuDialog = new Dialog();
     const levelListDialog = new Dialog();
+
+    menuDialog.init();
+    const menuButton = createControlButton('MENU', () => menuDialog.container.showModal());
+    this.#menuPanelContainer.append(menuButton);
+
+    const newGameButton = createControlButton('New Game', () => {
+      levelListDialog.container.showModal();
+    });
+    menuDialog.appendElements([newGameButton]);
+
+    // level list
 
     const levelsHeading = createEl('h2', style.levelHeading, 'Choose a level');
     const levelList = createEl('ul', style.levelList);
@@ -43,9 +55,17 @@ export class App {
       button.addEventListener('click', () => {
         this.#startNewGame(nonogram.id);
         levelListDialog.container.close();
+        menuDialog.container.close();
       });
     });
-    levelListDialog.appendElements([levelsHeading, levelList]);
+    const randomGameButton = createControlButton('Random Game', () => {
+      const id = getRandomNumber(nonograms.length);
+      console.log(id);
+      this.#startNewGame(id);
+      levelListDialog.container.close();
+      menuDialog.container.close();
+    });
+    levelListDialog.appendElements([levelsHeading, randomGameButton, levelList]);
     levelListDialog.init();
     levelListDialog.container.showModal();
 
@@ -73,6 +93,8 @@ export class App {
   #startNewGame(nonogramId) {
     this.#currentNonogram = nonograms[nonogramId - 1];
     this.#nonogramWrapper.replaceChildren();
+    this.#timer.reset();
+    this.#timer.update();
     const totalCell = this.#currentNonogram.width * this.#currentNonogram.height;
 
     const checkWinCondition = (correctCellCounter) => {
