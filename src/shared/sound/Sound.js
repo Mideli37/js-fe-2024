@@ -10,6 +10,10 @@ export class Sound {
     this.#isMuted = !this.#isMuted;
   }
 
+  static getIsMuted() {
+    return this.#isMuted
+  }
+
   static playSound(name) {
     if (!this.#isMuted) {
       const soundSrc = this.#getAudioSrc(name);

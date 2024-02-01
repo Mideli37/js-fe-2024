@@ -73,6 +73,19 @@ export class App {
     // timer
 
     this.#menuPanelContainer.append(this.#timer.timerElement);
+
+    // sound
+
+    const soundButton = createEl('button', style.soundButton) 
+    if (Sound.getIsMuted()) {
+      soundButton.classList.add(style.soundOff)
+    }
+
+    soundButton.addEventListener('click', ()=>{
+      Sound.toggleMuted()
+      soundButton.classList.toggle(style.soundOff)
+    })
+    this.#menuPanelContainer.append(soundButton);
   }
 
   init() {

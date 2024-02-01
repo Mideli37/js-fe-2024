@@ -22,3 +22,17 @@
 .button {
   width: 100%;
 }
+
+.soundButton {
+  width: 30px;
+  height: 30px;
+  background-image: url('../../assets/volume-on.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: cadetblue;
+}
+
+.soundOff {
+  background-image: url('../../assets/volume-off.svg');
+}
