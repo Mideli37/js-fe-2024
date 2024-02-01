@@ -3,6 +3,7 @@ import { createControlButton } from '../../shared/create-control-button';
 import { createEl } from '../../shared/create-el';
 import { getRandomNumber } from '../../shared/get-random-number';
 import { nonograms } from '../../shared/nonorgams';
+import { Sound } from '../../shared/sound/Sound';
 import { Dialog } from '../dialog/Dialog';
 import { Nonogram } from '../nonogram/Nonogram';
 import style from './app.module.css';
@@ -84,6 +85,7 @@ export class App {
 
   #win() {
     this.#winDialog.container.showModal();
+    Sound.playSound('win');
     this.#timer.stop();
     this.#winDialogHeading.replaceChildren(
       `Great! You have solved the nonogram in ${this.#timer.getTime()} seconds!`

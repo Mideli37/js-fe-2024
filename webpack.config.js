@@ -39,7 +39,7 @@ export default (env, argv) => {
           use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
-          test: /\.(jpg|png|svg|avif)$/i,
+          test: /\.(jpg|png|svg|avif|mp3)$/i,
           type: 'asset',
         },
       ],

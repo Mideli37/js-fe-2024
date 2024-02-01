@@ -1,4 +1,5 @@
 import { createEl } from '../../shared/create-el';
+import { Sound } from '../../shared/sound/Sound';
 import style from './cell.module.css';
 
 export class Cell {
@@ -13,15 +14,15 @@ export class Cell {
       this.#toggleState();
       callback(this.#state);
     });
-    this.cellEl.addEventListener('contextmenu', (event)=>{
-      event.preventDefault()
+    this.cellEl.addEventListener('contextmenu', (event) => {
+      event.preventDefault();
       if (this.#state === 'black') {
-        this.#setCross()
-        callback(this.#state)
+        this.#setCross();
+        callback(this.#state);
       } else {
-        this.#setCross()
+        this.#setCross();
       }
-    })
+    });
   }
 
   #changeStyle() {
@@ -31,14 +32,17 @@ export class Cell {
   #toggleState() {
     if (this.#state !== 'black') {
       this.#state = 'black';
+      Sound.playSound('blackClick');
     } else {
       this.#state = 'white';
+      Sound.playSound('whiteClick');
     }
     this.#changeStyle();
   }
 
   #setCross() {
-    this.#state = 'cross'
-    this.#changeStyle()
+    this.#state = 'cross';
+    this.#changeStyle();
+    Sound.playSound('crossClick');
   }
 }
