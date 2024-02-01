@@ -15,3 +15,7 @@
 .row:nth-child(5n - 4) {
   border-top: 1.5px solid gray;
 }
+
+.disabled {
+  pointer-events: none;
+}

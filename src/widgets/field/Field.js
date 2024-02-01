@@ -52,4 +52,8 @@ export class Field {
     this.#correctCellsCounter = 0;
     this.#generateCleanField(this.#scheme, this.#checkWinCondition);
   }
+
+  blockClick() {
+    this.container.classList.add(style.disabled)
+  }
 }

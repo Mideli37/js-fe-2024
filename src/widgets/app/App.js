@@ -87,6 +87,7 @@ export class App {
     this.#winDialog.container.showModal();
     Sound.playSound('win');
     this.#timer.stop();
+    this.#nonogram.blockField()
     this.#winDialogHeading.replaceChildren(
       `Great! You have solved the nonogram in ${this.#timer.getTime()} seconds!`
     );

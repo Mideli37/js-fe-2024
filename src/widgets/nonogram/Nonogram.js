@@ -21,4 +21,8 @@ export class Nonogram {
   resetField() {
     this.#field.clean();
   }
+
+  blockField() {
+    this.#field.blockClick()
+  }
 }
