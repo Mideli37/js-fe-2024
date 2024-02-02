@@ -38,6 +38,8 @@ body {
 }
 
 .control-button {
+  cursor: pointer;
+
   align-items: center;
 
   padding: 5px;
@@ -49,4 +51,10 @@ body {
   background-color: var(--button-bg);
   border: 2px solid var(--button-border);
   border-radius: 10px;
+
+  transition: 300ms;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 }

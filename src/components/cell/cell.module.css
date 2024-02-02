@@ -6,6 +6,10 @@
 
   background-color: white;
   border: 1px solid var(--divider-color);
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 }
 
 .cell:nth-child(5n) {
