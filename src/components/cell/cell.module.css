@@ -7,6 +7,8 @@
   background-color: var(--cell-init-color);
   border: 1px solid var(--divider-color);
 
+  transition: 200ms;
+
   &:hover {
     filter: brightness(1.1);
   }
@@ -21,7 +23,7 @@
 }
 
 .white {
-  background-color:var(--cell-init-color)
+  background-color: var(--cell-init-color);
 }
 
 .black {

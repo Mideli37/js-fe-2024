@@ -59,7 +59,7 @@ body {
   background-position: center;
   background-size: cover;
 
-  transition: 300ms;
+  transition: background-image 300ms, color 300ms;
 
   &.dark-theme {
     backdrop-filter: blur(5px) brightness(0.7);

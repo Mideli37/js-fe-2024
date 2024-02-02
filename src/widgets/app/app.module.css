@@ -63,11 +63,10 @@
 
 .soundButton {
   background-image: url('../../assets/volume-on.svg');
-} 
+}
 
 .themeButton {
   background-image: url('../../assets/palette.svg');
-
 }
 
 .soundButton,
@@ -104,4 +103,6 @@
   padding: 10px;
 
   background-color: var(--bg-color);
+
+  transition: 300ms;
 }
