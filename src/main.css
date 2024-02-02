@@ -13,7 +13,7 @@
   --cell-color: #c15678;
   --button-bg: #fbeaee;
   --button-bg-dark: #ba546a;
-  --button-border: #c08996;
+  --button-border: #f47a96;
   --font-color: #5f0f24;
   --scroll-bar-color: #1e030a;
   --scroll-bar-thumb: #bc3a5d;
@@ -58,6 +58,8 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  transition: 300ms;
 
   &.dark-theme {
     backdrop-filter: blur(5px) brightness(0.7);

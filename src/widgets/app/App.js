@@ -51,21 +51,7 @@ export class App {
 
     // level list
 
-    const levelsHeading = createEl('h2', style.levelHeading, 'Choose a level');
-    const levelList = createEl('ul', style.levelList);
-    nonograms.forEach((nonogram) => {
-      const listItem = createEl('li', style.levelItem);
-      const buttonLabel = `${nonogram.width} x ${nonogram.height} ${nonogram.name} (${nonogram.difficulty})`;
-      const button = createEl('button', style.button, buttonLabel);
-      levelList.append(listItem);
-      listItem.append(button);
-      button.addEventListener('click', () => {
-        this.#startNewGame(nonogram.id);
-        levelListDialog.container.close();
-        menuDialog.container.close();
-      });
-    });
-    levelListDialog.appendElements([levelsHeading, levelList]);
+    this.#createLevelList(levelListDialog, menuDialog)
     levelListDialog.init();
 
     // timer
@@ -74,20 +60,36 @@ export class App {
 
     // sound
 
-    const soundButton = createEl('button', style.soundButton) 
+    const soundButton = createEl('button', style.soundButton);
+    soundButton.ariaLabel = 'sound switcher';
     if (Sound.getIsMuted()) {
-      soundButton.classList.add(style.soundOff)
+      soundButton.classList.add(style.soundOff);
     }
 
-    soundButton.addEventListener('click', ()=>{
-      Sound.toggleMuted()
-      soundButton.classList.toggle(style.soundOff)
-    })
-    this.#menuPanelContainer.append(soundButton);
+    soundButton.addEventListener('click', () => {
+      Sound.toggleMuted();
+      soundButton.classList.toggle(style.soundOff);
+    });
+
+    // theme
+    const isDarkTheme = false;
+    const themeButton = createEl('button', style.themeButton);
+    themeButton.ariaLabel = 'theme button';
+    if (isDarkTheme) {
+      themeButton.classList.add(style.darkTheme);
+    }
+
+    themeButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      soundButton.classList.toggle(style.darkTheme);
+    });
+    const buttonContainer = createEl('div', style.buttonContainer);
+    buttonContainer.append(soundButton, themeButton);
+    this.#menuPanelContainer.append(buttonContainer);
 
     // first game
 
-    this.#startNewGame(1)
+    this.#startNewGame(1);
   }
 
   init() {
@@ -102,7 +104,7 @@ export class App {
     this.#winDialog.container.showModal();
     Sound.playSound('win');
     this.#timer.stop();
-    this.#nonogram.blockField()
+    this.#nonogram.blockField();
     this.#winDialogHeading.replaceChildren(
       `Great! You have solved the nonogram in ${this.#timer.getTime()} seconds!`
     );
@@ -111,7 +113,7 @@ export class App {
   #startNewGame(nonogramId) {
     this.#currentNonogram = nonograms[nonogramId - 1];
     this.#nonogramWrapper.replaceChildren();
-    this.#timer.stop()
+    this.#timer.stop();
     this.#timer.reset();
     this.#timer.update();
     const totalCell = this.#currentNonogram.width * this.#currentNonogram.height;
@@ -131,5 +133,23 @@ export class App {
 
     const resetButton = createControlButton('Reset game', () => this.#nonogram.resetField());
     this.#controlButtonsContainer.append(resetButton);
+  }
+
+  #createLevelList(levelListDialog, menuDialog) {
+    const levelsHeading = createEl('h2', style.levelHeading, 'Choose a level');
+    const levelList = createEl('ul', style.levelList);
+    nonograms.forEach((nonogram) => {
+      const listItem = createEl('li', style.levelItem);
+      const buttonLabel = `${nonogram.width} x ${nonogram.height} ${nonogram.name} (${nonogram.difficulty})`;
+      const button = createEl('button', style.button, buttonLabel);
+      levelList.append(listItem);
+      listItem.append(button);
+      button.addEventListener('click', () => {
+        this.#startNewGame(nonogram.id);
+        levelListDialog.container.close();
+        menuDialog.container.close();
+      });
+    });
+    levelListDialog.appendElements([levelsHeading, levelList]);
   }
 }

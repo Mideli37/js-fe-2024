@@ -62,19 +62,29 @@
 }
 
 .soundButton {
+  background-image: url('../../assets/volume-on.svg');
+} 
+
+.themeButton {
+  background-image: url('../../assets/palette.svg');
+
+}
+
+.soundButton,
+.themeButton {
+  cursor: pointer;
+
   width: 30px;
   height: 30px;
 
   background-color: var(--button-bg-dark);
-  background-image: url('../../assets/volume-on.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: 80%;
   border: 2px solid var(--button-border);
   border-radius: 10px;
 
   transition: 500ms;
-cursor: pointer;
 
   &:hover {
     filter: brightness(1.1);
