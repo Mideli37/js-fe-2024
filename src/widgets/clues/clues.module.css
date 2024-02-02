@@ -6,9 +6,10 @@
   width: 30px;
   height: 30px;
 
-  color: black;
+  color: var(--font-color);
 
-  border: 1px solid gray;
+  background-color: var(--clue-color);
+  border: 1px solid var(--clue-border);
 }
 
 .left {
@@ -19,17 +20,17 @@
     display: flex;
     flex-direction: column;
     width: fit-content;
-    border: 1px solid black;
+    border: 1px solid var(--game-border);
   }
 
   &.cluesWrapper {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    border-left: 1px solid gray;
+    border-left: 1px solid var(--divider-color);
 
     &:nth-child(5n) {
-      border-bottom: 2px solid gray;
+      border-bottom: 2px solid var(--divider-color);
 
       & .clue {
         border-bottom: 0;
@@ -37,7 +38,7 @@
     }
 
     &:nth-child(5n - 4) {
-      border-top: 2px solid gray;
+      border-top: 2px solid var(--divider-color);
 
       & .clue {
         border-top: 0;
@@ -53,8 +54,8 @@
   &.container {
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
-    border-bottom: 1px solid gray;
+    border: 1px solid var(--game-border);
+    border-bottom: 1px solid var(--divider-color);
   }
 
   &.cluesWrapper {
@@ -64,7 +65,7 @@
     width: fit-content;
 
     &:nth-child(5n) {
-      border-right: 2px solid gray;
+      border-right: 2px solid var(--divider-color);
 
       & .clue {
         border-right: 0;
@@ -72,11 +73,23 @@
     }
 
     &:nth-child(5n - 4) {
-      border-left: 2px solid gray;
+      border-left: 2px solid var(--divider-color);
 
       & .clue {
         border-left: 0;
       }
     }
+  }
+}
+
+.container {
+  background-color: var(--game-bg);
+}
+
+@media (width <= 800px) {
+  .clue {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
   }
 }

@@ -33,6 +33,12 @@ export class App {
     // menu and levelList
     const menuDialog = new Dialog();
     const levelListDialog = new Dialog();
+    const randomGameButton = createControlButton('Random Game', () => {
+      const id = getRandomNumber(nonograms.length);
+      this.#startNewGame(id);
+      levelListDialog.container.close();
+      menuDialog.container.close();
+    });
 
     menuDialog.init();
     const menuButton = createControlButton('MENU', () => menuDialog.container.showModal());
@@ -41,7 +47,7 @@ export class App {
     const newGameButton = createControlButton('New Game', () => {
       levelListDialog.container.showModal();
     });
-    menuDialog.appendElements([newGameButton]);
+    menuDialog.appendElements([newGameButton, randomGameButton]);
 
     // level list
 
@@ -59,16 +65,8 @@ export class App {
         menuDialog.container.close();
       });
     });
-    const randomGameButton = createControlButton('Random Game', () => {
-      const id = getRandomNumber(nonograms.length);
-      console.log(id);
-      this.#startNewGame(id);
-      levelListDialog.container.close();
-      menuDialog.container.close();
-    });
-    levelListDialog.appendElements([levelsHeading, randomGameButton, levelList]);
+    levelListDialog.appendElements([levelsHeading, levelList]);
     levelListDialog.init();
-    levelListDialog.container.showModal();
 
     // timer
 
@@ -86,6 +84,10 @@ export class App {
       soundButton.classList.toggle(style.soundOff)
     })
     this.#menuPanelContainer.append(soundButton);
+
+    // first game
+
+    this.#startNewGame(1)
   }
 
   init() {

@@ -1,17 +1,40 @@
+.levelHeading,
 .dialogHeading {
   user-select: none;
+
+  margin: 0;
+  margin-top: 15px;
+
+  color: var(--font-color);
   text-align: center;
 }
 
 .levelList {
-  overflow-y: scroll;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 5px;
   align-items: center;
 
   margin: 0;
+  margin-bottom: 15px;
   padding: 10px;
+}
+
+.levelList::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: var(--scroll-bar-color);
+  border-radius: 6px;
+}
+
+.levelList::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-bar-thumb);
+  border-radius: 6px;
+}
+
+.levelList::-webkit-scrollbar-track {
+  background-color: var(--scroll-bar-track);
 }
 
 .levelItem {
@@ -21,18 +44,41 @@
 
 .button {
   width: 100%;
+  padding: 5px;
+
+  color: var(--font-color);
+
+  background-color: var(--button-bg);
+  border: 2px solid var(--button-border);
+  border-radius: 10px;
 }
 
 .soundButton {
   width: 30px;
   height: 30px;
+
+  background-color: var(--button-bg-dark);
   background-image: url('../../assets/volume-on.svg');
-  background-position: center;
   background-repeat: no-repeat;
+  background-position: center;
   background-size: contain;
-  background-color: cadetblue;
+  border: 2px solid var(--button-border);
+  border-radius: 10px;
+
+  transition: 500ms;
 }
 
 .soundOff {
   background-image: url('../../assets/volume-off.svg');
+}
+
+.menuPanelContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 10px;
+
+  background-color: var(--bg-color);
 }

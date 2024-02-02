@@ -5,15 +5,15 @@
   height: 30px;
 
   background-color: white;
-  border: 1px solid gray;
+  border: 1px solid var(--divider-color);
 }
 
 .cell:nth-child(5n) {
-  border-right: 2px solid gray;
+  border-right: 2px solid var(--divider-color);
 }
 
 .cell:nth-child(5n-4) {
-  border-left: 2px solid gray;
+  border-left: 2px solid var(--divider-color);
 }
 
 .white {
@@ -21,11 +21,18 @@
 }
 
 .black {
-  background-color: black;
+  background-color: var(--cell-color);
 }
 
 .cross {
   background-image: url('../../assets/cross-icon.svg');
   background-position: center;
   background-size: contain;
+}
+
+@media (width <= 800px) {
+  .cell {
+    width: 20px;
+    height: 20px;
+  }
 }
