@@ -1,7 +1,11 @@
 
 .ajWwsHR94cbENsGw1MWt {
-  z-index: 3;
+  pointer-events: none;
 
+  inset: 0;
+
+  display: none;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -9,14 +13,38 @@
   height: 300px;
   padding: 0;
 
+  opacity: 0;
   background-color: var(--dialog-bg);
   border: 2px solid var(--dialog-border);
-  border-radius: 15px;
+  border-radius: 10px;
+
+  animation: WNvsJMtqYftuaP7oynnU 0.2s ease normal;
 }
 
 .ajWwsHR94cbENsGw1MWt[open] {
-  display: flex;
-  flex-direction: column;
+  pointer-events: inherit;
+  opacity: 1;
+  animation: aJNY7FuiKZx8kOyARqgx 0.2s ease normal;
+}
+
+@keyframes aJNY7FuiKZx8kOyARqgx {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes WNvsJMtqYftuaP7oynnU {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 .jjdmMpY7V3JD86phOnaw {
@@ -132,8 +160,12 @@
   width: 30px;
   height: 30px;
 
-  background-color: white;
+  background-color: var(--cell-init-color);
   border: 1px solid var(--divider-color);
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 }
 
 .rQYg1FRUbLeNrKzjvr31:nth-child(5n) {
@@ -145,7 +177,7 @@
 }
 
 .ghNTMykpS1hfevIqJxFT {
-  background-color: white;
+  background-color:var(--cell-init-color)
 }
 
 .nNLvindpVErIaMM2hOUg {
@@ -238,6 +270,8 @@
 }
 
 .a5ZqL0Ls1lc22D2jaVCL {
+  cursor: pointer;
+
   width: 100%;
   padding: 5px;
 
@@ -246,21 +280,42 @@
   background-color: var(--button-bg);
   border: 2px solid var(--button-border);
   border-radius: 10px;
+
+  transition: 300ms;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 }
 
 ._e9K5M2cZAzmzPfLkrDs {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xNi4wMDA0IDkuMDAwMDlDMTYuNjI4MSA5LjgzNTc1IDE3IDEwLjg3NDUgMTcgMTIuMDAwMUMxNyAxMy4xMjU3IDE2LjYyODEgMTQuMTY0NCAxNi4wMDA0IDE1LjAwMDFNMTggNS4yOTE3N0MxOS44NDEyIDYuOTM5NzMgMjEgOS4zMzQ1OSAyMSAxMi4wMDAxQzIxIDE0LjY2NTYgMTkuODQxMiAxNy4wNjA0IDE4IDE4LjcwODRNNC42IDkuMDAwMDlINS41MDEyQzYuMDUyMTMgOS4wMDAwOSA2LjMyNzU5IDkuMDAwMDkgNi41ODI4NSA4LjkzMTQxQzYuODA5MDMgOC44NzA1NiA3LjAyMjc1IDguNzcwNDYgNy4yMTQyOSA4LjYzNTY2QzcuNDMwNDcgOC40ODM1MyA3LjYwNjgxIDguMjcxOTEgNy45NTk1MSA3Ljg0ODY4TDEwLjU4NTQgNC42OTc1OEMxMS4wMjExIDQuMTc0NzYgMTEuMjM4OSAzLjkxMzM1IDExLjQyOTIgMy44ODYxNEMxMS41OTQgMy44NjI1OCAxMS43NTk3IDMuOTIyNTggMTEuODcxMiA0LjA0NjE3QzEyIDQuMTg4ODkgMTIgNC41MjkxNyAxMiA1LjIwOTczVjE4Ljc5MDRDMTIgMTkuNDcxIDEyIDE5LjgxMTMgMTEuODcxMiAxOS45NTRDMTEuNzU5NyAyMC4wNzc2IDExLjU5NCAyMC4xMzc2IDExLjQyOTIgMjAuMTE0QzExLjIzOSAyMC4wODY4IDExLjAyMTEgMTkuODI1NCAxMC41ODU0IDE5LjMwMjZMNy45NTk1MSAxNi4xNTE1QzcuNjA2ODEgMTUuNzI4MyA3LjQzMDQ3IDE1LjUxNjYgNy4yMTQyOSAxNS4zNjQ1QzcuMDIyNzUgMTUuMjI5NyA2LjgwOTAzIDE1LjEyOTYgNi41ODI4NSAxNS4wNjg4QzYuMzI3NTkgMTUuMDAwMSA2LjA1MjEzIDE1LjAwMDEgNS41MDEyIDE1LjAwMDFINC42QzQuMDM5OTUgMTUuMDAwMSAzLjc1OTkyIDE1LjAwMDEgMy41NDYwMSAxNC44OTExQzMuMzU3ODUgMTQuNzk1MiAzLjIwNDg3IDE0LjY0MjIgMy4xMDg5OSAxNC40NTQxQzMgMTQuMjQwMiAzIDEzLjk2MDEgMyAxMy40MDAxVjEwLjYwMDFDMyAxMC4wNCAzIDkuNzYwMDEgMy4xMDg5OSA5LjU0NjA5QzMuMjA0ODcgOS4zNTc5MyAzLjM1Nzg1IDkuMjA0OTUgMy41NDYwMSA5LjEwOTA4QzMuNzU5OTIgOS4wMDAwOSA0LjAzOTk1IDkuMDAwMDkgNC42IDkuMDAwMDlaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+DQo8L3N2Zz4=);
+} 
+
+.NubjD91ALenwRBtb55O4 {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB2aWV3Qm94PSIwIDAgMjQgMjQiIAogd2lkdGg9IjUxMiIKIGZpbGwgPSAid2hpdGUiCiBoZWlnaHQ9IjUxMiIKID48ZyBpZD0iXzAxX2FsaWduX2NlbnRlciIgCiBkYXRhLW5hbWU9IjAxIGFsaWduIGNlbnRlciI+CiA8Y2lyY2xlIGN4PSIxNy41IiBjeT0iOS41IiByPSIxLjUiLz4KIDxjaXJjbGUgY3g9IjEyLjUiIGN5PSI2LjUiIHI9IjEuNSIvPgogPGNpcmNsZSBjeD0iNy41IiBjeT0iOS41IiByPSIxLjUiLz4KIDxjaXJjbGUgY3g9IjcuNSIgY3k9IjE1LjUiIHI9IjEuNSIvPgogPHBhdGggZD0iTTEyLjA4MywyNEExMiwxMiwwLDAsMSwzLjc0NSwzLjM3MSwxMS44ODUsMTEuODg1LDAsMCwxLDEyLjUuMDA3LDEyLjE1NSwxMi4xNTUsMCwwLDEsMjQuMDgsMTEuN2ExMS45MjQsMTEuOTI0LDAsMCwxLS43NzUsNC41NTIsMS44ODgsMS44ODgsMCwwLDEtMS4zNzcsMS4xNzcsMS45MTIsMS45MTIsMCwwLDEtMS43NjktLjUyMWwtLjEtLjFhMy41NjcsMy41NjcsMCwwLDAtNi4wODksMi41NTNsLjA0LDQuNTE2LS45MjQuMDc3QzEyLjc1MywyMy45NzgsMTIuNDIxLDI0LDEyLjA4MywyNFptMC0yMmExMCwxMCwwLDAsMC0uMDksMjBsLS4wMjQtMi42MjVBNS42LDUuNiwwLDAsMSwxMy42LDE1LjM5aDBhNS41Nyw1LjU3LDAsMCwxLDcuODcyLDBsLjAxNC4wMTRhOS44OTIsOS44OTIsMCwwLDAsLjU5NS0zLjY1NSwxMC4xMjcsMTAuMTI3LDAsMCwwLTkuNjQ1LTkuNzQzQzEyLjMxNywyLDEyLjIsMiwxMi4wODIsMloiLz4KIDwvZz48L3N2Zz4K);
+
+}
+
+._e9K5M2cZAzmzPfLkrDs,
+.NubjD91ALenwRBtb55O4 {
+  cursor: pointer;
+
   width: 30px;
   height: 30px;
 
   background-color: var(--button-bg-dark);
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IS0tIFVwbG9hZGVkIHRvOiBTVkcgUmVwbywgd3d3LnN2Z3JlcG8uY29tLCBHZW5lcmF0b3I6IFNWRyBSZXBvIE1peGVyIFRvb2xzIC0tPg0KPHN2ZyB3aWR0aD0iODAwcHgiIGhlaWdodD0iODAwcHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0xNi4wMDA0IDkuMDAwMDlDMTYuNjI4MSA5LjgzNTc1IDE3IDEwLjg3NDUgMTcgMTIuMDAwMUMxNyAxMy4xMjU3IDE2LjYyODEgMTQuMTY0NCAxNi4wMDA0IDE1LjAwMDFNMTggNS4yOTE3N0MxOS44NDEyIDYuOTM5NzMgMjEgOS4zMzQ1OSAyMSAxMi4wMDAxQzIxIDE0LjY2NTYgMTkuODQxMiAxNy4wNjA0IDE4IDE4LjcwODRNNC42IDkuMDAwMDlINS41MDEyQzYuMDUyMTMgOS4wMDAwOSA2LjMyNzU5IDkuMDAwMDkgNi41ODI4NSA4LjkzMTQxQzYuODA5MDMgOC44NzA1NiA3LjAyMjc1IDguNzcwNDYgNy4yMTQyOSA4LjYzNTY2QzcuNDMwNDcgOC40ODM1MyA3LjYwNjgxIDguMjcxOTEgNy45NTk1MSA3Ljg0ODY4TDEwLjU4NTQgNC42OTc1OEMxMS4wMjExIDQuMTc0NzYgMTEuMjM4OSAzLjkxMzM1IDExLjQyOTIgMy44ODYxNEMxMS41OTQgMy44NjI1OCAxMS43NTk3IDMuOTIyNTggMTEuODcxMiA0LjA0NjE3QzEyIDQuMTg4ODkgMTIgNC41MjkxNyAxMiA1LjIwOTczVjE4Ljc5MDRDMTIgMTkuNDcxIDEyIDE5LjgxMTMgMTEuODcxMiAxOS45NTRDMTEuNzU5NyAyMC4wNzc2IDExLjU5NCAyMC4xMzc2IDExLjQyOTIgMjAuMTE0QzExLjIzOSAyMC4wODY4IDExLjAyMTEgMTkuODI1NCAxMC41ODU0IDE5LjMwMjZMNy45NTk1MSAxNi4xNTE1QzcuNjA2ODEgMTUuNzI4MyA3LjQzMDQ3IDE1LjUxNjYgNy4yMTQyOSAxNS4zNjQ1QzcuMDIyNzUgMTUuMjI5NyA2LjgwOTAzIDE1LjEyOTYgNi41ODI4NSAxNS4wNjg4QzYuMzI3NTkgMTUuMDAwMSA2LjA1MjEzIDE1LjAwMDEgNS41MDEyIDE1LjAwMDFINC42QzQuMDM5OTUgMTUuMDAwMSAzLjc1OTkyIDE1LjAwMDEgMy41NDYwMSAxNC44OTExQzMuMzU3ODUgMTQuNzk1MiAzLjIwNDg3IDE0LjY0MjIgMy4xMDg5OSAxNC40NTQxQzMgMTQuMjQwMiAzIDEzLjk2MDEgMyAxMy40MDAxVjEwLjYwMDFDMyAxMC4wNCAzIDkuNzYwMDEgMy4xMDg5OSA5LjU0NjA5QzMuMjA0ODcgOS4zNTc5MyAzLjM1Nzg1IDkuMjA0OTUgMy41NDYwMSA5LjEwOTA4QzMuNzU5OTIgOS4wMDAwOSA0LjAzOTk1IDkuMDAwMDkgNC42IDkuMDAwMDlaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+DQo8L3N2Zz4=);
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: 80%;
   border: 2px solid var(--button-border);
   border-radius: 10px;
 
   transition: 500ms;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 }
 
 .LNQdR6gGk2EiTN4q2VQy {
@@ -284,6 +339,7 @@
   --title-color: #ba274a;
   --game-bg: #fcc0dd;
   --clue-color: #ffe7ed;
+  --cell-init-color: white;
   --clue-border: #fedbe4;
   --divider-color: #e18196;
   --game-border: #8d2f43;
@@ -292,11 +348,33 @@
   --cell-color: #c15678;
   --button-bg: #fbeaee;
   --button-bg-dark: #ba546a;
-  --button-border: #c08996;
+  --button-border: #f47a96;
   --font-color: #5f0f24;
   --scroll-bar-color: #1e030a;
   --scroll-bar-thumb: #bc3a5d;
   --scroll-bar-track: #fedae4;
+}
+
+.dark-theme {
+  --bg-image: url(dark-bg-a0078c53a88655f0e64e.jpg);
+  --bg-color: #081e3a;
+  --title-color: #081e3a;
+  --game-bg: #687f9f;
+  --clue-color: #0e2f5b;
+  --clue-border: #536e95;
+  --cell-init-color: rgb(220 220 220);
+  --divider-color: #536e95;
+  --game-border: #132948;
+  --dialog-border: #161245;
+  --dialog-bg: #1e324f;
+  --cell-color: #141b40;
+  --button-bg: #25266c;
+  --button-bg-dark: #070734;
+  --button-border: #c0bad0;
+  --font-color: #fcfcfc;
+  --scroll-bar-color: #1e030a;
+  --scroll-bar-thumb: #1d185f;
+  --scroll-bar-track: #dedafe;
 }
 
 body {
@@ -315,9 +393,17 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  transition: 300ms;
+
+  &.dark-theme {
+    backdrop-filter: blur(5px) brightness(0.7);
+  }
 }
 
 .control-button {
+  cursor: pointer;
+
   align-items: center;
 
   padding: 5px;
@@ -329,5 +415,11 @@ body {
   background-color: var(--button-bg);
   border: 2px solid var(--button-border);
   border-radius: 10px;
+
+  transition: 300ms;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
 }
 
