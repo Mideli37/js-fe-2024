@@ -4,6 +4,7 @@
   --title-color: #ba274a;
   --game-bg: #fcc0dd;
   --clue-color: #ffe7ed;
+  --cell-init-color: white;
   --clue-border: #fedbe4;
   --divider-color: #e18196;
   --game-border: #8d2f43;
@@ -17,6 +18,28 @@
   --scroll-bar-color: #1e030a;
   --scroll-bar-thumb: #bc3a5d;
   --scroll-bar-track: #fedae4;
+}
+
+.dark-theme {
+  --bg-image: url('./assets/dark-bg.jpg');
+  --bg-color: #081e3a;
+  --title-color: #081e3a;
+  --game-bg: #687f9f;
+  --clue-color: #0e2f5b;
+  --clue-border: #536e95;
+  --cell-init-color: rgb(220 220 220);
+  --divider-color: #536e95;
+  --game-border: #132948;
+  --dialog-border: #161245;
+  --dialog-bg: #1e324f;
+  --cell-color: #141b40;
+  --button-bg: #25266c;
+  --button-bg-dark: #070734;
+  --button-border: #c0bad0;
+  --font-color: #fcfcfc;
+  --scroll-bar-color: #1e030a;
+  --scroll-bar-thumb: #1d185f;
+  --scroll-bar-track: #dedafe;
 }
 
 body {
@@ -35,6 +58,10 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  &.dark-theme {
+    backdrop-filter: blur(5px) brightness(0.7);
+  }
 }
 
 .control-button {
