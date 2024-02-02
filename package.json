@@ -8,7 +8,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack serve --mode=development",
-    "deploy": "npm run build && gh-pages -d dist -e nonograms",
+    "deploy": "npm run build && npx gh-pages -d dist -e nonograms",
     "format": "prettier -luw .",
     "lint": "eslint --fix .",
     "lint-styles": "stylelint \"./src/**/*.css\" --fix"
