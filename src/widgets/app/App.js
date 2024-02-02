@@ -111,6 +111,7 @@ export class App {
   #startNewGame(nonogramId) {
     this.#currentNonogram = nonograms[nonogramId - 1];
     this.#nonogramWrapper.replaceChildren();
+    this.#timer.stop()
     this.#timer.reset();
     this.#timer.update();
     const totalCell = this.#currentNonogram.width * this.#currentNonogram.height;
