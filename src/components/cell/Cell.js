@@ -19,8 +19,12 @@ export class Cell {
       if (this.#state === 'black') {
         this.#setCross();
         callback(this.#state);
-      } else {
+      } else if (this.#state === 'white') {
         this.#setCross();
+      } else {
+        this.#state = 'white'
+        this.#changeStyle()
+        Sound.playSound('whiteClick')
       }
     });
   }

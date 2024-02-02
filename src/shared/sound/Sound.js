@@ -18,6 +18,7 @@ export class Sound {
     if (!this.#isMuted) {
       const soundSrc = this.#getAudioSrc(name);
       const sound = new Audio(soundSrc);
+      sound.volume = 0.4
       sound.play();
     }
   }
