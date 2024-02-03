@@ -11,13 +11,15 @@ export class Field {
 
   #checkWinCondition;
 
+  #cells = [];
+
   constructor(scheme, checkWinCondition, startTimer, savedScheme) {
     this.#scheme = scheme;
     this.#checkWinCondition = checkWinCondition;
     let isGameStarted = false;
     if (savedScheme) {
       this.savedScheme = savedScheme;
-      this.generateSavedField(scheme, this.savedScheme);
+      this.#generateSavedField(scheme, this.savedScheme);
     } else {
       this.#generateCleanField(this.#scheme);
     }
@@ -31,7 +33,10 @@ export class Field {
   }
 
   #generateCleanField(scheme) {
+    this.#cells = [];
     scheme.forEach((row) => {
+      const cellRow = [];
+      this.#cells.push(cellRow);
       const rowEl = createEl('div', style.row);
       this.container.append(rowEl);
       row.forEach((isBlack) => {
@@ -39,13 +44,17 @@ export class Field {
           this.#correctCellsCounter += 1;
         }
         const gridCell = this.#createCell(isBlack);
+        cellRow.push(gridCell);
         rowEl.append(gridCell.cellEl);
       });
     });
   }
 
-  generateSavedField(scheme, savedGameScheme) {
+  #generateSavedField(scheme, savedGameScheme) {
+    this.#cells = [];
     scheme.forEach((row, indexRow) => {
+      const cellRow = [];
+      this.#cells.push(cellRow);
       const rowEl = createEl('div', style.row);
       this.container.append(rowEl);
       row.forEach((isBlack, indexCell) => {
@@ -55,6 +64,7 @@ export class Field {
           this.#correctCellsCounter += 1;
         }
         const gridCell = this.#createCell(isBlack, savedState);
+        cellRow.push(gridCell);
         rowEl.append(gridCell.cellEl);
       });
     });
@@ -81,5 +91,14 @@ export class Field {
 
   blockClick() {
     this.container.classList.add(style.disabled);
+  }
+
+  getFieldState() {
+    const states = [];
+    this.#cells.forEach((row) => {
+      const rowArr = row.map((cell) => cell.getState());
+      states.push(rowArr);
+    });
+    return states;
   }
 }

@@ -5,24 +5,24 @@ import style from './cell.module.css';
 export class Cell {
   cellEl = createEl('div');
 
-  state;
+  #state;
 
   constructor(callback, state = 'white') {
-    this.state = state;
+    this.#state = state;
     this.#changeStyle();
     this.cellEl.addEventListener('click', () => {
       this.#toggleState();
-      callback(this.state);
+      callback(this.#state);
     });
     this.cellEl.addEventListener('contextmenu', (event) => {
       event.preventDefault();
-      if (this.state === 'black') {
+      if (this.#state === 'black') {
         this.#setCross();
-        callback(this.state);
-      } else if (this.state === 'white') {
+        callback(this.#state);
+      } else if (this.#state === 'white') {
         this.#setCross();
       } else {
-        this.state = 'white';
+        this.#state = 'white';
         this.#changeStyle();
         Sound.playSound('whiteClick');
       }
@@ -30,23 +30,27 @@ export class Cell {
   }
 
   #changeStyle() {
-    this.cellEl.className = `${style[this.state]} ${style.cell}`;
+    this.cellEl.className = `${style[this.#state]} ${style.cell}`;
   }
 
   #toggleState() {
-    if (this.state !== 'black') {
-      this.state = 'black';
+    if (this.#state !== 'black') {
+      this.#state = 'black';
       Sound.playSound('blackClick');
     } else {
-      this.state = 'white';
+      this.#state = 'white';
       Sound.playSound('whiteClick');
     }
     this.#changeStyle();
   }
 
   #setCross() {
-    this.state = 'cross';
+    this.#state = 'cross';
     this.#changeStyle();
     Sound.playSound('crossClick');
+  }
+
+  getState() {
+    return this.#state;
   }
 }

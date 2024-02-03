@@ -25,4 +25,8 @@ export class Nonogram {
   blockField() {
     this.#field.blockClick();
   }
+
+  getFieldState() {
+    return this.#field.getFieldState();
+  }
 }

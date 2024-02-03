@@ -7,7 +7,6 @@ import { Sound } from '../../shared/sound/Sound';
 import { Dialog } from '../dialog/Dialog';
 import { Nonogram } from '../nonogram/Nonogram';
 import style from './app.module.css';
-import { savedGame } from './saved-game';
 
 export class App {
   #menuPanelContainer = createEl('div', style.menuPanelContainer);
@@ -25,6 +24,10 @@ export class App {
   #currentNonogram;
 
   #nonogram;
+
+  #gameId
+
+  #savedGame = null
 
   constructor() {
     // win dialog
@@ -91,8 +94,8 @@ export class App {
   }
 
   #startGame(nonogramId, savedGameScheme = null) {
-    const [savedScheme, savedTime] = [savedGameScheme?.scheme, savedGameScheme?.time];
-    console.log(savedScheme);
+    this.#gameId = nonogramId
+    console.log(savedGameScheme);
     this.#currentNonogram = nonograms[nonogramId - 1];
     this.#nonogramWrapper.replaceChildren();
     this.#timer.stop();
@@ -110,14 +113,15 @@ export class App {
       this.#currentNonogram.scheme,
       checkWinCondition,
       () => this.#timer.start(),
-      savedScheme
+      savedGameScheme
     );
     this.#nonogramWrapper.append(this.#nonogram.container);
 
     this.#controlButtonsContainer.replaceChildren();
 
     const resetButton = createControlButton('Reset game', () => this.#nonogram.resetField());
-    this.#controlButtonsContainer.append(resetButton);
+    const saveButton = createControlButton('Save game', () => this.#saveCurrentState());
+    this.#controlButtonsContainer.append(resetButton, saveButton);
   }
 
   #createLevelList(levelListDialog, menuDialog) {
@@ -157,8 +161,8 @@ export class App {
     });
 
     const continueGameButton = createControlButton('Continue game', () => {
-      if (savedGame.id) {
-        this.#startGame(savedGame.id, savedGame);
+      if (this.#savedGame) {
+        this.#startGame(...this.#savedGame);
         menuDialog.container.close();
       }
     });
@@ -166,5 +170,10 @@ export class App {
 
     this.#createLevelList(levelListDialog, menuDialog);
     levelListDialog.init();
+  }
+
+  #saveCurrentState() {
+    this.#savedGame = [this.#gameId, this.#nonogram.getFieldState()]
+    console.log(this.#savedGame)
   }
 }
