@@ -8,6 +8,8 @@ import { Dialog } from '../dialog/Dialog';
 import { Nonogram } from '../nonogram/Nonogram';
 import style from './app.module.css';
 
+const lsPrefix = 'MideliNonograms'
+
 export class App {
   #menuPanelContainer = createEl('div', style.menuPanelContainer);
 
@@ -34,15 +36,12 @@ export class App {
     this.#winDialog.init();
 
     // menu and levelList
-
     this.#createMenuDialog();
 
     // timer
-
     this.#menuPanelContainer.append(this.#timer.timerElement);
 
     // sound
-
     const soundButton = createEl('button', style.soundButton);
     soundButton.ariaLabel = 'sound switcher';
     if (Sound.getIsMuted()) {
@@ -71,8 +70,11 @@ export class App {
     this.#menuPanelContainer.append(buttonContainer);
 
     // first game
-
     this.#startGame(1);
+
+    if (localStorage.getItem(`${lsPrefix}SavedGame`)) {
+      this.#savedGame = JSON.parse(localStorage.getItem(`${lsPrefix}SavedGame`))
+    }
   }
 
   init() {
@@ -175,5 +177,10 @@ export class App {
   #saveCurrentState() {
     this.#savedGame = [this.#gameId, this.#nonogram.getFieldState()]
     console.log(this.#savedGame)
+  }
+
+  saveDataToLS() {
+    console.log(JSON.stringify(this.#savedGame))
+    localStorage.setItem(`${lsPrefix}SavedGame`, JSON.stringify(this.#savedGame))
   }
 }
