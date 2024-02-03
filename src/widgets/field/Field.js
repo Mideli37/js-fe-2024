@@ -58,7 +58,6 @@ export class Field {
       const rowEl = createEl('div', style.row);
       this.container.append(rowEl);
       row.forEach((isBlack, indexCell) => {
-        console.log(savedGameScheme);
         const savedState = savedGameScheme[indexRow][indexCell];
         if ((isBlack && savedState === 'black') || (!isBlack && savedState !== 'black')) {
           this.#correctCellsCounter += 1;
@@ -77,10 +76,18 @@ export class Field {
       } else {
         this.#correctCellsCounter -= 1;
       }
-      console.log(this.#correctCellsCounter);
       this.#checkWinCondition(this.#correctCellsCounter);
     }, state);
     return cell;
+  }
+
+  showSolution() {
+    this.#scheme.forEach((row, indexRow) => {
+      row.forEach((isBlack, indexCell )=> {
+        const state = isBlack ? 'black' : 'white'
+        this.#cells[indexRow][indexCell].setState(state)
+      });
+    });
   }
 
   clean() {

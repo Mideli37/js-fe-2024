@@ -90,6 +90,7 @@ export class App {
     Sound.playSound('win');
     this.#timer.stop();
     this.#nonogram.blockField();
+    this.#disableButtons();
     this.#winDialogHeading.replaceChildren(
       `Great! You have solved the nonogram in ${this.#timer.getTime()} seconds!`
     );
@@ -97,7 +98,6 @@ export class App {
 
   #startGame(nonogramId, savedGameScheme = null, time = 0) {
     this.#gameId = nonogramId;
-    console.log(savedGameScheme);
     this.#currentNonogram = nonograms[nonogramId - 1];
     this.#nonogramWrapper.replaceChildren();
     this.#timer.stop();
@@ -123,7 +123,12 @@ export class App {
 
     const resetButton = createControlButton('Reset game', () => this.#nonogram.resetField());
     const saveButton = createControlButton('Save game', () => this.#saveCurrentState());
-    this.#controlButtonsContainer.append(resetButton, saveButton);
+    const solutionButton = createControlButton('Show solution', () => {
+      this.#nonogram.showSolution();
+      this.#timer.stop();
+      this.#disableButtons()
+    });
+    this.#controlButtonsContainer.append(resetButton, saveButton, solutionButton);
   }
 
   #createLevelList(levelListDialog, menuDialog) {
@@ -180,5 +185,12 @@ export class App {
 
   saveDataToLS() {
     localStorage.setItem(`${lsPrefix}SavedGame`, JSON.stringify(this.#savedGame));
+  }
+
+  #disableButtons() {
+    const buttons = Array.from(this.#controlButtonsContainer.children)
+    buttons.forEach((button) =>
+    button.classList.add(style.disabled)
+  );
   }
 }

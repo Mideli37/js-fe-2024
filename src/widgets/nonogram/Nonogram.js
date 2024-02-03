@@ -14,7 +14,6 @@ export class Nonogram {
     const topClue = new Clue(clues.top, 'top');
     const leftClue = new Clue(clues.left, 'left');
     this.#field = new Field(scheme, checkWinCondition, startTimer, savedScheme);
-    console.log(this.#field);
     this.container.append(topClue.container, leftClue.container, this.#field.container);
   }
 
@@ -28,5 +27,10 @@ export class Nonogram {
 
   getFieldState() {
     return this.#field.getFieldState();
+  }
+
+  showSolution() {
+    this.#field.showSolution()
+    this.blockField()
   }
 }

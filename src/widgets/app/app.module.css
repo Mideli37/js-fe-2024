@@ -106,3 +106,17 @@
 
   transition: 300ms;
 }
+
+.disabled {
+  pointer-events: none;
+  filter: grayscale(1);
+}
+
+.controlsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+
+  padding: 20px;
+}
