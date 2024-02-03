@@ -32,4 +32,8 @@ export class Timer {
   getTime() {
     return this.#totalTime;
   }
+
+  setTime(time) {
+    this.#totalTime = time;
+  }
 }

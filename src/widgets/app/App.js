@@ -8,7 +8,7 @@ import { Dialog } from '../dialog/Dialog';
 import { Nonogram } from '../nonogram/Nonogram';
 import style from './app.module.css';
 
-const lsPrefix = 'MideliNonograms'
+const lsPrefix = 'MideliNonograms';
 
 export class App {
   #menuPanelContainer = createEl('div', style.menuPanelContainer);
@@ -27,9 +27,9 @@ export class App {
 
   #nonogram;
 
-  #gameId
+  #gameId;
 
-  #savedGame = null
+  #savedGame = null;
 
   constructor() {
     // win dialog
@@ -73,7 +73,7 @@ export class App {
     this.#startGame(1);
 
     if (localStorage.getItem(`${lsPrefix}SavedGame`)) {
-      this.#savedGame = JSON.parse(localStorage.getItem(`${lsPrefix}SavedGame`))
+      this.#savedGame = JSON.parse(localStorage.getItem(`${lsPrefix}SavedGame`));
     }
   }
 
@@ -95,13 +95,13 @@ export class App {
     );
   }
 
-  #startGame(nonogramId, savedGameScheme = null) {
-    this.#gameId = nonogramId
+  #startGame(nonogramId, savedGameScheme = null, time = 0) {
+    this.#gameId = nonogramId;
     console.log(savedGameScheme);
     this.#currentNonogram = nonograms[nonogramId - 1];
     this.#nonogramWrapper.replaceChildren();
     this.#timer.stop();
-    this.#timer.reset();
+    this.#timer.setTime(time);
     this.#timer.update();
     const totalCell = this.#currentNonogram.width * this.#currentNonogram.height;
 
@@ -175,12 +175,10 @@ export class App {
   }
 
   #saveCurrentState() {
-    this.#savedGame = [this.#gameId, this.#nonogram.getFieldState()]
-    console.log(this.#savedGame)
+    this.#savedGame = [this.#gameId, this.#nonogram.getFieldState(), this.#timer.getTime()];
   }
 
   saveDataToLS() {
-    console.log(JSON.stringify(this.#savedGame))
-    localStorage.setItem(`${lsPrefix}SavedGame`, JSON.stringify(this.#savedGame))
+    localStorage.setItem(`${lsPrefix}SavedGame`, JSON.stringify(this.#savedGame));
   }
 }
