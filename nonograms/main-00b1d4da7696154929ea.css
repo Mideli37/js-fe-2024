@@ -339,6 +339,20 @@
   transition: 300ms;
 }
 
+.CzUB4VfOuFoXfPzkQhH9 {
+  pointer-events: none;
+  filter: grayscale(1);
+}
+
+.o8dmpSsZlpr1stoDFUVD {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+
+  padding: 20px;
+}
+
 :root {
   --bg-image: url(pink-background-24010402489e7ff4e8e1.webp);
   --bg-color: #f38bb1;
