@@ -9,11 +9,11 @@ export class Nonogram {
 
   #field;
 
-  constructor(scheme, checkWinCondition, startTimer) {
+  constructor(scheme, checkWinCondition, startTimer, savedScheme = null) {
     const clues = getClues(scheme);
     const topClue = new Clue(clues.top, 'top');
     const leftClue = new Clue(clues.left, 'left');
-    this.#field = new Field(scheme, checkWinCondition, startTimer);
+    this.#field = new Field(scheme, checkWinCondition, startTimer, savedScheme);
     console.log(this.#field);
     this.container.append(topClue.container, leftClue.container, this.#field.container);
   }
@@ -23,6 +23,6 @@ export class Nonogram {
   }
 
   blockField() {
-    this.#field.blockClick()
+    this.#field.blockClick();
   }
 }

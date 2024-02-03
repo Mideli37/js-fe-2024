@@ -7,6 +7,7 @@ import { Sound } from '../../shared/sound/Sound';
 import { Dialog } from '../dialog/Dialog';
 import { Nonogram } from '../nonogram/Nonogram';
 import style from './app.module.css';
+import { savedGame } from './saved-game';
 
 export class App {
   #menuPanelContainer = createEl('div', style.menuPanelContainer);
@@ -27,32 +28,11 @@ export class App {
 
   constructor() {
     // win dialog
-
     this.#winDialog.init();
 
     // menu and levelList
-    const menuDialog = new Dialog();
-    const levelListDialog = new Dialog();
-    const randomGameButton = createControlButton('Random Game', () => {
-      const id = getRandomNumber(nonograms.length);
-      this.#startNewGame(id);
-      levelListDialog.container.close();
-      menuDialog.container.close();
-    });
 
-    menuDialog.init();
-    const menuButton = createControlButton('MENU', () => menuDialog.container.showModal());
-    this.#menuPanelContainer.append(menuButton);
-
-    const newGameButton = createControlButton('New Game', () => {
-      levelListDialog.container.showModal();
-    });
-    menuDialog.appendElements([newGameButton, randomGameButton]);
-
-    // level list
-
-    this.#createLevelList(levelListDialog, menuDialog)
-    levelListDialog.init();
+    this.#createMenuDialog();
 
     // timer
 
@@ -89,7 +69,7 @@ export class App {
 
     // first game
 
-    this.#startNewGame(1);
+    this.#startGame(1);
   }
 
   init() {
@@ -110,7 +90,9 @@ export class App {
     );
   }
 
-  #startNewGame(nonogramId) {
+  #startGame(nonogramId, savedGameScheme = null) {
+    const [savedScheme, savedTime] = [savedGameScheme?.scheme, savedGameScheme?.time];
+    console.log(savedScheme);
     this.#currentNonogram = nonograms[nonogramId - 1];
     this.#nonogramWrapper.replaceChildren();
     this.#timer.stop();
@@ -124,8 +106,11 @@ export class App {
       }
     };
 
-    this.#nonogram = new Nonogram(this.#currentNonogram.scheme, checkWinCondition, () =>
-      this.#timer.start()
+    this.#nonogram = new Nonogram(
+      this.#currentNonogram.scheme,
+      checkWinCondition,
+      () => this.#timer.start(),
+      savedScheme
     );
     this.#nonogramWrapper.append(this.#nonogram.container);
 
@@ -145,11 +130,41 @@ export class App {
       levelList.append(listItem);
       listItem.append(button);
       button.addEventListener('click', () => {
-        this.#startNewGame(nonogram.id);
+        this.#startGame(nonogram.id);
         levelListDialog.container.close();
         menuDialog.container.close();
       });
     });
     levelListDialog.appendElements([levelsHeading, levelList]);
+  }
+
+  #createMenuDialog() {
+    const menuDialog = new Dialog();
+    const levelListDialog = new Dialog();
+    const randomGameButton = createControlButton('Random Game', () => {
+      const id = getRandomNumber(nonograms.length);
+      this.#startGame(id);
+      levelListDialog.container.close();
+      menuDialog.container.close();
+    });
+
+    menuDialog.init();
+    const menuButton = createControlButton('MENU', () => menuDialog.container.showModal());
+    this.#menuPanelContainer.append(menuButton);
+
+    const newGameButton = createControlButton('New Game', () => {
+      levelListDialog.container.showModal();
+    });
+
+    const continueGameButton = createControlButton('Continue game', () => {
+      if (savedGame.id) {
+        this.#startGame(savedGame.id, savedGame);
+        menuDialog.container.close();
+      }
+    });
+    menuDialog.appendElements([newGameButton, randomGameButton, continueGameButton]);
+
+    this.#createLevelList(levelListDialog, menuDialog);
+    levelListDialog.init();
   }
 }
