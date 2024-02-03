@@ -36,7 +36,7 @@
   background-size: contain;
 }
 
-@media (width <= 800px) {
+@media (width <= 800px), (height <= 850px) {
   .cell {
     width: 20px;
     height: 20px;

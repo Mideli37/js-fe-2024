@@ -88,7 +88,7 @@
   background-color: var(--game-bg);
 }
 
-@media (width <= 800px) {
+@media (width <= 800px), (height <= 850px) {
   .clue {
     width: 20px;
     height: 20px;

@@ -11,7 +11,6 @@ export class Dialog {
     }
     this.container.addEventListener('click', (event) => {
       if (event.target === event.currentTarget) {
-        console.log('close');
         event.currentTarget.close();
       }
     });
