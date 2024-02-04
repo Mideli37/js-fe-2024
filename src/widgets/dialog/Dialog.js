@@ -23,4 +23,9 @@ export class Dialog {
   appendElements(elements) {
     this.contentWrapper.append(...elements);
   }
+
+  clean() {
+    this.container.replaceChildren()
+    console.log('clean')
+  }
 }

@@ -3,6 +3,7 @@ import { createControlButton } from '../../shared/create-control-button';
 import { createEl } from '../../shared/create-el';
 import { getRandomNumber } from '../../shared/get-random-number';
 import { nonograms } from '../../shared/nonorgams';
+import { createScoreTable } from '../../components/score/score-table';
 import { Sound } from '../../shared/sound/Sound';
 import { Dialog } from '../dialog/Dialog';
 import { Nonogram } from '../nonogram/Nonogram';
@@ -30,6 +31,8 @@ export class App {
   #gameId;
 
   #savedGame = null;
+
+  #lastGamesList = [];
 
   constructor() {
     // win dialog
@@ -71,6 +74,16 @@ export class App {
 
     // first game
     this.#startGame(1);
+
+    // score
+
+    this.#lastGamesList = [
+      [300, 'Rabbit', '5x5\neasy'],
+      [300, 'Rabbit1', '5x5\neasy'],
+      [300, 'Rabbit2', '5x5\neasy'],
+      [300, 'Rabbit3', '5x5\neasy'],
+      [300, 'Rabbit4', '5x5\neasy'],
+    ];
 
     if (localStorage.getItem(`${lsPrefix}SavedGame`)) {
       this.#savedGame = JSON.parse(localStorage.getItem(`${lsPrefix}SavedGame`));
@@ -126,7 +139,7 @@ export class App {
     const solutionButton = createControlButton('Show solution', () => {
       this.#nonogram.showSolution();
       this.#timer.stop();
-      this.#disableButtons()
+      this.#disableButtons();
     });
     this.#controlButtonsContainer.append(resetButton, saveButton, solutionButton);
   }
@@ -152,6 +165,7 @@ export class App {
   #createMenuDialog() {
     const menuDialog = new Dialog();
     const levelListDialog = new Dialog();
+    const scoreDialog = new Dialog();
     const randomGameButton = createControlButton('Random Game', () => {
       const id = getRandomNumber(nonograms.length);
       this.#startGame(id);
@@ -173,10 +187,31 @@ export class App {
         menuDialog.container.close();
       }
     });
-    menuDialog.appendElements([newGameButton, randomGameButton, continueGameButton]);
+
+    scoreDialog.init();
+    const scoreButton = createControlButton('Score', () => {
+      this.#generateScoreDialog(scoreDialog);
+      scoreDialog.container.showModal();
+      menuDialog.container.close();
+    });
+    menuDialog.appendElements([newGameButton, randomGameButton, continueGameButton, scoreButton]);
 
     this.#createLevelList(levelListDialog, menuDialog);
     levelListDialog.init();
+  }
+
+  #generateScoreDialog(scoreDialog) {
+    const dialogEl = [];
+    const heading = createEl('h2', style.scoreHeading, 'Score');
+    dialogEl.push(heading);
+    if (this.#lastGamesList.length === 0) {
+      dialogEl.push(createEl('p', style.scoreLabel, 'No results for now.'));
+    } else {
+      const table = createScoreTable(this.#lastGamesList);
+      dialogEl.push(table);
+    }
+
+    scoreDialog.container.replaceChildren(...dialogEl);
   }
 
   #saveCurrentState() {
@@ -188,9 +223,7 @@ export class App {
   }
 
   #disableButtons() {
-    const buttons = Array.from(this.#controlButtonsContainer.children)
-    buttons.forEach((button) =>
-    button.classList.add(style.disabled)
-  );
+    const buttons = Array.from(this.#controlButtonsContainer.children);
+    buttons.forEach((button) => button.classList.add(style.disabled));
   }
 }
