@@ -30,7 +30,7 @@ export class Nonogram {
   }
 
   showSolution() {
-    this.#field.showSolution()
-    this.blockField()
+    this.#field.showSolution();
+    this.blockField();
   }
 }

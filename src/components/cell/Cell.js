@@ -56,8 +56,8 @@ export class Cell {
 
   setState(state) {
     if (state === 'white' || state === 'black' || state === 'cross') {
-      this.#state = state
-      this.#changeStyle()
+      this.#state = state;
+      this.#changeStyle();
     }
   }
 }

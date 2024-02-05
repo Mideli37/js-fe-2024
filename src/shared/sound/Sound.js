@@ -11,14 +11,14 @@ export class Sound {
   }
 
   static getIsMuted() {
-    return this.#isMuted
+    return this.#isMuted;
   }
 
   static playSound(name) {
     if (!this.#isMuted) {
       const soundSrc = this.#getAudioSrc(name);
       const sound = new Audio(soundSrc);
-      sound.volume = 0.4
+      sound.volume = 0.4;
       sound.play();
     }
   }

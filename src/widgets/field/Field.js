@@ -83,9 +83,9 @@ export class Field {
 
   showSolution() {
     this.#scheme.forEach((row, indexRow) => {
-      row.forEach((isBlack, indexCell )=> {
-        const state = isBlack ? 'black' : 'white'
-        this.#cells[indexRow][indexCell].setState(state)
+      row.forEach((isBlack, indexCell) => {
+        const state = isBlack ? 'black' : 'white';
+        this.#cells[indexRow][indexCell].setState(state);
       });
     });
   }
