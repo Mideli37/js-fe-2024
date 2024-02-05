@@ -1,15 +1,20 @@
 import { createEl } from '../../shared/create-el';
-import style from './score.module.css'
+import style from './score.module.css';
 
 export function createRowElements(tag, className, elementsTextContent) {
-  console.log(elementsTextContent)
+  console.log(elementsTextContent);
   const elementList = elementsTextContent.map((element) => createEl(tag, className, element));
   return elementList;
 }
 
 export function createScoreRow(gameResultList) {
   const rowEl = createEl('tr', style.tableTR);
-  rowEl.append(...createRowElements('td', style.tableTD, gameResultList));
+  const result = gameResultList.slice();
+  const time = result[0];
+  const seconds = Math.floor(Math.floor(time) % 60).toString();
+  const minutes = Math.floor(time / 60).toString();
+  result[0] = `${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
+  result[0] = rowEl.append(...createRowElements('td', style.tableTD, result));
   return rowEl;
 }
 
@@ -21,6 +26,6 @@ export function createScoreTable(resultsList) {
 
   const rowsEl = resultsList.map((result) => createScoreRow(result));
   table.append(headerRow, ...rowsEl);
-  console.log(table)
+  console.log(table);
   return table;
 }

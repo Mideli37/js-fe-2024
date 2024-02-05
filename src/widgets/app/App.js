@@ -77,13 +77,9 @@ export class App {
 
     // score
 
-    this.#lastGamesList = [
-      [300, 'Rabbit', '5x5\neasy'],
-      [300, 'Rabbit1', '5x5\neasy'],
-      [300, 'Rabbit2', '5x5\neasy'],
-      [300, 'Rabbit3', '5x5\neasy'],
-      [300, 'Rabbit4', '5x5\neasy'],
-    ];
+    if (localStorage.getItem(`${lsPrefix}Score`)) {
+      this.#lastGamesList = JSON.parse(localStorage.getItem(`${lsPrefix}Score`));
+    }
 
     if (localStorage.getItem(`${lsPrefix}SavedGame`)) {
       this.#savedGame = JSON.parse(localStorage.getItem(`${lsPrefix}SavedGame`));
@@ -107,6 +103,7 @@ export class App {
     this.#winDialogHeading.replaceChildren(
       `Great! You have solved the nonogram in ${this.#timer.getTime()} seconds!`
     );
+    this.#saveGameResult(this.#timer.getTime(), this.#gameId);
   }
 
   #startGame(nonogramId, savedGameScheme = null, time = 0) {
@@ -207,7 +204,11 @@ export class App {
     if (this.#lastGamesList.length === 0) {
       dialogEl.push(createEl('p', style.scoreLabel, 'No results for now.'));
     } else {
-      const table = createScoreTable(this.#lastGamesList);
+      const sortedGames = this.#lastGamesList.slice();
+      console.log(this.#lastGamesList);
+      sortedGames.sort((a, b) => a[0] - b[0]);
+      console.log(sortedGames);
+      const table = createScoreTable(sortedGames);
       dialogEl.push(table);
     }
 
@@ -220,10 +221,23 @@ export class App {
 
   saveDataToLS() {
     localStorage.setItem(`${lsPrefix}SavedGame`, JSON.stringify(this.#savedGame));
+    localStorage.setItem(`${lsPrefix}Score`, JSON.stringify(this.#lastGamesList));
   }
 
   #disableButtons() {
     const buttons = Array.from(this.#controlButtonsContainer.children);
     buttons.forEach((button) => button.classList.add(style.disabled));
+  }
+
+  #saveGameResult(time, id) {
+    const result = [];
+    result.push(time);
+    const nonogram = nonograms[id - 1];
+    result.push(nonogram.name);
+    result.push(`${nonogram.width}x${nonogram.height} ${nonogram.difficulty}`);
+    if (this.#lastGamesList.length >= 5) {
+      this.#lastGamesList.shift();
+    }
+    this.#lastGamesList.push(result);
   }
 }
