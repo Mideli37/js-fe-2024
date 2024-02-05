@@ -30,6 +30,12 @@ export class Field {
         isGameStarted = true;
       }
     });
+    this.container.addEventListener('contextmenu', () => {
+      if (!isGameStarted) {
+        startTimer();
+        isGameStarted = true;
+      }
+    });
   }
 
   #generateCleanField(scheme) {
