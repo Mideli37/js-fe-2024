@@ -1,4 +1,24 @@
 
+.nLmbPF_ymajAL_kSo4O9 {
+  border-collapse: collapse;
+  width: 80%;
+  height: 70%;
+  color: var(--font-color);
+}
+
+.kwA7jq9j6EjD1RJY_2xA {
+  background-color: var(--game-bg);
+}
+
+.p3LQ61fThbPwkGWyHvaQ {
+  padding: 3px;
+  border: 2px solid var(--dialog-border);
+}
+
+.Pl8JJVGkNvOGScWrG0MF {
+  text-align: center;
+  border: 2px solid var(--divider-color);
+}
 
 .ajWwsHR94cbENsGw1MWt {
   pointer-events: none;
@@ -232,7 +252,8 @@
 }
 
 .t7kM3C_2reK9ZkwUfTQr,
-.ZQOFH7AzxTpK67Vfus_r {
+.ZQOFH7AzxTpK67Vfus_r,
+.SIrdXyXCmQXE4yBJPso6 {
   user-select: none;
 
   margin: 0;
@@ -240,6 +261,11 @@
 
   color: var(--font-color);
   text-align: center;
+}
+
+.SIrdXyXCmQXE4yBJPso6 {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .SDmMvCEJxgqvBorcYWcb {
@@ -354,6 +380,11 @@
   padding: 20px;
 }
 
+.zYLuKJEYfxNvFeMmfKjJ {
+  height: 60%;
+  color: var(--font-color);
+}
+
 :root {
   --bg-image: url(pink-background-24010402489e7ff4e8e1.webp);
   --bg-color: #f38bb1;
@@ -380,7 +411,7 @@
   --bg-image: url(dark-bg-a0078c53a88655f0e64e.jpg);
   --bg-color: #081e3a;
   --title-color: #081e3a;
-  --game-bg: #687f9f;
+  --game-bg: #42597a;
   --clue-color: #0e2f5b;
   --clue-border: #536e95;
   --cell-init-color: rgb(220 220 220);
@@ -415,7 +446,9 @@ body {
   background-position: center;
   background-size: cover;
 
-  transition: background-image 300ms, color 300ms;
+  transition:
+    background-image 300ms,
+    color 300ms;
 
   &.dark-theme {
     backdrop-filter: blur(5px) brightness(0.7);
