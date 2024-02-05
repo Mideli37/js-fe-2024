@@ -205,9 +205,7 @@ export class App {
       dialogEl.push(createEl('p', style.scoreLabel, 'No results for now.'));
     } else {
       const sortedGames = this.#lastGamesList.slice();
-      console.log(this.#lastGamesList);
       sortedGames.sort((a, b) => a[0] - b[0]);
-      console.log(sortedGames);
       const table = createScoreTable(sortedGames);
       dialogEl.push(table);
     }

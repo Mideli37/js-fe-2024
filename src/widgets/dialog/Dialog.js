@@ -26,6 +26,5 @@ export class Dialog {
 
   clean() {
     this.container.replaceChildren()
-    console.log('clean')
   }
 }

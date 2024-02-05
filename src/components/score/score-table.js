@@ -2,7 +2,6 @@ import { createEl } from '../../shared/create-el';
 import style from './score.module.css';
 
 export function createRowElements(tag, className, elementsTextContent) {
-  console.log(elementsTextContent);
   const elementList = elementsTextContent.map((element) => createEl(tag, className, element));
   return elementList;
 }
@@ -26,6 +25,5 @@ export function createScoreTable(resultsList) {
 
   const rowsEl = resultsList.map((result) => createScoreRow(result));
   table.append(headerRow, ...rowsEl);
-  console.log(table);
   return table;
 }
