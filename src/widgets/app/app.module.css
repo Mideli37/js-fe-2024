@@ -1,5 +1,6 @@
 .levelHeading,
-.dialogHeading {
+.dialogHeading,
+.scoreHeading {
   user-select: none;
 
   margin: 0;
@@ -7,6 +8,11 @@
 
   color: var(--font-color);
   text-align: center;
+}
+
+.scoreHeading {
+  margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .levelList {
@@ -119,4 +125,9 @@
   justify-content: center;
 
   padding: 20px;
+}
+
+.scoreLabel {
+  height: 60%;
+  color: var(--font-color);
 }

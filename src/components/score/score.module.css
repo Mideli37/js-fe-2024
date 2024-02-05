@@ -1,0 +1,20 @@
+.scoreTable {
+  border-collapse: collapse;
+  width: 80%;
+  height: 70%;
+  color: var(--font-color);
+}
+
+.headerRow {
+  background-color: var(--game-bg);
+}
+
+.tableTH {
+  padding: 3px;
+  border: 2px solid var(--dialog-border);
+}
+
+.tableTD {
+  text-align: center;
+  border: 2px solid var(--divider-color);
+}

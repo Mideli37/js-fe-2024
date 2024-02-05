@@ -24,7 +24,7 @@
   --bg-image: url('./assets/dark-bg.jpg');
   --bg-color: #081e3a;
   --title-color: #081e3a;
-  --game-bg: #687f9f;
+  --game-bg: #42597a;
   --clue-color: #0e2f5b;
   --clue-border: #536e95;
   --cell-init-color: rgb(220 220 220);
@@ -59,7 +59,9 @@ body {
   background-position: center;
   background-size: cover;
 
-  transition: background-image 300ms, color 300ms;
+  transition:
+    background-image 300ms,
+    color 300ms;
 
   &.dark-theme {
     backdrop-filter: blur(5px) brightness(0.7);

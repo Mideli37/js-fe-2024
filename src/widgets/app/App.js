@@ -186,6 +186,8 @@ export class App {
     });
 
     scoreDialog.init();
+    this.#generateScoreDialog(scoreDialog);
+    scoreDialog.container.showModal();
     const scoreButton = createControlButton('Score', () => {
       this.#generateScoreDialog(scoreDialog);
       scoreDialog.container.showModal();
