@@ -1,4 +1,5 @@
 
+
 .ajWwsHR94cbENsGw1MWt {
   pointer-events: none;
 
@@ -148,7 +149,7 @@
   background-color: var(--game-bg);
 }
 
-@media (width <= 800px) {
+@media (width <= 800px), (height <= 850px) {
   .v8cWgl_fywNE7CfrWmgp {
     width: 20px;
     height: 20px;
@@ -194,7 +195,7 @@
   background-size: contain;
 }
 
-@media (width <= 800px) {
+@media (width <= 800px), (height <= 850px) {
   .rQYg1FRUbLeNrKzjvr31 {
     width: 20px;
     height: 20px;
