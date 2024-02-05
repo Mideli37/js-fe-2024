@@ -16,7 +16,7 @@
 }
 
 .tableTD {
+  height: 25px;
   text-align: center;
   border: 2px solid var(--divider-color);
-  height: 25px;
 }

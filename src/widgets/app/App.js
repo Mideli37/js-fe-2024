@@ -133,7 +133,7 @@ export class App {
 
     const resetButton = createControlButton('Reset game', () => this.#nonogram.resetField());
     const saveButton = createControlButton('Save game', () => this.#saveCurrentState());
-    const solutionButton = createControlButton('Show solution', () => {
+    const solutionButton = createControlButton('Solution', () => {
       this.#nonogram.showSolution();
       this.#timer.stop();
       this.#disableButtons();
@@ -178,7 +178,7 @@ export class App {
       levelListDialog.container.showModal();
     });
 
-    const continueGameButton = createControlButton('Continue game', () => {
+    const continueGameButton = createControlButton('Continue last game', () => {
       if (this.#savedGame) {
         this.#startGame(...this.#savedGame);
         menuDialog.container.close();
