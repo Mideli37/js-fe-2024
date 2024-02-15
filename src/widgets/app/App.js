@@ -164,7 +164,7 @@ export class App {
     const levelListDialog = new Dialog();
     const scoreDialog = new Dialog();
     const randomGameButton = createControlButton('Random Game', () => {
-      const id = getRandomNumber(nonograms.length);
+      const id = getRandomNumber(0, nonograms.length);
       this.#startGame(id);
       levelListDialog.container.close();
       menuDialog.container.close();
