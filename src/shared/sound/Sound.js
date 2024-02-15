@@ -6,6 +6,13 @@ import winSoundSrc from '../../assets/sounds/win-sound.mp3';
 export class Sound {
   static #isMuted = false;
 
+  static #soundObj = {
+    blackClick: blackCellSound,
+    whiteClick: whiteCellSound,
+    crossClick: crossSound,
+    win: winSoundSrc,
+  };
+
   static toggleMuted() {
     this.#isMuted = !this.#isMuted;
   }
@@ -24,13 +31,6 @@ export class Sound {
   }
 
   static #getAudioSrc(name) {
-    const soundObj = {
-      blackClick: blackCellSound,
-      whiteClick: whiteCellSound,
-      crossClick: crossSound,
-      win: winSoundSrc,
-    };
-
-    return soundObj[name];
+    return this.#soundObj[name];
   }
 }
