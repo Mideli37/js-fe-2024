@@ -13,6 +13,17 @@ export class Sound {
     win: winSoundSrc,
   };
 
+  static #audioElements = Object.fromEntries(Sound.#createAudioElements());
+
+  static #createAudioElements() {
+    return Object.entries(Sound.#soundObj).map(([soundName, soundSrc]) => {
+      const audioElem = document.createElement('audio');
+      audioElem.preload = 'auto';
+      audioElem.src = soundSrc;
+      return [soundName, audioElem];
+    });
+  }
+
   static toggleMuted() {
     this.#isMuted = !this.#isMuted;
   }
@@ -23,14 +34,14 @@ export class Sound {
 
   static playSound(name) {
     if (!this.#isMuted) {
-      const soundSrc = this.#getAudioSrc(name);
-      const sound = new Audio(soundSrc);
-      sound.volume = 0.4;
-      sound.play();
+      const audioEl = this.#getAudioElement(name);
+      audioEl.currentTime = 0;
+      audioEl.volume = 0.4;
+      audioEl.play();
     }
   }
 
-  static #getAudioSrc(name) {
-    return this.#soundObj[name];
+  static #getAudioElement(name) {
+    return this.#audioElements[name];
   }
 }
