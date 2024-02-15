@@ -2,7 +2,7 @@ import { Timer } from '../../components/timer/Timer';
 import { createControlButton } from '../../shared/create-control-button';
 import { createEl } from '../../shared/create-el';
 import { getRandomNumber } from '../../shared/get-random-number';
-import { nonograms } from '../../shared/nonorgams';
+import { nonograms } from '../../shared/nonograms';
 import { createScoreTable } from '../../components/score/score-table';
 import { Sound } from '../../shared/sound/Sound';
 import { Dialog } from '../dialog/Dialog';
