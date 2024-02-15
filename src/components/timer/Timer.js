@@ -1,8 +1,7 @@
 import { createEl } from '../../shared/create-el';
-import style from './timer.module.css';
 
 export class Timer {
-  timerElement = createEl('span', style.timer, '00:00');
+  timerElement = createEl('span', null, '00:00');
 
   #totalTime = 0;
 

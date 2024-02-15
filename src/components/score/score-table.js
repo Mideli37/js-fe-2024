@@ -7,7 +7,7 @@ export function createRowElements(tag, className, elementsTextContent) {
 }
 
 export function createScoreRow(gameResultList) {
-  const rowEl = createEl('tr', style.tableTR);
+  const rowEl = createEl('tr');
   const result = gameResultList.slice();
   const time = result[0];
   const seconds = Math.floor(Math.floor(time) % 60).toString();

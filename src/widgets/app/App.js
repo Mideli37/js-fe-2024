@@ -14,7 +14,7 @@ const lsPrefix = 'MideliNonograms';
 export class App {
   #menuPanelContainer = createEl('div', style.menuPanelContainer);
 
-  #nonogramWrapper = createEl('div', style.nonogramWrapper);
+  #nonogramWrapper = createEl('div');
 
   #controlButtonsContainer = createEl('div', style.controlsContainer);
 
