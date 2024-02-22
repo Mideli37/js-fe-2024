@@ -1,5 +1,5 @@
 import { safeQuerySelector } from '@/helpers/safeQuerySelector';
-import type { Article } from '@/types/everythingResponse.type';
+import type { Article } from '@/types/article.type';
 import './news.css';
 
 class News {
