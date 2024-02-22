@@ -1,8 +1,7 @@
+import type { Source } from './source.type';
+
 export type Article = {
-  source: {
-    id: string;
-    name: string;
-  };
+  source: Pick<Source, 'id' | 'name'>;
   author: string;
   title: string;
   description: string;
