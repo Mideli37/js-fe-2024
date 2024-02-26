@@ -1,6 +1,9 @@
+import { assertIsOptions } from '@/helpers/assertIsOptions';
+import { assertIsString } from '@/helpers/assertIsString';
 import type { Article } from '@/types/article.type';
 import type { Endpoint } from '@/types/endpoint.enum';
 import { HTTPStatusCode } from '@/types/httpStatusCode.enum';
+import type { Options } from '@/types/options.type';
 import type { Source } from '@/types/source.type';
 
 type RequestOptions = {
@@ -13,10 +16,16 @@ type RequestOptions = {
 type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'UPDATE' | 'DELETE';
 
 class Loader {
-  constructor(
-    private baseLink: string,
-    private options: { apiKey: string },
-  ) {}
+  private baseLink: string;
+
+  private options: Options;
+
+  constructor(baseLink: string | undefined, options: { apiKey: string | undefined }) {
+    assertIsString(baseLink);
+    this.baseLink = baseLink;
+    assertIsOptions(options);
+    this.options = options;
+  }
 
   protected getResp(
     { endpoint, options = {} }: RequestOptions,
