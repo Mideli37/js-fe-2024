@@ -1,11 +1,14 @@
+import placeholderImg from '@/assets/placeholder.avif';
+import { isOdd } from '@/helpers/isOdd';
 import { safeQuerySelector } from '@/helpers/safeQuerySelector';
 import type { Article } from '@/types/article.type';
 import './news.css';
-import placeholderImg from '@/assets/placeholder.avif'
+
+const MAX_NEWS_QUANTITY = 10;
 
 class News {
   public draw(data: Article[]): void {
-    const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
+    const news = data.length >= MAX_NEWS_QUANTITY ? data.filter((_item, idx) => idx < MAX_NEWS_QUANTITY) : data;
 
     const fragment = document.createDocumentFragment();
     const newsItemTemp = safeQuerySelector('#newsItemTemp');
@@ -16,7 +19,7 @@ class News {
     news.forEach((item, idx) => {
       const newsClone = newsItemTemp.content.cloneNode(true);
 
-      if (idx % 2) {
+      if (isOdd(idx)) {
         safeQuerySelector('.news__item', newsClone).classList.add('alt');
       }
       safeQuerySelector('.news__meta-photo', newsClone).style.backgroundImage = `url(${
@@ -24,7 +27,7 @@ class News {
       })`;
       safeQuerySelector('.news__meta-author', newsClone).textContent = item.author || item.source.name;
       safeQuerySelector('.news__meta-date', newsClone).textContent = item.publishedAt
-        .slice(0, 10)
+        .slice(0, MAX_NEWS_QUANTITY)
         .split('-')
         .reverse()
         .join('-');
