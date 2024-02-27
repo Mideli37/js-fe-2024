@@ -1,6 +1,7 @@
 import { safeQuerySelector } from '@/helpers/safeQuerySelector';
 import type { Article } from '@/types/article.type';
 import './news.css';
+import placeholderImg from '@/assets/placeholder.avif'
 
 class News {
   public draw(data: Article[]): void {
@@ -18,9 +19,8 @@ class News {
       if (idx % 2) {
         safeQuerySelector('.news__item', newsClone).classList.add('alt');
       }
-
       safeQuerySelector('.news__meta-photo', newsClone).style.backgroundImage = `url(${
-        item.urlToImage || 'img/news_placeholder.jpg'
+        item.urlToImage || placeholderImg
       })`;
       safeQuerySelector('.news__meta-author', newsClone).textContent = item.author || item.source.name;
       safeQuerySelector('.news__meta-date', newsClone).textContent = item.publishedAt
