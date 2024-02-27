@@ -1,10 +1,10 @@
-import { assertIsOptions } from '@/helpers/assertIsOptions';
-import { assertIsString } from '@/helpers/assertIsString';
-import type { Article } from '@/types/article.type';
-import type { Endpoint } from '@/types/endpoint.enum';
+import { assertIsOptions } from '@/helpers/isOptions';
+import { assertIsString } from '@/helpers/isString';
+import type { ApiResponse } from '@/types/apiResponse.type';
+import type { Endpoint } from '@/types/endpoint.type';
+import type { GetRespCallback } from '@/types/getRespCallback.type';
 import { HTTPStatusCode } from '@/types/httpStatusCode.enum';
 import type { Options } from '@/types/options.type';
-import type { Source } from '@/types/source.type';
 
 type RequestOptions = {
   endpoint: Endpoint;
@@ -29,7 +29,7 @@ class Loader {
 
   protected getResp(
     { endpoint, options = {} }: RequestOptions,
-    callback = (): void => {
+    callback: GetRespCallback = (): void => {
       console.error('No callback for GET response');
     },
   ): void {
@@ -64,13 +64,13 @@ class Loader {
   private load(
     method: HTTPMethod,
     endpoint: Endpoint,
-    callback: (data?: Article | Source) => void,
+    callback: GetRespCallback,
     options: RequestOptions['options'] = {},
   ): void {
     fetch(this.makeUrl(options, endpoint), { method })
       .then((res) => this.errorHandler(res))
       .then((res) => res.json())
-      .then((data: Article | Source) => callback(data))
+      .then((data: ApiResponse) => callback(data))
       .catch((err) => console.error(err));
   }
 }
