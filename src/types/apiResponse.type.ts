@@ -1,4 +1,4 @@
-import type { EverythingResponse } from "./everythingResponse.type";
-import type { SourceResponse } from "./sourceResponse.type";
+import type { EverythingResponse } from './everythingResponse.type';
+import type { SourceResponse } from './sourceResponse.type';
 
-export type ApiResponse = EverythingResponse | SourceResponse
+export type ApiResponse = EverythingResponse | SourceResponse;

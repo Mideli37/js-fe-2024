@@ -38,10 +38,11 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/consistent-type-exports": "error",
     "@typescript-eslint/consistent-type-imports": "error",
-    
+
     "import/prefer-default-export": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/config/webpack/*.{js,ts}"] }]  },
-    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/config/webpack/*.{js,ts}"] }],
+    "class-methods-use-this": "off"
+  },
   "overrides": [
     {
       "files": ["*.js"],

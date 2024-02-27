@@ -1,6 +1,6 @@
 import type { Configuration } from 'webpack';
-import type { WebpackConfig } from './types';
 import { EsbuildPlugin } from 'esbuild-loader';
+import type { WebpackConfig } from './types';
 
 type Optimization = Configuration['optimization'];
 

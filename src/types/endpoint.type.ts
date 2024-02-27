@@ -1,2 +1,1 @@
-export type Endpoint = 'sources' | 'everything'
-
+export type Endpoint = 'sources' | 'everything';

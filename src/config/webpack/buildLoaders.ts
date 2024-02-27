@@ -1,6 +1,6 @@
 import type { RuleSetRule } from 'webpack';
-import type { WebpackConfig } from './types';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import type { WebpackConfig } from './types';
 
 type RuleUse = RuleSetRule['use'];
 
