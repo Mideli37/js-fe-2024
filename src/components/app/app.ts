@@ -16,12 +16,17 @@ class App {
 
   public start(): void {
     const sources = safeQuerySelector('.sources');
-    sources.addEventListener('click', (e) =>
-      this.controller.getNews(e, (data) => {
+    const button = safeQuerySelector('.source-button');
+    button.addEventListener('click', () => {
+      sources.classList.toggle('open');
+    });
+    sources.addEventListener('click', (e) => {
+      sources.classList.remove('open');
+      return this.controller.getNews(e, (data) => {
         assertIsEverythingResponse(data);
         this.view.drawNews(data);
-      }),
-    );
+      });
+    });
     this.controller.getSources((data) => {
       assertIsSourceResponse(data);
       this.view.drawSources(data);
