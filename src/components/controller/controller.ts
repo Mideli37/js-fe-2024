@@ -1,6 +1,7 @@
 import { assertIsString } from '@/helpers/isString';
 import type { GetRespCallback } from '@/types/getRespCallback.type';
 import AppLoader from './appLoader';
+import { setSearchParam } from '@/helpers/searchParam';
 
 class AppController extends AppLoader {
   public getSources(callback: GetRespCallback): void {
@@ -22,6 +23,7 @@ class AppController extends AppLoader {
         const sourceId = target.getAttribute('data-source-id');
         assertIsString(sourceId);
         if (newsContainer.getAttribute('data-source') !== sourceId) {
+          setSearchParam('sources', sourceId);
           newsContainer.setAttribute('data-source', sourceId);
           super.getResp(
             {

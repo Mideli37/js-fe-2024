@@ -3,6 +3,7 @@ import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 import { assertIsEverythingResponse } from '@/helpers/isEverythingResponse';
 import { assertIsSourceResponse } from '@/helpers/isSourceResponse';
+import { getSearchParam } from '@/helpers/searchParam';
 
 class App {
   public controller: AppController;
@@ -30,6 +31,11 @@ class App {
     this.controller.getSources((data) => {
       assertIsSourceResponse(data);
       this.view.drawSources(data);
+      const sourceId = getSearchParam('sources');
+      if (sourceId) {
+        const currentSourceButton = safeQuerySelector(`.source__item[data-source-id=${sourceId}]`);
+        currentSourceButton.click();
+      }
     });
   }
 }
