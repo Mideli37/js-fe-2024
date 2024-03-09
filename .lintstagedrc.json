@@ -1,5 +1,5 @@
 {
-  "*": "prettier -luw",
+  "*": "npm run ci:format",
   "*.ts": "eslint --report-unused-disable-directives --max-warnings 0",
-  "*.css": "stylelint --mw 0 --fix"
+  "*.css": "stylelint --mw 0"
 }

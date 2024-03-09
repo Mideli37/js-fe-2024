@@ -25,8 +25,8 @@
     /* Path aliases */
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-    },
+      "@/*": ["./src/*"]
+    }
   },
 
   "include": ["**/*.ts", "src/index.ts"]

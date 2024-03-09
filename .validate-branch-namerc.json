@@ -1,4 +1,4 @@
 {
-  "pattern": "^(init|feat|fix|refactor)\/RSS-PZ-\\d+_[a-z]+([A-Z]+[a-z]*)*$",
+  "pattern": "^(init|feat|fix|refactor)/RSS-PZ-\\d+_[a-z]+([A-Z]+[a-z]*)*$",
   "errorMsg": "Branch name is invalid"
 }

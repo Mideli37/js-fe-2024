@@ -37,5 +37,8 @@
     "max-lines-per-function": ["error", 40],
     "no-console": "warn"
   },
+  "settings": {
+    "import/resolver": { "typescript": true }
+  },
   "noInlineConfig": true
 }

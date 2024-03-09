@@ -83,7 +83,7 @@ export default (env: Record<string, string>): Configuration => {
           ],
         },
         {
-          test: /\.(png|svg)$/i,
+          test: /\.(png|svg|avif)$/i,
           type: 'asset',
           generator: {
             filename: 'images/[hash][ext][query]',
