@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/Login-form';
+import { LoginForm } from '@/components/login-form/Login-form';
 import { createElement } from '@/helpers/create-element';
 
 export class EntryPage {
