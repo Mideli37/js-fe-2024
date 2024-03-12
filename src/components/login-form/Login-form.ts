@@ -1,8 +1,10 @@
 import { createElement } from '@/helpers/create-element';
 import { InputComponent } from './Input-component';
-import { saveData } from '@/services/Local-storage.service';
+import { saveLSData } from '@/services/Local-storage.service';
 
 export class LoginForm {
+  constructor(private onSuccessfulLogin: () => void) {}
+
   private container = createElement('div', { className: 'bg-[#e9cec7] p-5 rounded-md border-red-900 border' });
 
   private build(): void {
@@ -11,8 +13,7 @@ export class LoginForm {
       disabled: true,
       type: 'submit',
       value: 'Login',
-      className:
-        'bg-[#ffe3d5] border border-red-900 disabled:bg-[#ece5e1] disabled:border-[#ece5e1] disabled:cursor-default rounded-md  py-1.5 pl-4 pr-4 duration-100 cursor-pointer',
+      className: 'button',
     });
 
     const validInputs = { inputFirstName: false, inputLastName: false };
@@ -31,7 +32,8 @@ export class LoginForm {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = new FormData(form);
-      saveData('loginInfo', Object.fromEntries(formData.entries()));
+      saveLSData('loginInfo', Object.fromEntries(formData.entries()));
+      this.onSuccessfulLogin();
     });
     this.container.append(form);
     form.append(...firstName.getElements(), ...lastName.getElements(), loginButton);
