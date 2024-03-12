@@ -1,5 +1,6 @@
 import { createElement } from '@/helpers/create-element';
 import { InputComponent } from './Input-component';
+import { saveData } from '@/services/Local-storage.service';
 
 export class LoginForm {
   private container = createElement('div', { className: 'bg-[#e9cec7] p-5 rounded-md border-red-900 border' });
@@ -15,7 +16,6 @@ export class LoginForm {
     });
 
     const validInputs = { inputFirstName: false, inputLastName: false };
-
     function setButtonState(): void {
       loginButton.disabled = !Object.values(validInputs).every((value) => value);
     }
@@ -28,6 +28,11 @@ export class LoginForm {
       setButtonState();
     });
 
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      saveData('loginInfo', Object.fromEntries(formData.entries()));
+    });
     this.container.append(form);
     form.append(...firstName.getElements(), ...lastName.getElements(), loginButton);
   }

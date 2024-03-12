@@ -43,6 +43,7 @@ export class InputComponent {
     this.input = createElement('input', {
       id: inputProps.id,
       type: 'text',
+      name: inputProps.id,
       required: true,
       className:
         'outline-none rounded-md border-0 py-1.5 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-red-900 focus:ring-2 focus:ring-inset focus:ring-red-900',
