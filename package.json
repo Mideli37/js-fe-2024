@@ -4,7 +4,7 @@
   "description": "My webpack project",
   "scripts": {
     "format": "prettier -luw .",
-    "ci:format": "prettier -luс",
+    "ci:format": "prettier -cu",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
     "stylelint": "stylelint --mw 0 --fix \"src/**/*.css\"",
