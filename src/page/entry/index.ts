@@ -1,12 +1,13 @@
 import { LoginForm } from '@/components/login-form/Login-form';
 import { createElement } from '@/helpers/create-element';
+import type { LoginInfo } from '@/services/login-info.schema';
 
 type Props = {
-  onSuccessfulLogin: () => void;
+  onSuccessfulLogin: (userName: LoginInfo) => void;
 };
 
 export class EntryPage {
-  private onSuccessfulLogin: () => void;
+  private onSuccessfulLogin: Props['onSuccessfulLogin'];
 
   constructor({ onSuccessfulLogin }: Props) {
     this.onSuccessfulLogin = onSuccessfulLogin;

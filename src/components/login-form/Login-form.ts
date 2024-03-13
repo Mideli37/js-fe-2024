@@ -1,14 +1,14 @@
 import { createElement } from '@/helpers/create-element';
 import { InputComponent } from './Input-component';
-import { saveLSData } from '@/services/Local-storage.service';
+import { loginInfoSchema, type LoginInfo } from '@/services/login-info.schema';
 
 export class LoginForm {
-  constructor(private onSuccessfulLogin: () => void) {}
+  constructor(private onSuccessfulLogin: (userName: LoginInfo) => void) {}
 
   private container = createElement('div', { className: 'bg-[#e9cec7] p-5 rounded-md border-red-900 border' });
 
   private build(): void {
-    const form = createElement('form', { className: 'flex flex-col gap-2 w-80' });
+    const form = createElement('form', { className: 'flex flex-col gap-2 w-[350px]' });
     const loginButton = createElement('input', {
       disabled: true,
       type: 'submit',
@@ -20,11 +20,11 @@ export class LoginForm {
     function setButtonState(): void {
       loginButton.disabled = !Object.values(validInputs).every((value) => value);
     }
-    const firstName = new InputComponent({ text: 'First name:' }, { id: 'FirstName', minLength: 3 }, (value) => {
+    const firstName = new InputComponent({ text: 'First name:' }, { id: 'firstName', minLength: 3 }, (value) => {
       validInputs.inputFirstName = value;
       setButtonState();
     });
-    const lastName = new InputComponent({ text: 'Surname:' }, { id: 'Surname', minLength: 4 }, (value) => {
+    const lastName = new InputComponent({ text: 'Surname:' }, { id: 'surname', minLength: 4 }, (value) => {
       validInputs.inputLastName = value;
       setButtonState();
     });
@@ -32,8 +32,7 @@ export class LoginForm {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const formData = new FormData(form);
-      saveLSData('loginInfo', Object.fromEntries(formData.entries()));
-      this.onSuccessfulLogin();
+      this.onSuccessfulLogin(loginInfoSchema.parse(Object.fromEntries(formData.entries())));
     });
     this.container.append(form);
     form.append(...firstName.getElements(), ...lastName.getElements(), loginButton);
