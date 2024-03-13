@@ -1,4 +1,5 @@
 import { EntryPage } from '@/page/entry';
+import { MainPage } from '@/page/main';
 import { StartPage } from '@/page/start';
 import { getLSData, saveLSData } from '@/services/Local-storage.service';
 import { loginInfoSchema, type LoginInfo } from '@/services/login-info.schema';
@@ -25,6 +26,9 @@ export class App {
         this.loginInfo = null;
       },
       userName: this.loginInfo,
+      onStartGame: (): void => {
+        this.openMainPage();
+      },
     });
     startPage.init();
   }
@@ -37,6 +41,12 @@ export class App {
       },
     });
     entryPage.init();
+  }
+
+  private openMainPage(): this {
+    const mainPage = new MainPage();
+    mainPage.init();
+    return this;
   }
 
   public saveLoginInfo(): void {
