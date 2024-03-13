@@ -12,11 +12,21 @@ export class StartPage {
     this.onLogout = onLogout;
   }
 
-  private container = createElement('div', { className: 'flex justify-center items-center' });
+  private container = createElement('div', { className: 'h-full w-full flex justify-between items-center flex-col' });
 
   private build(): void {
     const logoutButton = new LogoutButton(this.onLogout);
-    this.container.append(logoutButton.getElement());
+    const infoContainer = createElement('div', {
+      className: 'h-full w-3/5 flex flex-col justify-center items-center gap-8 text-center',
+    });
+    infoContainer.append(
+      createElement('h1', { textContent: 'RSS Puzzle', className: 'font-semibold text-2xl' }),
+      createElement('p', {
+        textContent:
+          'RSS Puzzle is an interactive mini-game aimed at enhancing English language skills. Click on words, collect phrases. Words can be drag and drop.',
+      })
+    );
+    this.container.append(logoutButton.getButtonWrapper(), infoContainer);
   }
 
   public init(): void {

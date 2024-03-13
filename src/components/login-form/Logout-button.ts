@@ -7,14 +7,17 @@ export class LogoutButton {
     className: 'button',
   });
 
+  private buttonWrapper = createElement('div', { className: 'w-full bg-[#d8bfb9] flex justify-end p-3' });
+
   constructor(private onLogout: () => void) {
     this.button.addEventListener('click', () => {
       this.onLogout();
       removeLSKey('loginInfo');
     });
+    this.buttonWrapper.append(this.button);
   }
 
-  public getElement(): HTMLButtonElement {
-    return this.button;
+  public getButtonWrapper(): HTMLDivElement {
+    return this.buttonWrapper;
   }
 }
