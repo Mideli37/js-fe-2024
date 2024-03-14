@@ -16,14 +16,18 @@ export class App {
     }
   }
 
+  private onLogout(): void {
+    this.openEntryPage();
+    this.loginInfo = null;
+  }
+
   private openStartPage(): void {
     if (this.loginInfo === null) {
       throw new Error('No userName to call openStartPage fn');
     }
     const startPage = new StartPage({
       onLogout: (): void => {
-        this.openEntryPage();
-        this.loginInfo = null;
+        this.onLogout();
       },
       userName: this.loginInfo,
       onStartGame: (): void => {
@@ -44,7 +48,11 @@ export class App {
   }
 
   private openMainPage(): this {
-    const mainPage = new MainPage();
+    const mainPage = new MainPage({
+      onLogout: (): void => {
+        this.onLogout();
+      },
+    });
     mainPage.init();
     return this;
   }
