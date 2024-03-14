@@ -29,7 +29,11 @@ export class Game {
     shuffleCards(elements);
     elements.forEach((element) => {
       element.addEventListener('click', () => {
-        this.resultContainer.append(element);
+        if (element.parentElement === this.resultContainer) {
+          this.sourceContainer.append(element);
+        } else {
+          this.resultContainer.append(element);
+        }
       });
     });
     this.sourceContainer.append(...elements);
