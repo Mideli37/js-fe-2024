@@ -16,9 +16,17 @@ export class MainPage {
   }
 
   private build(): void {
-    const game = new Game();
     const logoutButton = new LogoutButton(this.onLogout);
-    this.container.append(logoutButton.getButtonWrapper(), game.getGameWrapper());
+    const checkButton = createElement('button', { className: 'button', textContent: 'Check', disabled: true });
+    const game = new Game({
+      setCheckButtonState: (boolean: boolean): void => {
+        checkButton.disabled = boolean;
+      },
+    });
+    checkButton.addEventListener('click', () => {
+      game.checkCards();
+    });
+    this.container.append(logoutButton.getButtonWrapper(), game.getGameWrapper(), checkButton);
   }
 
   public init(): void {
