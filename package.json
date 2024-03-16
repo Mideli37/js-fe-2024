@@ -9,9 +9,9 @@
     "lint:fix": "npm run lint -- --fix",
     "stylelint": "stylelint --mw 0 --fix \"src/**/*.css\"",
     "prepare": "husky",
-    "build": "webpack --mode=production --env mode=production",
-    "build:dev": "webpack --mode=development",
-    "watch": "webpack --watch",
+    "build": "tsx node_modules/webpack/bin/webpack --mode=production --env mode=production",
+    "build:dev": "tsx node_modules/webpack/bin/webpack --mode=development",
+    "watch": "tsx node_modules/webpack/bin/webpack --watch",
     "serve": "tsx node_modules/webpack/bin/webpack serve"
   },
   "author": "Anastasiia Muzipova",
