@@ -1,8 +1,8 @@
 import { createElement } from '@/helpers/create-element';
 
 const stateObj = {
-  wrong: 'bg-[#3eff24]',
-  correct: 'bg-[#ff6924]',
+  wrong: 'bg-[#ff6924]',
+  correct: 'bg-[#3eff24]',
   unchecked: 'bg-[#ffe3d5]',
 } as const;
 
@@ -38,5 +38,13 @@ export class Card {
     this.wrapper.classList.remove(stateObj[this.state]);
     this.state = state;
     this.wrapper.classList.add(stateObj[state]);
+  }
+
+  public getState(): State {
+    return this.state;
+  }
+
+  public removeOnClick(): void {
+    this.wrapper.onclick = null;
   }
 }
