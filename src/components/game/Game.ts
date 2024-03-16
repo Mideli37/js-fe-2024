@@ -7,7 +7,7 @@ const containersStyle = 'flex flex-row justify-start h-16 p-2 w-full bg-[#fcf3ee
 
 type Props = {
   setCheckButtonState: (arg0: boolean) => void;
-  setContinueButtonState: (arg0: boolean) => void;
+  setContinueFlag: (arg0: boolean) => void;
 };
 
 export class Game {
@@ -31,7 +31,7 @@ export class Game {
 
   private setCheckButtonState: (arg0: boolean) => void;
 
-  private setContinueButtonState: (arg0: boolean) => void;
+  private setContinueFlag: (arg0: boolean) => void;
 
   private currentRound: number = 0;
 
@@ -39,10 +39,10 @@ export class Game {
 
   private wordCollection?: WordCollection;
 
-  constructor({ setCheckButtonState, setContinueButtonState }: Props) {
+  constructor({ setCheckButtonState, setContinueFlag }: Props) {
     this.gameWrapper.append(this.linesWrapper, this.sourceContainer);
     this.setCheckButtonState = setCheckButtonState;
-    this.setContinueButtonState = setContinueButtonState;
+    this.setContinueFlag = setContinueFlag;
     void this.init();
   }
 
@@ -91,7 +91,6 @@ export class Game {
       this.setCheckButtonState(false);
     } else {
       this.setCheckButtonState(true);
-      this.setContinueButtonState(true);
       this.resetBg();
     }
   }
@@ -105,9 +104,9 @@ export class Game {
       }
     });
     if (this.resultCards.every((card) => card.getState() === 'correct')) {
-      this.setContinueButtonState(false);
+      this.setContinueFlag(true);
     } else {
-      this.setContinueButtonState(true);
+      this.setContinueFlag(false);
     }
   }
 
