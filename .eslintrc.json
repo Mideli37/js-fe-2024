@@ -37,7 +37,16 @@
     "curly": ["error", "all"],
     "max-lines-per-function": ["error", 40],
     "no-console": "warn",
-    "no-void": "off"
+    "no-void": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "arguments": false
+          // "attributes": false
+        }
+      }
+    ]
   },
   "settings": {
     "import/resolver": { "typescript": true }

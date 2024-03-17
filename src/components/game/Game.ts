@@ -5,6 +5,11 @@ import { fetchWordCollectionByLvl, type WordCollection } from '@/helpers/fetch-w
 
 const containersStyle = 'flex flex-row justify-start h-16 p-2 w-full bg-[#fcf3ee] border-2 border-[#7f1d1d] rounded-md';
 
+function animate(element: Element, ...animateProps: Parameters<Element['animate']>): Promise<Animation> {
+  const animateObj = element.animate(...animateProps);
+  return animateObj.finished;
+}
+
 type Props = {
   setCheckButtonState: (arg0: boolean) => void;
   setContinueFlag: (arg0: boolean) => void;
@@ -136,5 +141,31 @@ export class Game {
       }
       this.setNewSentence(this.currentRound, this.currentLine, this.wordCollection);
     }
+  }
+
+  public async sortCards(): Promise<void> {
+    const newCards = createWordCards(this.correctCards);
+    const newCardsElements = newCards.map((card) => card.getElement());
+
+    const cardsAnimationsPromise = this.resultCards.map((card) => {
+      const element = card.getElement();
+      return animate(element, [{ opacity: '1' }, { opacity: '0' }], {
+        duration: 300,
+        iterations: 1,
+      });
+    });
+    await Promise.all(cardsAnimationsPromise);
+
+    this.resultContainer.replaceChildren(...newCardsElements);
+
+    const newCardPromise = newCardsElements.map((element) =>
+      animate(element, [{ opacity: '0' }, { opacity: '1' }], {
+        duration: 300,
+        iterations: 1,
+      })
+    );
+    await Promise.all(newCardPromise);
+    this.removeOnClick();
+    this.resultCards = newCards;
   }
 }

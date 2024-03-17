@@ -11,6 +11,8 @@ export class MainPage {
 
   private onLogout: () => void;
 
+  private isReadyForContinue: boolean = false;
+
   constructor({ onLogout }: Props) {
     this.onLogout = onLogout;
   }
@@ -19,30 +21,54 @@ export class MainPage {
     const buttonWrapper = createElement('div', { className: 'flex flex-row' });
     const logoutButton = new LogoutButton(this.onLogout);
     const checkButton = createElement('button', { className: 'button', textContent: 'Check', disabled: true });
-    let isReadyForContinue = false;
+    const autoCompleteButton = createElement('button', {
+      className: 'button',
+      textContent: 'Auto Complete',
+      disabled: true,
+    });
+    this.isReadyForContinue = false;
+    const game = this.createGame(checkButton, autoCompleteButton);
+    checkButton.addEventListener('click', () => {
+      this.handleCheckClick(game, checkButton);
+    });
+    autoCompleteButton.addEventListener('click', async () => {
+      await game.sortCards();
+      game.checkCards();
+      autoCompleteButton.disabled = true;
+    });
+
+    buttonWrapper.append(checkButton, autoCompleteButton);
+    this.container.append(logoutButton.getButtonWrapper(), game.getGameWrapper(), buttonWrapper);
+  }
+
+  private createGame(checkbtn: HTMLButtonElement, autobtn: HTMLButtonElement): Game {
+    const checkButton = checkbtn;
+    const autoCompleteButton = autobtn;
     const game = new Game({
       setCheckButtonState: (boolean: boolean): void => {
         checkButton.disabled = boolean;
+        autoCompleteButton.disabled = boolean;
       },
       setContinueFlag: (boolean: boolean): void => {
         checkButton.textContent = boolean ? 'Continue' : 'Check';
-        isReadyForContinue = boolean;
+        this.isReadyForContinue = boolean;
       },
     });
-    checkButton.addEventListener('click', () => {
-      if (isReadyForContinue) {
-        game.resetBg();
-        game.removeOnClick();
-        game.setNextLine();
-        checkButton.textContent = 'Check';
-        checkButton.disabled = true;
-        isReadyForContinue = false;
-      } else {
-        game.checkCards();
-      }
-    });
-    buttonWrapper.append(checkButton);
-    this.container.append(logoutButton.getButtonWrapper(), game.getGameWrapper(), buttonWrapper);
+    return game;
+  }
+
+  private handleCheckClick(game: Game, checkbtn: HTMLButtonElement): void {
+    const checkButton = checkbtn;
+    if (this.isReadyForContinue) {
+      game.resetBg();
+      game.removeOnClick();
+      game.setNextLine();
+      checkButton.textContent = 'Check';
+      checkButton.disabled = true;
+      this.isReadyForContinue = false;
+    } else {
+      game.checkCards();
+    }
   }
 
   public init(): void {
