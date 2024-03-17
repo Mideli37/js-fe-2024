@@ -2,13 +2,9 @@ import { createElement } from '@/helpers/create-element';
 import { createWordCards, shuffleArr } from '@/helpers/get-word-cards';
 import type { Card } from './Card';
 import { fetchWordCollectionByLvl, type WordCollection } from '@/helpers/fetch-word-collection-by-lvl';
+import { fadeInAnimation, fadeOutAnimation } from '@/helpers/animations';
 
 const containersStyle = 'flex flex-row justify-start h-16 p-2 w-full bg-[#fcf3ee] border-2 border-[#7f1d1d] rounded-md';
-
-function animate(element: Element, ...animateProps: Parameters<Element['animate']>): Promise<Animation> {
-  const animateObj = element.animate(...animateProps);
-  return animateObj.finished;
-}
 
 type Props = {
   setCheckButtonState: (arg0: boolean) => void;
@@ -18,7 +14,9 @@ type Props = {
 export class Game {
   private gameWrapper = createElement('div', { className: 'h-full w-4/5 max-w-[800px] flex flex-col justify-around' });
 
-  private linesWrapper = createElement('div', { className: 'w-full max-w-[800px] flex flex-col justify-around' });
+  private linesWrapper = createElement('div', {
+    className: 'w-full max-w-[800px] min-h-[640px] flex flex-col justify-start',
+  });
 
   private resultContainer = createElement('div', {
     className: containersStyle,
@@ -54,10 +52,10 @@ export class Game {
   private async init(): Promise<void> {
     const collection = await fetchWordCollectionByLvl(1);
     this.wordCollection = collection;
-    this.setNewSentence(this.currentRound, this.currentLine, collection);
+    await this.setNewSentence(this.currentRound, this.currentLine, collection);
   }
 
-  private setNewSentence(round: number, line: number, collection: WordCollection): void {
+  private async setNewSentence(round: number, line: number, collection: WordCollection): Promise<void> {
     this.resultCards = [];
     this.resultContainer = createElement('div', {
       className: containersStyle,
@@ -75,8 +73,11 @@ export class Game {
         this.onElementClick(card);
       };
     });
-    this.sourceContainer.append(...this.sourceCards.map((card) => card.getElement()));
+    const cardsElements = this.sourceCards.map((card) => card.getElement());
+    this.sourceContainer.append(...cardsElements);
+    await fadeOutAnimation(cardsElements);
     this.linesWrapper.append(this.resultContainer);
+    await fadeOutAnimation([this.resultContainer]);
   }
 
   private onElementClick(card: Card): void {
@@ -131,15 +132,17 @@ export class Game {
     return this.gameWrapper;
   }
 
-  public setNextLine(): void {
+  public async setNextLine(): Promise<void> {
     this.currentLine += 1;
     if (this.wordCollection) {
       if (this.wordCollection.rounds[this.currentRound]?.words.length === this.currentLine) {
+        const linesWrapperElements = Array.from(this.linesWrapper.children);
+        await fadeInAnimation(linesWrapperElements);
         this.linesWrapper.replaceChildren();
         this.currentRound += 1;
         this.currentLine = 0;
       }
-      this.setNewSentence(this.currentRound, this.currentLine, this.wordCollection);
+      await this.setNewSentence(this.currentRound, this.currentLine, this.wordCollection);
     }
   }
 
@@ -147,24 +150,11 @@ export class Game {
     const newCards = createWordCards(this.correctCards);
     const newCardsElements = newCards.map((card) => card.getElement());
 
-    const cardsAnimationsPromise = this.resultCards.map((card) => {
-      const element = card.getElement();
-      return animate(element, [{ opacity: '1' }, { opacity: '0' }], {
-        duration: 300,
-        iterations: 1,
-      });
-    });
-    await Promise.all(cardsAnimationsPromise);
+    await fadeInAnimation(this.resultCards.map((card) => card.getElement()));
 
     this.resultContainer.replaceChildren(...newCardsElements);
 
-    const newCardPromise = newCardsElements.map((element) =>
-      animate(element, [{ opacity: '0' }, { opacity: '1' }], {
-        duration: 300,
-        iterations: 1,
-      })
-    );
-    await Promise.all(newCardPromise);
+    await fadeOutAnimation(newCardsElements);
     this.removeOnClick();
     this.resultCards = newCards;
   }

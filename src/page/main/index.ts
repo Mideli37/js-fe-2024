@@ -28,13 +28,13 @@ export class MainPage {
     });
     this.isReadyForContinue = false;
     const game = this.createGame(checkButton, autoCompleteButton);
-    checkButton.addEventListener('click', () => {
-      this.handleCheckClick(game, checkButton);
+    checkButton.addEventListener('click', async () => {
+      await this.handleCheckClick(game, checkButton);
     });
     autoCompleteButton.addEventListener('click', async () => {
+      autoCompleteButton.disabled = true;
       await game.sortCards();
       game.checkCards();
-      autoCompleteButton.disabled = true;
     });
 
     buttonWrapper.append(checkButton, autoCompleteButton);
@@ -57,15 +57,15 @@ export class MainPage {
     return game;
   }
 
-  private handleCheckClick(game: Game, checkbtn: HTMLButtonElement): void {
+  private async handleCheckClick(game: Game, checkbtn: HTMLButtonElement): Promise<void> {
     const checkButton = checkbtn;
     if (this.isReadyForContinue) {
       game.resetBg();
       game.removeOnClick();
-      game.setNextLine();
       checkButton.textContent = 'Check';
       checkButton.disabled = true;
       this.isReadyForContinue = false;
+      await game.setNextLine();
     } else {
       game.checkCards();
     }

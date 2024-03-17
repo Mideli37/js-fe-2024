@@ -20,6 +20,8 @@ body {
 
 .button {
   @apply cursor-pointer rounded-md border border-red-900 bg-[#ffe3d5] py-1.5 pl-4  pr-4 duration-300 hover:bg-[#fae8df] disabled:cursor-default disabled:border-[#ece5e1] disabled:bg-[#ece5e1];
+
+  user-select: none;
 }
 
 .card {
