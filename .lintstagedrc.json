@@ -1,0 +1,5 @@
+{
+  "*": "prettier -luw",
+  "*.ts": "eslint --fix --max-warnings 0",
+  "*.css": "stylelint --fix --mw 0"
+}
