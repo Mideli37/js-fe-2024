@@ -1,4 +1,5 @@
 import { createElement } from '@/helpers/create-element';
+import { CarTrack } from './Car-track';
 
 function createSmallButton(text: string): HTMLButtonElement {
   return createElement('button', { className: 'small-button', textContent: text });
@@ -8,6 +9,8 @@ export class Garage {
   private pageContainer = createElement('div');
 
   private trackContainer = createElement('div');
+
+  private tracksWrapper = createElement('div');
 
   public getContainer(): HTMLDivElement {
     return this.pageContainer;
@@ -49,11 +52,20 @@ export class Garage {
   public buildTracksContainer(carQuantity: number, page: number): void {
     const heading = createElement('h1', { textContent: `GARAGE (${carQuantity.toString()})` });
     const p = createElement('p', { textContent: `Page #${page.toString()}` });
-    const tracksWrapper = createElement('div');
     const buttonsWrapper = createElement('div');
     const prevButton = createElement('button', { className: 'button', textContent: 'Previous' });
     const nextButton = createElement('button', { className: 'button', textContent: 'Next' });
     buttonsWrapper.append(prevButton, nextButton);
-    this.trackContainer.append(heading, p, tracksWrapper, buttonsWrapper);
+    this.trackContainer.append(heading, p, this.tracksWrapper, buttonsWrapper);
+    this.buildCars(['Настенькина машинка', 'Синенькая машинка', 'Машинкина машинка']);
+  }
+
+  private buildCars(carNames: string[]): void {
+    this.tracksWrapper.append(
+      ...carNames.map((carInfo) => {
+        const car = new CarTrack(carInfo);
+        return car.getTrack();
+      })
+    );
   }
 }
