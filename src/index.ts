@@ -3,4 +3,4 @@ import './main.css';
 
 const app = new App();
 
-app.init();
+void app.init();

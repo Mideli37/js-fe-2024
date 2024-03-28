@@ -1,5 +1,7 @@
 import { createElement } from '@/helpers/create-element';
 import { CarTrack } from './Car-track';
+import { getCars } from '@/api';
+import { carListSchema, type CarList } from '@/lib/car-list.schema';
 
 function createSmallButton(text: string): HTMLButtonElement {
   return createElement('button', { className: 'small-button', textContent: text });
@@ -49,7 +51,7 @@ export class Garage {
     this.pageContainer.append(container);
   }
 
-  public buildTracksContainer(carQuantity: number, page: number): void {
+  public async buildTracksContainer(carQuantity: number, page: number): Promise<void> {
     const heading = createElement('h1', { textContent: `GARAGE (${carQuantity.toString()})` });
     const p = createElement('p', { textContent: `Page #${page.toString()}` });
     const buttonsWrapper = createElement('div');
@@ -57,12 +59,13 @@ export class Garage {
     const nextButton = createElement('button', { className: 'button', textContent: 'Next' });
     buttonsWrapper.append(prevButton, nextButton);
     this.trackContainer.append(heading, p, this.tracksWrapper, buttonsWrapper);
-    this.buildCars(['Настенькина машинка', 'Синенькая машинка', 'Машинкина машинка']);
+    const carList = await getCars(page);
+    this.buildCars(carListSchema.parse(carList));
   }
 
-  private buildCars(carNames: string[]): void {
+  private buildCars(carList: CarList): void {
     this.tracksWrapper.append(
-      ...carNames.map((carInfo) => {
+      ...carList.map((carInfo) => {
         const car = new CarTrack(carInfo);
         return car.getTrack();
       })
