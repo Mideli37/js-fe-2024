@@ -35,6 +35,10 @@ export class Garage {
     const nameInput = createElement('input', { type: 'text', ariaLabel: 'Car Name', className: 'input' });
     const colorPickCreate = createElement('input', { type: 'color', ariaLabel: 'color pick for car' });
     const createButton = createSmallButton('CREATE');
+    createButton.onclick = (e): void => {
+      e.preventDefault();
+      void this.createNewCar(nameInput, colorPickCreate);
+    };
     createCarWrapper.append(nameInput, colorPickCreate, createButton);
     const updateCarWrapper = createElement('div');
     const updateNameInput = createElement('input', { type: 'text', ariaLabel: 'Update Car Name', className: 'input' });
@@ -91,5 +95,12 @@ export class Garage {
     }
     await Promise.all(promises);
     await this.buildTracksContainer();
+  }
+
+  private async createNewCar(nameInput: HTMLInputElement, colorInput: HTMLInputElement): Promise<void> {
+    if (nameInput.value) {
+      await createCar({ name: nameInput.value, color: colorInput.value });
+      await this.buildTracksContainer();
+    }
   }
 }
