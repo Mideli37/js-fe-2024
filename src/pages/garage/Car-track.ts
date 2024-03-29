@@ -8,7 +8,10 @@ function createButton(text: string): HTMLButtonElement {
 export class CarTrack {
   private carTrackContainer = createElement('div', { className: 'flex flex-row m-2' });
 
-  constructor(private carInfo: CarInfo) {
+  constructor(
+    private carInfo: CarInfo,
+    private onSelect: (carInfo: CarInfo) => void
+  ) {
     this.build();
   }
 
@@ -17,6 +20,9 @@ export class CarTrack {
     const name = createElement('h3', { textContent: this.carInfo.name });
     const carControls = createElement('div', { className: 'flex flex-row flex-nowrap' });
     const selectButton = createButton('Select');
+    selectButton.onclick = (): void => {
+      this.onSelect(this.carInfo);
+    };
     const removeButton = createButton('Remove');
     carControls.append(selectButton, removeButton);
     const engineControls = createElement('div');

@@ -1,6 +1,6 @@
-import { createCar, getCars } from '@/api';
+import { createCar, getCars, updateCar } from '@/api';
 import { createElement } from '@/helpers/create-element';
-import { carListSchema, type CarList } from '@/lib/car-list.schema';
+import { carListSchema, type CarList, type CarInfo } from '@/lib/car-list.schema';
 import { CarTrack } from './Car-track';
 import { getRandomName } from '@/helpers/get-random-name';
 import { getRandomColor } from '@/helpers/get-random-color';
@@ -17,6 +17,10 @@ export class Garage {
   private tracksWrapper = createElement('div');
 
   private page: number = 0;
+
+  private selectedCar: CarInfo | null = null;
+
+  private updateInputs: (HTMLInputElement | HTMLButtonElement)[] = [];
 
   public getContainer(): HTMLDivElement {
     return this.pageContainer;
@@ -40,14 +44,43 @@ export class Garage {
       void this.createNewCar(nameInput, colorPickCreate);
     };
     createCarWrapper.append(nameInput, colorPickCreate, createButton);
-    const updateCarWrapper = createElement('div');
-    const updateNameInput = createElement('input', { type: 'text', ariaLabel: 'Update Car Name', className: 'input' });
-    const colorPickUpdate = createElement('input', { type: 'color', ariaLabel: 'color pick for car' });
-    const updateButton = createSmallButton('UPDATE');
-    updateCarWrapper.append(updateNameInput, colorPickUpdate, updateButton);
+    const updateCarWrapper = this.createUpdateCarWrapper();
     form.append(createCarWrapper, updateCarWrapper);
     container.append(form);
     this.pageContainer.append(container);
+  }
+
+  private createUpdateCarWrapper(): HTMLDivElement {
+    const updateCarWrapper = createElement('div');
+    const updateNameInput = createElement('input', {
+      type: 'text',
+      ariaLabel: 'Update Car Name',
+      className: 'input',
+      disabled: true,
+    });
+    const colorPickUpdate = createElement('input', { type: 'color', ariaLabel: 'color pick for car', disabled: true });
+    const updateButton = createSmallButton('UPDATE');
+    updateButton.disabled = true;
+    this.updateInputs.push(updateNameInput, colorPickUpdate, updateButton);
+    updateButton.onclick = async (e): Promise<void> => {
+      e.preventDefault();
+      if (updateNameInput.value && this.selectedCar) {
+        await updateCar({
+          color: colorPickUpdate.value,
+          id: this.selectedCar.id.toString(),
+          name: updateNameInput.value,
+        });
+      }
+      this.updateInputs.forEach((elem) => {
+        const input = elem;
+        input.disabled = true;
+      });
+      updateNameInput.value = '';
+      colorPickUpdate.value = '#000000';
+      await this.buildTracksContainer();
+    };
+    updateCarWrapper.append(updateNameInput, colorPickUpdate, updateButton);
+    return updateCarWrapper;
   }
 
   private buildControllers(): void {
@@ -82,10 +115,24 @@ export class Garage {
   private buildCars(carList: CarList): void {
     this.tracksWrapper.replaceChildren(
       ...carList.map((carInfo) => {
-        const car = new CarTrack(carInfo);
+        const car = new CarTrack(carInfo, () => {
+          this.selectCar(carInfo);
+        });
         return car.getTrack();
       })
     );
+  }
+
+  private selectCar(carInfo: CarInfo): void {
+    this.selectedCar = carInfo;
+    this.updateInputs.forEach((elem) => {
+      const input = elem;
+      input.disabled = false;
+    });
+    if (this.updateInputs[0] && this.updateInputs[1]) {
+      this.updateInputs[0].value = carInfo.name;
+      this.updateInputs[1].value = carInfo.color;
+    }
   }
 
   private async generateCars(): Promise<void> {
