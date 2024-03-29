@@ -1,4 +1,4 @@
-import { createCar, getCars, updateCar } from '@/api';
+import { createCar, deleteCar, getCars, updateCar } from '@/api';
 import { createElement } from '@/helpers/create-element';
 import { carListSchema, type CarList, type CarInfo } from '@/lib/car-list.schema';
 import { CarTrack } from './Car-track';
@@ -115,9 +115,16 @@ export class Garage {
   private buildCars(carList: CarList): void {
     this.tracksWrapper.replaceChildren(
       ...carList.map((carInfo) => {
-        const car = new CarTrack(carInfo, () => {
-          this.selectCar(carInfo);
-        });
+        const car = new CarTrack(
+          carInfo,
+          () => {
+            this.selectCar(carInfo);
+          },
+          async () => {
+            await deleteCar(carInfo.id.toString());
+            await this.buildTracksContainer();
+          }
+        );
         return car.getTrack();
       })
     );

@@ -10,7 +10,9 @@ export class CarTrack {
 
   constructor(
     private carInfo: CarInfo,
-    private onSelect: (carInfo: CarInfo) => void
+    private onSelect: (carInfo: CarInfo) => void,
+
+    private onDelete: (id: string) => void
   ) {
     this.build();
   }
@@ -24,6 +26,9 @@ export class CarTrack {
       this.onSelect(this.carInfo);
     };
     const removeButton = createButton('Remove');
+    removeButton.onclick = (): void => {
+      this.onDelete(this.carInfo.id.toString());
+    };
     carControls.append(selectButton, removeButton);
     const engineControls = createElement('div');
     const driveButton = createButton('Drive');
