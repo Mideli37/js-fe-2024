@@ -1,7 +1,9 @@
+import { createCar, getCars } from '@/api';
 import { createElement } from '@/helpers/create-element';
-import { CarTrack } from './Car-track';
-import { getCars } from '@/api';
 import { carListSchema, type CarList } from '@/lib/car-list.schema';
+import { CarTrack } from './Car-track';
+import { getRandomName } from '@/helpers/get-random-name';
+import { getRandomColor } from '@/helpers/get-random-color';
 
 function createSmallButton(text: string): HTMLButtonElement {
   return createElement('button', { className: 'small-button', textContent: text });
@@ -13,6 +15,8 @@ export class Garage {
   private trackContainer = createElement('div');
 
   private tracksWrapper = createElement('div');
+
+  private page: number = 0;
 
   public getContainer(): HTMLDivElement {
     return this.pageContainer;
@@ -47,28 +51,45 @@ export class Garage {
     const raceButton = createSmallButton('RACE');
     const resetButton = createSmallButton('RESET');
     const generateButton = createSmallButton('GENERATE CARS');
+    generateButton.onclick = (): void => {
+      void this.generateCars();
+    };
     container.append(raceButton, resetButton, generateButton);
     this.pageContainer.append(container);
   }
 
-  public async buildTracksContainer(carQuantity: number, page: number): Promise<void> {
-    const heading = createElement('h1', { textContent: `GARAGE (${carQuantity.toString()})` });
-    const p = createElement('p', { textContent: `Page #${page.toString()}` });
+  public async buildTracksContainer(page?: number): Promise<void> {
+    if (page) {
+      this.page = page;
+    }
+
+    const response = await getCars(this.page);
+    this.buildCars(carListSchema.parse(response.json));
+
+    const heading = createElement('h1', { textContent: `GARAGE (${response.count?.toString() ?? '0'})` });
+    const p = createElement('p', { textContent: `Page #${(this.page + 1).toString()}` });
     const buttonsWrapper = createElement('div');
     const prevButton = createElement('button', { className: 'button', textContent: 'Previous' });
     const nextButton = createElement('button', { className: 'button', textContent: 'Next' });
     buttonsWrapper.append(prevButton, nextButton);
-    this.trackContainer.append(heading, p, this.tracksWrapper, buttonsWrapper);
-    const carList = await getCars(page);
-    this.buildCars(carListSchema.parse(carList));
+    this.trackContainer.replaceChildren(heading, p, this.tracksWrapper, buttonsWrapper);
   }
 
   private buildCars(carList: CarList): void {
-    this.tracksWrapper.append(
+    this.tracksWrapper.replaceChildren(
       ...carList.map((carInfo) => {
         const car = new CarTrack(carInfo);
         return car.getTrack();
       })
     );
+  }
+
+  private async generateCars(): Promise<void> {
+    const promises = [];
+    for (let i = 0; i < 100; i += 1) {
+      promises.push(createCar({ name: getRandomName(), color: getRandomColor() }));
+    }
+    await Promise.all(promises);
+    await this.buildTracksContainer();
   }
 }

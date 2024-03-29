@@ -35,10 +35,15 @@ function buildUrl(endpoint: Endpoint, id?: string): URL {
   return new URL(url);
 }
 
-export async function getCars(page: number, limit = 7): Promise<Json> {
+type GetCarsResponse = {
+  json: Json;
+  count: string | null;
+};
+export async function getCars(page: number, limit = 7): Promise<GetCarsResponse> {
   const url = buildUrl(Endpoint.garage);
   url.search = new URLSearchParams({ _page: page.toString(), _limit: limit.toString() }).toString();
-  return fetchJSON(url);
+  const response = await fetch(url);
+  return { json: jsonSchema.parse(await response.json()), count: response.headers.get('X-Total-Count') };
 }
 
 export async function getCar(id: string): Promise<Json> {

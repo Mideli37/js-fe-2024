@@ -16,7 +16,7 @@ export class App {
     this.container.append(garageButton, winnersButton, this.pageContainer);
     this.garage.init();
     this.pageContainer.append(this.garage.getContainer());
-    await this.garage.buildTracksContainer(10, this.currentPage);
+    await this.garage.buildTracksContainer(this.currentPage);
   }
 
   public async init(): Promise<void> {
