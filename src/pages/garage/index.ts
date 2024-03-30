@@ -1,9 +1,9 @@
 import { createCar, deleteCar, getCars, updateCar } from '@/api';
 import { createElement } from '@/helpers/create-element';
-import { carListSchema, type CarList, type CarInfo } from '@/lib/car-list.schema';
-import { CarTrack } from './Car-track';
-import { getRandomName } from '@/helpers/get-random-name';
 import { getRandomColor } from '@/helpers/get-random-color';
+import { getRandomName } from '@/helpers/get-random-name';
+import { carListSchema, type CarInfo, type CarList } from '@/lib/car-list.schema';
+import { CarTrack } from './Car-track';
 
 function createSmallButton(text: string): HTMLButtonElement {
   return createElement('button', { className: 'small-button', textContent: text });
@@ -17,6 +17,10 @@ export class Garage {
   private tracksWrapper = createElement('div');
 
   private page: number = 0;
+
+  private totalCarCount: number = 0;
+
+  private CARS_PER_PAGE = 7;
 
   private selectedCar: CarInfo | null = null;
 
@@ -103,11 +107,32 @@ export class Garage {
     const response = await getCars(this.page);
     this.buildCars(carListSchema.parse(response.json));
 
-    const heading = createElement('h1', { textContent: `GARAGE (${response.count?.toString() ?? '0'})` });
+    if (response.count) {
+      this.totalCarCount = +response.count;
+    }
+
+    const heading = createElement('h1', { textContent: `GARAGE (${response.count ?? '0'})` });
     const p = createElement('p', { textContent: `Page #${(this.page + 1).toString()}` });
     const buttonsWrapper = createElement('div');
     const prevButton = createElement('button', { className: 'button', textContent: 'Previous' });
     const nextButton = createElement('button', { className: 'button', textContent: 'Next' });
+    if (this.page === 0) {
+      prevButton.disabled = true;
+    }
+    prevButton.onclick = async (): Promise<void> => {
+      this.page -= 1;
+      nextButton.disabled = false;
+      await this.buildTracksContainer();
+    };
+    if (this.page > (this.totalCarCount - 1) / this.CARS_PER_PAGE) {
+      nextButton.disabled = true;
+    }
+    nextButton.onclick = async (): Promise<void> => {
+      this.page += 1;
+      prevButton.disabled = false;
+      await this.buildTracksContainer();
+    };
+
     buttonsWrapper.append(prevButton, nextButton);
     this.trackContainer.replaceChildren(heading, p, this.tracksWrapper, buttonsWrapper);
   }
@@ -122,6 +147,12 @@ export class Garage {
           },
           async () => {
             await deleteCar(carInfo.id.toString());
+            if (
+              this.totalCarCount % this.CARS_PER_PAGE === 1 &&
+              this.page > Math.floor(this.totalCarCount / this.CARS_PER_PAGE)
+            ) {
+              this.page -= 1;
+            }
             await this.buildTracksContainer();
           }
         );
