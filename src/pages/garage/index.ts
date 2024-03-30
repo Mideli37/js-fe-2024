@@ -146,6 +146,17 @@ export class Garage {
             this.selectCar(carInfo);
           },
           async () => {
+            if (carInfo === this.selectedCar) {
+              this.updateInputs.forEach((elem, i) => {
+                const input = elem;
+                input.disabled = true;
+                if (i === 0) {
+                  input.value = '';
+                } else if (i === 1) {
+                  input.value = '#000000';
+                }
+              });
+            }
             await deleteCar(carInfo.id.toString());
             if (
               this.totalCarCount % this.CARS_PER_PAGE === 1 &&
