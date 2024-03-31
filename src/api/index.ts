@@ -72,9 +72,9 @@ export async function toggleEngine(engineInfo: EngineInfo): Promise<Json> {
   return fetchJSON(url, 'PATCH');
 }
 
-export async function switchDriveMode(engineInfo: EngineInfo): Promise<Json> {
+export async function switchDriveMode(id: string): Promise<Json> {
   const url = buildUrl(Endpoint.engine);
-  url.search = new URLSearchParams({ id: engineInfo.id, status: 'drive' }).toString();
+  url.search = new URLSearchParams({ id, status: 'drive' }).toString();
   return fetchJSON(url, 'PATCH');
 }
 
