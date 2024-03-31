@@ -16,7 +16,7 @@ export class Garage {
 
   private tracksWrapper = createElement('div');
 
-  private page: number = 0;
+  private page: number = 1;
 
   private totalCarCount: number = 0;
 
@@ -112,11 +112,11 @@ export class Garage {
     }
 
     const heading = createElement('h1', { textContent: `GARAGE (${response.count ?? '0'})` });
-    const p = createElement('p', { textContent: `Page #${(this.page + 1).toString()}` });
+    const p = createElement('p', { textContent: `Page #${this.page.toString()}` });
     const buttonsWrapper = createElement('div');
     const prevButton = createElement('button', { className: 'button', textContent: 'Previous' });
     const nextButton = createElement('button', { className: 'button', textContent: 'Next' });
-    if (this.page === 0) {
+    if (this.page === 1) {
       prevButton.disabled = true;
     }
     prevButton.onclick = async (): Promise<void> => {
@@ -124,7 +124,7 @@ export class Garage {
       nextButton.disabled = false;
       await this.buildTracksContainer();
     };
-    if (this.page > (this.totalCarCount - 1) / this.CARS_PER_PAGE) {
+    if (this.page > Math.floor((this.totalCarCount - 1) / this.CARS_PER_PAGE)) {
       nextButton.disabled = true;
     }
     nextButton.onclick = async (): Promise<void> => {
