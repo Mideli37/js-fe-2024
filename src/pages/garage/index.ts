@@ -26,6 +26,8 @@ export class Garage {
 
   private updateInputs: (HTMLInputElement | HTMLButtonElement)[] = [];
 
+  private carTracks: CarTrack[] = [];
+
   public getContainer(): HTMLDivElement {
     return this.pageContainer;
   }
@@ -91,6 +93,26 @@ export class Garage {
     const container = createElement('div');
     const raceButton = createSmallButton('RACE');
     const resetButton = createSmallButton('RESET');
+    raceButton.onclick = async (): Promise<void> => {
+      resetButton.disabled = true;
+      raceButton.disabled = true;
+      const promises: Promise<void>[] = [];
+      this.carTracks.forEach((car) => {
+        promises.push(car.startRace());
+      });
+
+      await Promise.all(promises);
+      resetButton.disabled = false;
+    };
+    resetButton.onclick = async (): Promise<void> => {
+      const promises: Promise<void>[] = [];
+      this.carTracks.forEach((car) => {
+        promises.push(car.stopRace());
+      });
+
+      await Promise.all(promises);
+      raceButton.disabled = false;
+    };
     const generateButton = createSmallButton('GENERATE CARS');
     generateButton.onclick = (): void => {
       void this.generateCars();
@@ -103,6 +125,8 @@ export class Garage {
     if (page) {
       this.page = page;
     }
+
+    this.carTracks = [];
 
     const response = await getCars(this.page);
     this.buildCars(carListSchema.parse(response.json));
@@ -167,6 +191,7 @@ export class Garage {
             await this.buildTracksContainer();
           }
         );
+        this.carTracks.push(car);
         return car.getTrack();
       })
     );

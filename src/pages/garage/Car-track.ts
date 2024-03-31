@@ -15,6 +15,12 @@ export class CarTrack {
 
   private animation: Animation = new Animation();
 
+  private driveButton: HTMLButtonElement = createButton('Drive');
+
+  private stopButton: HTMLButtonElement = createButton('Stop');
+
+  private isDriving: boolean = false;
+
   constructor(
     private carInfo: CarInfo,
     private onSelect: (carInfo: CarInfo) => void,
@@ -53,41 +59,44 @@ export class CarTrack {
   }
 
   private createEngineButtons(): HTMLButtonElement[] {
-    const driveButton = createButton('Drive');
-    const stopButton = createButton('Stop');
-    let isDriving = false;
-    stopButton.disabled = true;
-    driveButton.onclick = async (): Promise<void> => {
-      driveButton.disabled = true;
-      const engineInfo = velocitySchema.parse(
-        await toggleEngine({ status: 'started', id: this.carInfo.id.toString() })
-      );
-      const promise = switchDriveMode(this.carInfo.id.toString());
-      stopButton.disabled = false;
-      isDriving = true;
-      this.animation = moveToLeftAnimation(this.carElement, engineInfo.distance / engineInfo.velocity);
-      await promise.then(
-        () => {
-          if (isDriving) {
-            this.carElement.style.left = '95%';
-          }
-        },
-        () => {
-          this.animation.pause();
+    this.driveButton = createButton('Drive');
+    this.stopButton = createButton('Stop');
+    this.isDriving = false;
+    this.stopButton.disabled = true;
+    this.driveButton.onclick = this.startRace.bind(this);
+    this.stopButton.onclick = this.stopRace.bind(this);
+    return [this.driveButton, this.stopButton];
+  }
+
+  public async startRace(): Promise<void> {
+    this.driveButton.disabled = true;
+    const engineInfo = velocitySchema.parse(await toggleEngine({ status: 'started', id: this.carInfo.id.toString() }));
+    const promise = switchDriveMode(this.carInfo.id.toString());
+    this.stopButton.disabled = false;
+    this.isDriving = true;
+    this.animation = moveToLeftAnimation(this.carElement, engineInfo.distance / engineInfo.velocity);
+    this.carElement.style.left = '95%';
+    await promise.then(
+      () => {
+        if (this.isDriving) {
+          this.carElement.style.left = '95%'; //! remove
         }
-      );
-    };
-    stopButton.onclick = async (): Promise<void> => {
-      stopButton.disabled = true;
-      const promise = toggleEngine({ status: 'stopped', id: this.carInfo.id.toString() });
-      await promise.then(() => {
-        driveButton.disabled = false;
-        isDriving = false;
-        this.animation.cancel();
-        this.carElement.style.left = '0%';
-      });
-    };
-    return [driveButton, stopButton];
+      },
+      () => {
+        this.animation.pause();
+      }
+    );
+  }
+
+  public async stopRace(): Promise<void> {
+    this.stopButton.disabled = true;
+    this.carElement.style.left = '0%';
+    const promise = toggleEngine({ status: 'stopped', id: this.carInfo.id.toString() });
+    await promise.then(() => {
+      this.driveButton.disabled = false;
+      this.isDriving = false;
+      this.animation.cancel();
+    });
   }
 
   public getTrack(): HTMLDivElement {
