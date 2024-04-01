@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { jsonSchema, type Json } from '@/lib/JSON.schema';
 
 const REQUEST_ADDRESS = 'http://127.0.0.1:3000';
@@ -13,7 +14,11 @@ type CarInfo = { name: string; color: string; id: string };
 
 type EngineInfo = { status: 'started' | 'stopped'; id: string };
 
-async function fetchJSON(url: URL, method: HTTPMethod = 'GET', bodyInfo?: Json): Promise<Json> {
+type FetchJsonResult =
+  | { ok: true; statusCode: number; headers: Headers; data: Json }
+  | { ok: false; statusCode: number; message: string };
+
+async function fetchJSON(url: URL, method: HTTPMethod = 'GET', bodyInfo?: Json): Promise<FetchJsonResult> {
   const obj: RequestInit = {
     method,
     headers: {
@@ -24,7 +29,16 @@ async function fetchJSON(url: URL, method: HTTPMethod = 'GET', bodyInfo?: Json):
     obj.body = JSON.stringify(bodyInfo);
   }
   const response = await fetch(url, obj);
-  return jsonSchema.parse(await response.json());
+  if (response.ok) {
+    return {
+      ok: response.ok,
+      statusCode: response.status,
+      headers: response.headers,
+      data: jsonSchema.parse(await response.json()),
+    };
+  }
+
+  return { ok: response.ok, statusCode: response.status, message: await response.text() };
 }
 
 function buildUrl(endpoint: Endpoint, id?: string): URL {
@@ -42,40 +56,76 @@ type GetCarsResponse = {
 export async function getCars(page: number, limit = 7): Promise<GetCarsResponse> {
   const url = buildUrl(Endpoint.garage);
   url.search = new URLSearchParams({ _page: page.toString(), _limit: limit.toString() }).toString();
-  const response = await fetch(url);
-  return { json: jsonSchema.parse(await response.json()), count: response.headers.get('X-Total-Count') };
+  const response = await fetchJSON(url);
+  if (response.ok) {
+    return { json: response.data, count: response.headers.get('X-Total-Count') };
+  }
+
+  throw new Error(response.message);
 }
 
 export async function getCar(id: string): Promise<Json> {
   const url = buildUrl(Endpoint.garage, id);
-  return fetchJSON(url);
+  const response = await fetchJSON(url);
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function createCar(carInfo: Omit<CarInfo, 'id'>): Promise<Json> {
   const url = buildUrl(Endpoint.garage);
-  return fetchJSON(url, 'POST', carInfo);
+  const response = await fetchJSON(url, 'POST', carInfo);
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function deleteCar(id: string): Promise<Json> {
   const url = buildUrl(Endpoint.garage, id);
-  return fetchJSON(url, 'DELETE');
+  const response = await fetchJSON(url, 'DELETE');
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function updateCar({ color, id, name }: CarInfo): Promise<Json> {
   const url = buildUrl(Endpoint.garage, id);
-  return fetchJSON(url, 'PUT', { color, name });
+  const response = await fetchJSON(url, 'PUT', { color, name });
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function toggleEngine(engineInfo: EngineInfo): Promise<Json> {
   const url = buildUrl(Endpoint.engine);
   url.search = new URLSearchParams(engineInfo).toString();
-  return fetchJSON(url, 'PATCH');
+  const response = await fetchJSON(url, 'PATCH');
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
-export async function switchDriveMode(id: string): Promise<Json> {
+export async function switchDriveMode(id: string): Promise<{ success: boolean }> {
   const url = buildUrl(Endpoint.engine);
   url.search = new URLSearchParams({ id, status: 'drive' }).toString();
-  return fetchJSON(url, 'PATCH');
+  const response = await fetchJSON(url, 'PATCH');
+  if (response.ok) {
+    return z.object({ success: z.literal(true) }).parse(response.data);
+  }
+  if (response.statusCode === 500) {
+    return { success: false };
+  }
+  throw new Error(response.message);
 }
 
 type WinnersInfoOptions = {
@@ -94,26 +144,51 @@ type WinnerInfo = {
 export async function getWinners(winnerInfo: WinnersInfoOptions): Promise<Json> {
   const url = buildUrl(Endpoint.winners);
   url.search = new URLSearchParams(winnerInfo).toString();
-  return fetchJSON(url);
+  const response = await fetchJSON(url);
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function getWinner(id: string): Promise<Json> {
   const url = buildUrl(Endpoint.winners, id);
-  return fetchJSON(url);
+  const response = await fetchJSON(url);
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function createWinner(winnerInfo: WinnerInfo): Promise<Json> {
   const url = buildUrl(Endpoint.winners);
-  return fetchJSON(url, 'POST', winnerInfo);
+  const response = await fetchJSON(url, 'POST', winnerInfo);
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function deleteWinner(id: string): Promise<Json> {
   const url = buildUrl(Endpoint.winners, id);
-  return fetchJSON(url, 'DELETE');
+  const response = await fetchJSON(url, 'DELETE');
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }
 
 export async function updateWinner({ id, time, wins }: WinnerInfo): Promise<Json> {
   const url = buildUrl(Endpoint.winners, id);
   const requestInit = { time, wins };
-  return fetchJSON(url, 'PUT', requestInit);
+  const response = await fetchJSON(url, 'PUT', requestInit);
+  if (response.ok) {
+    return response.data;
+  }
+
+  throw new Error(response.message);
 }

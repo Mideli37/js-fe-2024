@@ -13,3 +13,63 @@
 .input {
   @apply m-2 h-8 w-36 p-1 ring-1 duration-300 hover:bg-cyan-200 active:bg-cyan-500 disabled:pointer-events-none disabled:bg-slate-300;
 }
+
+.container {
+  pointer-events: none;
+
+  z-index: 3;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 300px;
+  height: 300px;
+  padding: 0;
+
+  opacity: 0;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+
+  animation: fade-out 0.2s ease normal;
+}
+
+.container[open] {
+  pointer-events: inherit;
+  opacity: 1;
+  animation: fade-in 0.2s ease normal;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}

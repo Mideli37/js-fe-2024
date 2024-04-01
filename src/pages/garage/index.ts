@@ -4,6 +4,7 @@ import { getRandomColor } from '@/helpers/get-random-color';
 import { getRandomName } from '@/helpers/get-random-name';
 import { carListSchema, type CarInfo, type CarList } from '@/lib/car-list.schema';
 import { CarTrack } from './Car-track';
+import { Dialog } from './Dialog';
 
 function createSmallButton(text: string): HTMLButtonElement {
   return createElement('button', { className: 'small-button', textContent: text });
@@ -28,6 +29,10 @@ export class Garage {
 
   private carTracks: CarTrack[] = [];
 
+  private dialog: Dialog = new Dialog();
+
+  private startTime = Date.now();
+
   public getContainer(): HTMLDivElement {
     return this.pageContainer;
   }
@@ -36,6 +41,7 @@ export class Garage {
     this.buildCustomizeCar();
     this.buildControllers();
     this.pageContainer.append(this.trackContainer);
+    this.dialog.init();
   }
 
   private buildCustomizeCar(): void {
@@ -94,14 +100,20 @@ export class Garage {
     const raceButton = createSmallButton('RACE');
     const resetButton = createSmallButton('RESET');
     raceButton.onclick = async (): Promise<void> => {
+      this.startTime = Date.now();
       resetButton.disabled = true;
       raceButton.disabled = true;
-      const promises: Promise<void>[] = [];
+      const promises: Promise<CarInfo>[] = [];
       this.carTracks.forEach((car) => {
         promises.push(car.startRace());
       });
-
-      await Promise.all(promises);
+      try {
+        const raceResult = await Promise.any(promises);
+        this.handleWin(raceResult.name, Date.now() - this.startTime);
+      } catch {
+        this.showBrokenDialog();
+      }
+      await Promise.allSettled(promises);
       resetButton.disabled = false;
     };
     resetButton.onclick = async (): Promise<void> => {
@@ -119,6 +131,10 @@ export class Garage {
     };
     container.append(raceButton, resetButton, generateButton);
     this.pageContainer.append(container);
+  }
+
+  private handleWin(name: string, time: number): void {
+    this.showWinnerDialog(name, `${(time / 1000).toFixed(2)} seconds`);
   }
 
   public async buildTracksContainer(page?: number): Promise<void> {
@@ -223,5 +239,23 @@ export class Garage {
       await createCar({ name: nameInput.value, color: colorInput.value });
       await this.buildTracksContainer();
     }
+  }
+
+  private showWinnerDialog(name: string, time: string): void {
+    this.dialog.clean();
+    this.dialog.appendElements([
+      createElement('h3', { textContent: `${name} has won the race!` }),
+      createElement('p', { textContent: `Time: ${time}` }),
+    ]);
+    this.dialog.open();
+  }
+
+  private showBrokenDialog(): void {
+    this.dialog.clean();
+    this.dialog.appendElements([
+      createElement('p', { textContent: 'All cars are broken!' }),
+      createElement('p', { textContent: 'No winner for this race.' }),
+    ]);
+    this.dialog.open();
   }
 }
