@@ -128,7 +128,7 @@ export async function switchDriveMode(id: string): Promise<{ success: boolean }>
   throw new Error(response.message);
 }
 
-type WinnersInfoOptions = {
+export type WinnersInfoOptions = {
   _page?: string;
   _limit?: string;
   _sort?: 'id' | 'wins' | 'time';
@@ -141,12 +141,17 @@ type WinnerInfo = {
   time: number;
 };
 
-export async function getWinners(winnerInfo: WinnersInfoOptions): Promise<Json> {
+type WinnersResponse = {
+  json: Json;
+  count: string | null;
+};
+
+export async function getWinners(winnerInfo: WinnersInfoOptions): Promise<WinnersResponse> {
   const url = buildUrl(Endpoint.winners);
   url.search = new URLSearchParams(winnerInfo).toString();
   const response = await fetchJSON(url);
   if (response.ok) {
-    return response.data;
+    return { json: response.data, count: response.headers.get('X-Total-Count') };
   }
 
   throw new Error(response.message);

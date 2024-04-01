@@ -37,6 +37,7 @@
     "curly": ["error", "all"],
     "max-lines-per-function": ["error", 40],
     "no-console": "warn",
+    "no-underscore-dangle": "off",
     "no-void": "off",
     "@typescript-eslint/no-misused-promises": [
       "error",

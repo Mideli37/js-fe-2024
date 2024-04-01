@@ -37,11 +37,12 @@ export class Garage {
     return this.pageContainer;
   }
 
-  public init(): void {
+  public async init(): Promise<void> {
     this.buildCustomizeCar();
     this.buildControllers();
     this.pageContainer.append(this.trackContainer);
     this.dialog.init();
+    await this.buildTracksContainer(this.page);
   }
 
   private buildCustomizeCar(): void {

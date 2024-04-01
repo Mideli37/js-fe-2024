@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const carSchema = z.object({
+export const carSchema = z.object({
   name: z.string(),
   color: z.string(),
   id: z.number(),
