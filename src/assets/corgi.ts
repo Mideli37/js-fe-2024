@@ -13,7 +13,7 @@ function createSVG<K extends keyof SVGElementTagNameMap>(
 
 const svg = createSVG('svg', {
   version: '1.1',
-  width: '80',
+  width: '70',
   /*  height: '265.83850931677017', */
   viewBox: '0, 0, 400,265.83850931677017',
 });

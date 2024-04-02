@@ -47,7 +47,7 @@ export class CarTrack {
     engineControls.append(...this.createEngineButtons());
     leftColumn.append(name, carControls, engineControls);
     const carTrack = createElement('div', {
-      className: 'w-full border-b-2 border-black flex justify-start items-end',
+      className: 'w-full border-b-2 border-black flex justify-start items-end pr-20',
     });
     this.carElement.style.color = this.carInfo.color;
     this.carElement.append(corgi.cloneNode(true));
@@ -75,7 +75,7 @@ export class CarTrack {
     const engineInfo = velocitySchema.parse(await toggleEngine({ status: 'started', id: this.carInfo.id.toString() }));
     this.stopButton.disabled = false;
     this.animation = moveToLeftAnimation(this.carElement, engineInfo.distance / engineInfo.velocity);
-    this.carElement.style.left = '90%';
+    this.carElement.style.left = '100%';
     const promise = await switchDriveMode(this.carInfo.id.toString());
     if (promise.success) {
       return this.carInfo;
