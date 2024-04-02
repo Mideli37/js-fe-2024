@@ -77,7 +77,7 @@ export class Winners {
   }
 
   private async buildTable(winnerList: Winner[]): Promise<void> {
-    const table = createElement('table', { className: 'h-4 ring-2 w-[50rem]' });
+    const table = createElement('table', { className: 'h-4 ring-2 w-[30rem]' });
     const headRow = createElement('tr');
     ['№', 'Image', 'Name', 'Wins', 'Best Time'].forEach((text) => {
       headRow.append(createElement('th', { textContent: text, className: 'ring-1' }));
