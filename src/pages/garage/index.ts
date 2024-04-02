@@ -102,6 +102,7 @@ export class Garage {
     const raceButton = createSmallButton('RACE');
     const resetButton = createSmallButton('RESET');
     raceButton.onclick = async (): Promise<void> => {
+      document.body.style.pointerEvents = 'none';
       this.startTime = Date.now();
       resetButton.disabled = true;
       raceButton.disabled = true;
@@ -115,6 +116,7 @@ export class Garage {
       } catch {
         this.showBrokenDialog();
       }
+      document.body.style.pointerEvents = '';
       await Promise.allSettled(promises);
       resetButton.disabled = false;
     };
