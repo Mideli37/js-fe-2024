@@ -177,13 +177,16 @@ export async function createWinner(winnerInfo: WinnerInfo): Promise<Json> {
   throw new Error(response.message);
 }
 
-export async function deleteWinner(id: string): Promise<Json> {
+export async function deleteWinner(id: string): Promise<Json | null> {
   const url = buildUrl(Endpoint.winners, id);
   const response = await fetchJSON(url, 'DELETE');
   if (response.ok) {
     return response.data;
   }
 
+  if (response.statusCode === 404) {
+    return null;
+  }
   throw new Error(response.message);
 }
 

@@ -1,9 +1,9 @@
 import { deleteWinner, switchDriveMode, toggleEngine } from '@/api';
+import { corgi } from '@/assets/corgi';
 import { createElement } from '@/helpers/create-element';
 import { moveToLeftAnimation } from '@/lib/animations';
 import type { CarInfo } from '@/lib/car-list.schema';
 import { velocitySchema } from '@/lib/velocity.schema';
-import { corgi } from '@/assets/corgi';
 
 function createButton(text: string): HTMLButtonElement {
   return createElement('button', { className: 'small-button', textContent: text });
