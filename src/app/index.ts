@@ -22,10 +22,11 @@ export class App {
       }
     };
     const winnersButton = createElement('button', { className: 'button', textContent: 'WINNERS' });
-    winnersButton.onclick = (): void => {
+    winnersButton.onclick = async (): Promise<void> => {
       if (this.isGarage) {
         this.pageContainer.replaceChildren(this.winners.getContainer());
         this.isGarage = false;
+        await this.winners.buildPageContainer();
       }
     };
     this.container.append(garageButton, winnersButton, this.pageContainer);

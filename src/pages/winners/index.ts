@@ -1,16 +1,7 @@
-import { z } from 'zod';
 import { getCar, getWinners, type WinnersInfoOptions } from '@/api';
 import { createElement } from '@/helpers/create-element';
 import { carSchema } from '@/lib/car-list.schema';
-
-const winnerSchema = z.object({
-  id: z.number(),
-  wins: z.number(),
-  time: z.number(),
-});
-const winnerListSchema = z.array(winnerSchema);
-
-type Winner = z.infer<typeof winnerSchema>;
+import { winnerListSchema, type Winner } from './winner.schema';
 
 async function buildRow(winner: Winner, counter: number): Promise<HTMLTableRowElement> {
   const row = createElement('tr');
@@ -53,8 +44,8 @@ export class Winners {
     const winnerInfoOptions: WinnersInfoOptions = { _limit: this.WINNERS_PER_PAGE.toString() };
     if (page) {
       this.page = page;
-      winnerInfoOptions._page = page.toString();
     }
+    winnerInfoOptions._page = this.page.toString();
     const response = await getWinners(winnerInfoOptions);
     const winnersList = winnerListSchema.parse(response.json);
     if (response.count) {

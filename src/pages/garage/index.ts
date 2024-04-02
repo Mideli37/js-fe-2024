@@ -1,10 +1,11 @@
-import { createCar, deleteCar, getCars, updateCar } from '@/api';
+import { createCar, createWinner, deleteCar, getCars, getWinner, updateCar, updateWinner } from '@/api';
 import { createElement } from '@/helpers/create-element';
 import { getRandomColor } from '@/helpers/get-random-color';
 import { getRandomName } from '@/helpers/get-random-name';
 import { carListSchema, type CarInfo, type CarList } from '@/lib/car-list.schema';
 import { CarTrack } from './Car-track';
 import { Dialog } from './Dialog';
+import { winnerSchema } from '../winners/winner.schema';
 
 function createSmallButton(text: string): HTMLButtonElement {
   return createElement('button', { className: 'small-button', textContent: text });
@@ -110,7 +111,7 @@ export class Garage {
       });
       try {
         const raceResult = await Promise.any(promises);
-        this.handleWin(raceResult.name, Date.now() - this.startTime);
+        await this.handleWin(raceResult.name, Date.now() - this.startTime, raceResult.id);
       } catch {
         this.showBrokenDialog();
       }
@@ -134,8 +135,17 @@ export class Garage {
     this.pageContainer.append(container);
   }
 
-  private handleWin(name: string, time: number): void {
-    this.showWinnerDialog(name, `${(time / 1000).toFixed(2)} seconds`);
+  private async handleWin(name: string, time: number, id: number): Promise<void> {
+    const formatedTime = +(time / 1000).toFixed(2);
+    this.showWinnerDialog(name, `${formatedTime.toString()} seconds`);
+    try {
+      const oldInfo = winnerSchema.parse(await getWinner(id.toString()));
+      const newTime = oldInfo.time < formatedTime ? oldInfo.time : formatedTime;
+      const newWins = oldInfo.wins + 1;
+      await updateWinner({ id, time: newTime, wins: newWins });
+    } catch {
+      await createWinner({ id, time: formatedTime, wins: 1 });
+    }
   }
 
   public async buildTracksContainer(page?: number): Promise<void> {

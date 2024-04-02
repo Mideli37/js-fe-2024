@@ -136,7 +136,7 @@ export type WinnersInfoOptions = {
 };
 
 type WinnerInfo = {
-  id: string;
+  id: number;
   wins: number;
   time: number;
 };
@@ -188,7 +188,7 @@ export async function deleteWinner(id: string): Promise<Json> {
 }
 
 export async function updateWinner({ id, time, wins }: WinnerInfo): Promise<Json> {
-  const url = buildUrl(Endpoint.winners, id);
+  const url = buildUrl(Endpoint.winners, id.toString());
   const requestInit = { time, wins };
   const response = await fetchJSON(url, 'PUT', requestInit);
   if (response.ok) {
