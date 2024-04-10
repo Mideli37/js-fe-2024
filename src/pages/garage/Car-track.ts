@@ -1,13 +1,10 @@
 import { deleteWinner, switchDriveMode, toggleEngine } from '@/api';
 import { corgi } from '@/assets/corgi';
+import { createButton } from '@/helpers/create-button';
 import { createElement } from '@/helpers/create-element';
-import { moveToLeftAnimation } from '@/lib/animations';
+import { moveToRightAnimation } from '@/lib/animations';
 import type { CarInfo } from '@/lib/car-list.schema';
 import { velocitySchema } from '@/lib/velocity.schema';
-
-function createButton(text: string): HTMLButtonElement {
-  return createElement('button', { className: 'small-button', textContent: text });
-}
 
 export class CarTrack {
   private carTrackContainer = createElement('div', { className: 'flex flex-row m-2' });
@@ -74,7 +71,7 @@ export class CarTrack {
     this.driveButton.disabled = true;
     const engineInfo = velocitySchema.parse(await toggleEngine({ status: 'started', id: this.carInfo.id.toString() }));
     this.stopButton.disabled = false;
-    this.animation = moveToLeftAnimation(this.carElement, engineInfo.distance / engineInfo.velocity);
+    this.animation = moveToRightAnimation(this.carElement, engineInfo.distance / engineInfo.velocity);
     this.carElement.style.left = '100%';
     const promise = await switchDriveMode(this.carInfo.id.toString());
     if (promise.success) {

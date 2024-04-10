@@ -6,10 +6,7 @@ import { carListSchema, type CarInfo, type CarList } from '@/lib/car-list.schema
 import { CarTrack } from './Car-track';
 import { Dialog } from './Dialog';
 import { winnerSchema } from '../winners/winner.schema';
-
-function createSmallButton(text: string): HTMLButtonElement {
-  return createElement('button', { className: 'small-button', textContent: text });
-}
+import { createButton } from '@/helpers/create-button';
 
 export class Garage {
   private pageContainer = createElement('div');
@@ -52,12 +49,12 @@ export class Garage {
     const createCarWrapper = createElement('div');
     const nameInput = createElement('input', { type: 'text', ariaLabel: 'Car Name', className: 'input' });
     const colorPickCreate = createElement('input', { type: 'color', ariaLabel: 'color pick for car' });
-    const createButton = createSmallButton('CREATE');
-    createButton.onclick = (e): void => {
+    const buttonCreate = createButton('CREATE');
+    buttonCreate.onclick = (e): void => {
       e.preventDefault();
       void this.createNewCar(nameInput, colorPickCreate);
     };
-    createCarWrapper.append(nameInput, colorPickCreate, createButton);
+    createCarWrapper.append(nameInput, colorPickCreate, buttonCreate);
     const updateCarWrapper = this.createUpdateCarWrapper();
     form.append(createCarWrapper, updateCarWrapper);
     container.append(form);
@@ -73,7 +70,7 @@ export class Garage {
       disabled: true,
     });
     const colorPickUpdate = createElement('input', { type: 'color', ariaLabel: 'color pick for car', disabled: true });
-    const updateButton = createSmallButton('UPDATE');
+    const updateButton = createButton('UPDATE');
     updateButton.disabled = true;
     this.updateInputs.push(updateNameInput, colorPickUpdate, updateButton);
     updateButton.onclick = async (e): Promise<void> => {
@@ -99,8 +96,8 @@ export class Garage {
 
   private buildControllers(): void {
     const container = createElement('div');
-    const raceButton = createSmallButton('RACE');
-    const resetButton = createSmallButton('RESET');
+    const raceButton = createButton('RACE');
+    const resetButton = createButton('RESET');
     raceButton.onclick = async (): Promise<void> => {
       document.body.style.pointerEvents = 'none';
       this.startTime = Date.now();
@@ -129,7 +126,7 @@ export class Garage {
       await Promise.all(promises);
       raceButton.disabled = false;
     };
-    const generateButton = createSmallButton('GENERATE CARS');
+    const generateButton = createButton('GENERATE CARS');
     generateButton.onclick = (): void => {
       void this.generateCars();
     };
