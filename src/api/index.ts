@@ -53,7 +53,7 @@ type GetCarsResponse = {
   json: Json;
   count: string | null;
 };
-export async function getCars(page: number, limit = 7): Promise<GetCarsResponse> {
+export async function getCars(page: number, limit: number): Promise<GetCarsResponse> {
   const url = buildUrl(Endpoint.garage);
   url.search = new URLSearchParams({ _page: page.toString(), _limit: limit.toString() }).toString();
   const response = await fetchJSON(url);

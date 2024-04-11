@@ -154,7 +154,7 @@ export class Garage {
 
     this.carTracks = [];
 
-    const response = await getCars(this.page);
+    const response = await getCars(this.page, this.CARS_PER_PAGE);
     this.buildCars(carListSchema.parse(response.json));
 
     if (response.count) {
