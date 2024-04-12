@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "target": "es2022",
+    "allowJs": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true /* Do not check declaration files in node_modules/ */,
+
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleDetection": "force" /* every non-declaration file is treated as a module */,
+    "useDefineForClassFields": true /* conform to ECMA standard for class field syntax */,
+    "strict": true /* most important option which enables many other strict options */,
+    "noUncheckedIndexedAccess": true /* forbids unsafe indexing of Records and arrays */,
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "allowImportingTsExtensions": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Path aliases */
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+
+  "include": ["**/*.ts", "src/index.ts", "postcss.config.ts"]
+}
