@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply flex items-center justify-center;
+
+  height: 100dvh;
+
+  font-family: Nunito, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+
+  background-image: url('./assets/background.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.button {
+  @apply cursor-pointer rounded-md border border-red-900 bg-[#ffe3d5] py-1.5 pl-4  pr-4 duration-300 hover:bg-[#fae8df] disabled:cursor-default disabled:border-[#ece5e1] disabled:bg-[#ece5e1];
+
+  user-select: none;
+}

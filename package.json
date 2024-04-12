@@ -4,6 +4,7 @@
   "description": "My webpack project",
   "main": "index.ts",
   "scripts": {
+    "fix": "npm run lint:fix && npm run stylelint && npm run format",
     "format": "prettier -luw .",
     "ci:format": "prettier -cu",
     "lint": "eslint . --max-warnings 0",
@@ -50,5 +51,8 @@
     "webpack": "^5.91.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
   }
 }
