@@ -1,5 +1,5 @@
-import { LoginForm } from './components/login-form/Login-form';
+import { App } from './app';
 import './style.css';
 
-const form = new LoginForm();
-document.body.append(form.getContainer());
+const app = new App();
+void app.init();

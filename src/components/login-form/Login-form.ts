@@ -1,8 +1,9 @@
 import { createElement } from '@/helpers/create-element';
 import { LoginInputComponent } from './Login-input-component';
+import { loginInfoSchema, type LoginInfo } from './login-info.schema';
 
 export class LoginForm {
-  // constructor() {}
+  constructor(private onLogin: (loginInfo: LoginInfo) => void) {}
 
   private container = createElement('div', { className: 'bg-[#e9cec7] p-5 rounded-md border-red-900 border' });
 
@@ -23,15 +24,17 @@ export class LoginForm {
       validInputs.inputLogin = value;
       setButtonState();
     });
-    const password = new LoginInputComponent({ text: 'Password:' }, { id: 'surname', type: 'password' }, (value) => {
+    const password = new LoginInputComponent({ text: 'Password:' }, { id: 'password', type: 'password' }, (value) => {
       validInputs.inputPassword = value;
       setButtonState();
     });
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      // const formData = new FormData(form);
-      // this.onSuccessfulLogin(loginInfoSchema.parse(Object.fromEntries(formData.entries())));
+
+      const formData = new FormData(form);
+      this.onLogin(loginInfoSchema.parse(Object.fromEntries(formData.entries())));
+      // console.log('login');
     });
     this.container.append(form);
     form.append(...login.getElements(), ...password.getElements(), loginButton);
