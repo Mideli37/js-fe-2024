@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { jsonSchema, type Json } from '@/helpers/JSON.schema';
+import { stringToJsonSchema } from './string-to-json.schema';
 
 export const errorSchema = z.object({
   id: z.string(),
@@ -21,19 +21,6 @@ export const userLoginResponseSchema = z.object({
 });
 
 export type UserLoginResponse = z.infer<typeof userLoginResponseSchema>;
-
-export const stringToJsonSchema = z.string().transform((value, ctx): Json => {
-  try {
-    const obj = jsonSchema.parse(JSON.parse(value));
-    return obj;
-  } catch {
-    ctx.addIssue({
-      code: 'custom',
-      message: 'Not a JSON',
-    });
-    return z.NEVER;
-  }
-});
 
 export const serverResponseSchema = errorSchema.or(userLoginResponseSchema);
 export type ServerResponse = z.infer<typeof serverResponseSchema>;

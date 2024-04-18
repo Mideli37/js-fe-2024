@@ -3,7 +3,9 @@ import type { LoginInfo } from '@/components/login-form/login-info.schema';
 import { createElement } from '@/helpers/create-element';
 
 export class EntryPage {
-  constructor(private onLogin: (loginInfo: LoginInfo) => void) {}
+  constructor(private onLogin: (loginInfo: LoginInfo) => void) {
+    this.init();
+  }
 
   private container = createElement('div', { className: 'w-full h-full flex justify-center items-center' });
 

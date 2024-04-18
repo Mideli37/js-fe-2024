@@ -3,7 +3,9 @@ import { Header } from '@/components/header/Header';
 import { createElement } from '@/helpers/create-element';
 
 export class MainPage {
-  constructor(private userLogin: string) {}
+  constructor(private userLogin: string) {
+    this.init();
+  }
 
   private container = createElement('div', {
     className:

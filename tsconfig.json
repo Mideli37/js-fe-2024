@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "target": "es2022",
+    "target": "esnext",
     "allowJs": false,
     "esModuleInterop": true,
     "skipLibCheck": true /* Do not check declaration files in node_modules/ */,
@@ -16,7 +16,7 @@
     "useDefineForClassFields": true /* conform to ECMA standard for class field syntax */,
     "strict": true /* most important option which enables many other strict options */,
     "noUncheckedIndexedAccess": true /* forbids unsafe indexing of Records and arrays */,
-    "lib": ["es2022", "dom", "dom.iterable"],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "allowImportingTsExtensions": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
