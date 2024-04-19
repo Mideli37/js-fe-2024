@@ -1,7 +1,10 @@
 import { createElement } from '@/helpers/create-element';
 
 export class Header {
-  constructor(private userLogin: string) {
+  constructor(
+    private userLogin: string,
+    private onLogout: () => void
+  ) {
     this.build();
   }
 
@@ -13,6 +16,7 @@ export class Header {
     const buttonWrapper = createElement('div', { className: 'flex gap-2' });
     const aboutButton = createElement('button', { textContent: 'About', className: 'button' });
     const logoutButton = createElement('button', { textContent: 'LogOut', className: 'button' });
+    logoutButton.onclick = this.onLogout;
     buttonWrapper.append(aboutButton, logoutButton);
     this.container.append(userName, appName, buttonWrapper);
   }

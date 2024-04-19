@@ -3,7 +3,10 @@ import { Header } from '@/components/header/Header';
 import { createElement } from '@/helpers/create-element';
 
 export class MainPage {
-  constructor(private userLogin: string) {
+  constructor(
+    private userLogin: string,
+    private onLogout: () => void
+  ) {
     this.init();
   }
 
@@ -13,7 +16,7 @@ export class MainPage {
   });
 
   public init(): void {
-    const header = new Header(this.userLogin);
+    const header = new Header(this.userLogin, this.onLogout);
     const footer = new Footer();
     this.container.append(header.getContainer(), footer.getContainer());
   }

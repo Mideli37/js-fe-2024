@@ -1,8 +1,3 @@
-import type { LoginInfo } from '@/components/login-form/login-info.schema';
-import type { EntryPage } from '../pages/entry';
-import type { MainPage } from '../pages/main';
-import { stringToJsonSchema } from './string-to-json.schema';
-
 function shouldNotIntercept(navigationEvent: NavigateEvent): boolean {
   return (
     !navigationEvent.canIntercept ||
@@ -13,25 +8,7 @@ function shouldNotIntercept(navigationEvent: NavigateEvent): boolean {
 }
 
 export class Router {
-  constructor(private onLogin: (loginInfo: LoginInfo) => void) {}
-
-  private modules = [
-    {
-      route: '/main',
-      callback: (): Promise<MainPage> =>
-        import('../pages/main').then(({ MainPage }) => {
-          const login = stringToJsonSchema.parse(sessionStorage.getItem('userLogin'));
-          if (typeof login !== 'string') {
-            throw new Error('json wasnt parsed to string');
-          }
-          return new MainPage(login);
-        }),
-    },
-    {
-      route: '/login',
-      callback: (): Promise<EntryPage> => import('../pages/entry').then(({ EntryPage }) => new EntryPage(this.onLogin)),
-    },
-  ] as const;
+  constructor(private modules: { route: string; callback: () => Promise<HTMLDivElement> }[]) {}
 
   public initRouter(root: HTMLElement): void {
     navigation?.addEventListener('navigate', (event) => {
@@ -44,14 +21,14 @@ export class Router {
       if (component) {
         event.intercept({
           async handler() {
-            root.replaceChildren((await component.callback()).getContainer());
+            root.replaceChildren(await component.callback());
           },
         });
       }
     });
   }
 
-  public navigate(route: (typeof this.modules)[number]['route']): NavigationResult | null {
+  public static navigate(route: string): NavigationResult | null {
     return navigation?.navigate(route) ?? null;
   }
 }

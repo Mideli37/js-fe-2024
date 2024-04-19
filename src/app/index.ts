@@ -1,8 +1,9 @@
 import { Dialog } from '@/components/dialog/Dialog';
-import type { LoginInfo } from '@/components/login-form/login-info.schema';
+import { loginInfoSchema, type LoginInfo } from '@/components/login-form/login-info.schema';
 import { createElement } from '@/helpers/create-element';
 import { Router } from '@/services/router';
 import { parseServerResponse } from '@/services/server-response.schema';
+import { stringToJsonSchema } from '@/services/string-to-json.schema';
 import { WebsocketService } from '@/services/websocket-service';
 
 export class App {
@@ -12,9 +13,31 @@ export class App {
 
   private pageContainer = createElement('div', { className: 'h-full w-full flex justify-center items-center' });
 
-  private router = new Router(this.onLogin.bind(this));
+  private router = new Router([
+    {
+      route: '/main',
+      callback: (): Promise<HTMLDivElement> =>
+        import('../pages/main').then(({ MainPage }) => {
+          const login = stringToJsonSchema.parse(sessionStorage.getItem('userLogin'));
+          if (typeof login !== 'string') {
+            throw new Error('json wasnt parsed to string');
+          }
+          return new MainPage(login, this.onLogout.bind(this)).getContainer();
+        }),
+    },
+    {
+      route: '/login',
+      callback: (): Promise<HTMLDivElement> =>
+        import('../pages/entry').then(({ EntryPage }) => new EntryPage(this.onLogin.bind(this)).getContainer()),
+    },
+  ] as const);
 
   private userLogin: string | null = sessionStorage.getItem('userLogin');
+
+  private loginInfo: LoginInfo | null = loginInfoSchema
+    .nullable()
+    .catch(null)
+    .parse(stringToJsonSchema.nullable().catch(null).parse(sessionStorage.getItem('loginInfo')));
 
   public async init(): Promise<void> {
     document.body.append(this.pageContainer);
@@ -22,10 +45,11 @@ export class App {
     this.build();
     this.dialog.init();
     this.router.initRouter(this.pageContainer);
-    if (this.userLogin) {
-      this.router.navigate('/main');
+    if (this.loginInfo) {
+      this.onLogin(this.loginInfo);
+      Router.navigate('/main');
     } else {
-      this.router.navigate('/login');
+      Router.navigate('/login');
     }
   }
 
@@ -36,6 +60,15 @@ export class App {
 
   private onLogin(loginInfo: LoginInfo): void {
     this.websocket.sendMsg('USER_LOGIN', { user: loginInfo });
+
+    this.loginInfo = loginInfo;
+    sessionStorage.setItem('loginInfo', JSON.stringify(this.loginInfo));
+  }
+
+  private onLogout(): void {
+    this.websocket.sendMsg('USER_LOGOUT', { user: this.loginInfo });
+    Router.navigate('./login');
+    sessionStorage.clear();
   }
 
   private showErrorModal(event: MessageEvent): void {
@@ -53,7 +86,7 @@ export class App {
     if (data.type === 'USER_LOGIN') {
       this.userLogin = data.payload.user.login;
       sessionStorage.setItem('userLogin', JSON.stringify(this.userLogin));
-      this.router.navigate('/main');
+      Router.navigate('/main');
     }
   }
 }
