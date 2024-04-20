@@ -22,7 +22,8 @@ export class App {
           if (typeof login !== 'string') {
             throw new Error('json wasnt parsed to string');
           }
-          return new MainPage(login, this.onLogout.bind(this)).getContainer();
+          this.sendUpdateUsersMsg();
+          return new MainPage(login, this.onLogout.bind(this), this.websocket).getContainer();
         }),
     },
     {
@@ -42,20 +43,20 @@ export class App {
   public async init(): Promise<void> {
     document.body.append(this.pageContainer);
     await this.websocket.init();
-    this.build();
+    this.subscribe();
     this.dialog.init();
     this.router.initRouter(this.pageContainer);
     if (this.loginInfo) {
       this.onLogin(this.loginInfo);
-      Router.navigate('/main');
     } else {
       Router.navigate('/login');
     }
   }
 
-  private build(): void {
+  private subscribe(): void {
     this.websocket.setOnMsg(this.showErrorModal.bind(this));
     this.websocket.setOnMsg(this.onSuccessLogin.bind(this));
+    this.websocket.setOnMsg(this.onThirdPartyLoginLogout.bind(this));
   }
 
   private onLogin(loginInfo: LoginInfo): void {
@@ -72,11 +73,10 @@ export class App {
   }
 
   private showErrorModal(event: MessageEvent): void {
-    this.dialog.clean();
-    // console.log('Event data  ', event.data);
     const data = parseServerResponse(event.data);
     if (data.type === 'ERROR') {
-      this.dialog.appendElements([createElement('p', { textContent: `АШЫПКА! ${data.payload.error}` })]);
+      this.dialog.clean();
+      this.dialog.appendElements([createElement('p', { textContent: `ERROR! ${data.payload.error}` })]);
       this.dialog.open();
     }
   }
@@ -88,5 +88,17 @@ export class App {
       sessionStorage.setItem('userLogin', JSON.stringify(this.userLogin));
       Router.navigate('/main');
     }
+  }
+
+  private onThirdPartyLoginLogout(event: MessageEvent): void {
+    const data = parseServerResponse(event.data);
+    if (data.type === 'USER_EXTERNAL_LOGOUT' || data.type === 'USER_EXTERNAL_LOGIN') {
+      this.sendUpdateUsersMsg();
+    }
+  }
+
+  private sendUpdateUsersMsg(): void {
+    this.websocket.sendMsg('USER_ACTIVE', null);
+    this.websocket.sendMsg('USER_INACTIVE', null);
   }
 }

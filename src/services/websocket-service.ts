@@ -1,6 +1,12 @@
 import type { Json } from '@/helpers/JSON.schema';
 
-type RequestType = 'USER_LOGIN' | 'USER_LOGOUT';
+type RequestType =
+  | 'USER_LOGIN'
+  | 'USER_LOGOUT'
+  | 'USER_ACTIVE'
+  | 'USER_INACTIVE'
+  | 'USER_EXTERNAL_LOGOUT'
+  | 'USER_EXTERNAL_LOGIN';
 export class WebsocketService {
   private websocket = new WebSocket('ws://localhost:4000');
 
