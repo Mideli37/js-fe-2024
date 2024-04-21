@@ -1,7 +1,7 @@
 import { createElement } from '@/helpers/create-element';
 import type { UserInfo } from '../login-form/login-info.schema';
 import { MessageSection } from '../message/Message-section';
-import type { MsgSendPayload } from '@/services/server-response.schema';
+import type { MsgSend } from '@/services/server-response.schema';
 
 export class Chat {
   constructor(
@@ -21,7 +21,7 @@ export class Chat {
     placeholder: 'Message..',
     type: 'text',
     disabled: true,
-    className: 'w-full',
+    className: 'w-full p-2',
   });
 
   private messageSection: MessageSection | null = null;
@@ -57,6 +57,7 @@ export class Chat {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.onMsgSend(this.input.value);
+      this.input.value = '';
     });
     this.input.addEventListener('input', () => {
       button.disabled = !this.input.value;
@@ -73,8 +74,8 @@ export class Chat {
     this.userStatusSpan.textContent = newUserInfo.isLogined ? 'online' : 'offline';
   }
 
-  public displayMsg(payload: MsgSendPayload): void {
-    const fromRecipient = !(payload.message.from !== this.recipientInfo?.login);
-    this.messageSection?.displayMsg(payload, fromRecipient);
+  public displayMsg(message: MsgSend): void {
+    const fromRecipient = !(message.from !== this.recipientInfo?.login);
+    this.messageSection?.displayMsg(message, fromRecipient);
   }
 }

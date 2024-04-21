@@ -1,16 +1,13 @@
 import { createElement } from '@/helpers/create-element';
-import type { MsgSendPayload } from '@/services/server-response.schema';
+import type { MsgSend } from '@/services/server-response.schema';
 
 export class Message {
   constructor(
-    payload: MsgSendPayload,
+    private message: MsgSend,
     private fromRecipient: boolean
   ) {
-    this.message = payload.message;
     this.build();
   }
-
-  private message;
 
   private container = createElement('div', {
     className: 'block p-3 m-3 rounded-md border border-red-900 w-[70%] min-w-[200px]',

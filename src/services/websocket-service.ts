@@ -7,7 +7,8 @@ type RequestType =
   | 'USER_INACTIVE'
   | 'USER_EXTERNAL_LOGOUT'
   | 'USER_EXTERNAL_LOGIN'
-  | 'MSG_SEND';
+  | 'MSG_SEND'
+  | 'MSG_FROM_USER';
 export class WebsocketService {
   private websocket = new WebSocket('ws://localhost:4000');
 

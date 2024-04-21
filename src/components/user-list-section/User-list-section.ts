@@ -16,7 +16,7 @@ export class UserListSection {
   private usersInfo: UserInfo[] | null = null;
 
   private build(): void {
-    const input = createElement('input', { type: 'search', placeholder: 'Search...', className: 'w-full' });
+    const input = createElement('input', { type: 'search', placeholder: 'Search...', className: 'w-full p-2' });
     input.addEventListener('input', () => {
       if (!this.usersInfo) {
         throw new Error('no users to filter');

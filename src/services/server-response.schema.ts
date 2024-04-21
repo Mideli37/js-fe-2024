@@ -78,10 +78,17 @@ export const msgSendResponseSchema = z.object({
     }),
   }),
 });
+export const msgSendSchema = msgSendResponseSchema.shape.payload.shape.message;
 
-export const msgSendPayloadSchema = msgSendResponseSchema.shape.payload;
+export const msgFromUserResponseSchema = z.object({
+  id: z.string(),
+  type: z.literal('MSG_FROM_USER'),
+  payload: z.object({
+    messages: z.array(msgSendSchema),
+  }),
+});
 
-export type MsgSendPayload = z.infer<typeof msgSendPayloadSchema>;
+export type MsgSend = z.infer<typeof msgSendSchema>;
 
 export type UserLoginResponse = z.infer<typeof userLoginResponseSchema>;
 
@@ -92,7 +99,8 @@ export const serverResponseSchema = errorSchema
   .or(userInactiveResponseSchema)
   .or(thirdPartyLoginResponseSchema)
   .or(thirdPartyLogoutResponseSchema)
-  .or(msgSendResponseSchema);
+  .or(msgSendResponseSchema)
+  .or(msgFromUserResponseSchema);
 export type ServerResponse = z.infer<typeof serverResponseSchema>;
 
 export function parseServerResponse(data: unknown): ServerResponse {

@@ -1,6 +1,6 @@
 import { createElement } from '@/helpers/create-element';
 import { Message } from './Message';
-import type { MsgSendPayload } from '@/services/server-response.schema';
+import type { MsgSend } from '@/services/server-response.schema';
 
 export class MessageSection {
   private container = createElement('div', { className: 'block w-full overflow-y-auto grow' });
@@ -9,7 +9,7 @@ export class MessageSection {
 
   } */
 
-  public displayMsg(payload: MsgSendPayload, fromRecipient: boolean): void {
+  public displayMsg(payload: MsgSend, fromRecipient: boolean): void {
     this.container.append(new Message(payload, fromRecipient).getContainer());
   }
 

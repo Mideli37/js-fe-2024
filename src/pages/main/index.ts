@@ -4,7 +4,7 @@ import { Header } from '@/components/header/Header';
 import type { UserInfo } from '@/components/login-form/login-info.schema';
 import { UserListSection } from '@/components/user-list-section/User-list-section';
 import { createElement } from '@/helpers/create-element';
-import { msgSendPayloadSchema, parseServerResponse } from '@/services/server-response.schema';
+import { msgSendSchema, parseServerResponse } from '@/services/server-response.schema';
 import type { WebsocketService } from '@/services/websocket-service';
 
 export class MainPage {
@@ -36,6 +36,7 @@ export class MainPage {
   public init(): void {
     this.websocket.setOnMsg(this.updateUsers.bind(this));
     this.websocket.setOnMsg(this.createSendMsg.bind(this));
+    this.websocket.setOnMsg(this.createAllMessanges.bind(this));
     const header = new Header(this.userLogin, this.onLogout);
     this.chatWrapper.append(this.userListSection.getContainer(), this.chat.getContainer());
     const footer = new Footer();
@@ -80,6 +81,7 @@ export class MainPage {
 
   private changeChat(userInfo: UserInfo): void {
     this.currentRecipient = userInfo;
+    this.fetchMsgHistory();
     this.chat = new Chat(this.sendMsg.bind(this), userInfo);
     this.chatWrapper.replaceChildren(this.userListSection.getContainer(), this.chat.getContainer());
   }
@@ -98,8 +100,26 @@ export class MainPage {
   private createSendMsg(event: MessageEvent): void {
     const data = parseServerResponse(event.data);
     if (data.type === 'MSG_SEND') {
-      msgSendPayloadSchema.parse(data.payload);
-      this.chat.displayMsg(data.payload);
+      msgSendSchema.parse(data.payload.message);
+      this.chat.displayMsg(data.payload.message);
+    }
+  }
+
+  private fetchMsgHistory(): void {
+    if (this.currentRecipient) {
+      this.websocket.sendMsg('MSG_FROM_USER', {
+        user: { login: this.currentRecipient.login },
+      });
+    }
+  }
+
+  private createAllMessanges(event: MessageEvent): void {
+    const data = parseServerResponse(event.data);
+    if (data.type === 'MSG_FROM_USER') {
+      data.payload.messages.forEach((message) => {
+        msgSendSchema.parse(message);
+        this.chat.displayMsg(message);
+      });
     }
   }
 }
