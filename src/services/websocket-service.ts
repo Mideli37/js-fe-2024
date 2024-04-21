@@ -6,7 +6,8 @@ type RequestType =
   | 'USER_ACTIVE'
   | 'USER_INACTIVE'
   | 'USER_EXTERNAL_LOGOUT'
-  | 'USER_EXTERNAL_LOGIN';
+  | 'USER_EXTERNAL_LOGIN'
+  | 'MSG_SEND';
 export class WebsocketService {
   private websocket = new WebSocket('ws://localhost:4000');
 
@@ -16,9 +17,6 @@ export class WebsocketService {
     return new Promise((resolve) => {
       this.websocket.addEventListener('open', () => {
         resolve('open');
-        this.websocket.addEventListener('message', (/* event */) => {
-          // console.log('Message from server ', event.data);
-        });
       });
     });
   }

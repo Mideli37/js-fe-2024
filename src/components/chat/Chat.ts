@@ -1,8 +1,13 @@
 import { createElement } from '@/helpers/create-element';
 import type { UserInfo } from '../login-form/login-info.schema';
+import { MessageSection } from '../message/Message-section';
+import type { MsgSendPayload } from '@/services/server-response.schema';
 
 export class Chat {
-  constructor(private userInfo?: UserInfo) {
+  constructor(
+    private onMsgSend: (text: string) => void,
+    private recipientInfo?: UserInfo
+  ) {
     this.build();
   }
 
@@ -19,9 +24,13 @@ export class Chat {
     className: 'w-full',
   });
 
+  private messageSection: MessageSection | null = null;
+
   private build(): void {
-    if (this.userInfo) {
+    if (this.recipientInfo) {
       this.buildHeader();
+      this.messageSection = new MessageSection();
+      this.container.append(this.messageSection.getContainer());
       this.buildMsgInput();
       this.input.disabled = false;
     } else {
@@ -34,22 +43,26 @@ export class Chat {
     const header = createElement('div', {
       className: 'flex flex-row justify-between p-2 w-full border-b-2 border-red-900',
     });
-    if (this.userInfo) {
-      this.updateStatus(this.userInfo);
+    if (this.recipientInfo) {
+      this.updateStatus(this.recipientInfo);
     }
-    const userName = createElement('span', { textContent: this.userInfo?.login });
+    const userName = createElement('span', { textContent: this.recipientInfo?.login });
     this.container.append(header);
     header.append(userName, this.userStatusSpan);
   }
 
   private buildMsgInput(): void {
-    const wrapper = createElement('div', { className: 'flex flex-row w-full gap-2' });
+    const form = createElement('form', { className: 'flex flex-row w-full gap-2' });
     const button = createElement('button', { textContent: 'Send', className: 'button', disabled: true });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.onMsgSend(this.input.value);
+    });
     this.input.addEventListener('input', () => {
       button.disabled = !this.input.value;
     });
-    wrapper.append(this.input, button);
-    this.container.append(wrapper);
+    form.append(this.input, button);
+    this.container.append(form);
   }
 
   public getContainer(): HTMLDivElement {
@@ -58,5 +71,10 @@ export class Chat {
 
   public updateStatus(newUserInfo: UserInfo): void {
     this.userStatusSpan.textContent = newUserInfo.isLogined ? 'online' : 'offline';
+  }
+
+  public displayMsg(payload: MsgSendPayload): void {
+    const fromRecipient = !(payload.message.from !== this.recipientInfo?.login);
+    this.messageSection?.displayMsg(payload, fromRecipient);
   }
 }

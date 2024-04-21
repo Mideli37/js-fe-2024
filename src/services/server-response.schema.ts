@@ -60,6 +60,29 @@ export const thirdPartyLogoutResponseSchema = z.object({
     user: userInfo,
   }),
 });
+
+export const msgSendResponseSchema = z.object({
+  type: z.literal('MSG_SEND'),
+  payload: z.object({
+    message: z.object({
+      id: z.string(),
+      from: z.string(),
+      to: z.string(),
+      text: z.string(),
+      datetime: z.number(),
+      status: z.object({
+        isDelivered: z.boolean(),
+        isReaded: z.boolean(),
+        isEdited: z.boolean(),
+      }),
+    }),
+  }),
+});
+
+export const msgSendPayloadSchema = msgSendResponseSchema.shape.payload;
+
+export type MsgSendPayload = z.infer<typeof msgSendPayloadSchema>;
+
 export type UserLoginResponse = z.infer<typeof userLoginResponseSchema>;
 
 export const serverResponseSchema = errorSchema
@@ -68,7 +91,8 @@ export const serverResponseSchema = errorSchema
   .or(userActiveResponseSchema)
   .or(userInactiveResponseSchema)
   .or(thirdPartyLoginResponseSchema)
-  .or(thirdPartyLogoutResponseSchema);
+  .or(thirdPartyLogoutResponseSchema)
+  .or(msgSendResponseSchema);
 export type ServerResponse = z.infer<typeof serverResponseSchema>;
 
 export function parseServerResponse(data: unknown): ServerResponse {
