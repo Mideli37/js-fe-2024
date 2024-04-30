@@ -1,6 +1,6 @@
 # Introduction of Electron.js
 
-[YouTube]([link](https://www.youtube.com/watch?v=94D-sxPKhBm))
+[YouTube](https://www.youtube.com/watch?v=OlXanaR_-mo)
 
 [Slides](https://rolling-scopes-school.github.io/mideli37-JSFE2023Q4/presentation/)
 
